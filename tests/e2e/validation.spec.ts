@@ -40,11 +40,13 @@ test('external links on contact page open in new tab with noopener', async ({ pa
   }
 });
 
-test('workshops page Rallly poll iframe loads', async ({ page }) => {
+test('workshops page Rallly poll link is present and points to correct URL', async ({ page }) => {
   await page.goto('/workshops.html');
   await page.getByRole('button', { name: /pick a night/i }).click();
-  const iframe = page.frameLocator('iframe[src*="rallly"]');
-  // Verify iframe src is set correctly
-  const iframeEl = page.locator('iframe[src*="rallly"]');
-  await expect(iframeEl).toBeVisible();
+  const pollLink = page.getByRole('link', { name: /open poll/i });
+  await expect(pollLink).toBeVisible();
+  const href = await pollLink.getAttribute('href');
+  expect(href).toContain('rallly.co/invite/lXVo8XfPd7WR');
+  const target = await pollLink.getAttribute('target');
+  expect(target).toBe('_blank');
 });
