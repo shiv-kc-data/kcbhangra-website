@@ -492,9 +492,21 @@
       </div>
 
       <div class="js-reveal">
-        <div class="poll-area" style="padding: 0; background: none; border: none;">
-          <iframe src="https://app.rallly.co/invite/lXVo8XfPd7WR" style="width:100%;height:600px;border:none;border-radius:3px;" loading="lazy" title="KC Bhangra Community Workshop Poll"></iframe>
-        </div>
+        <a href="https://app.rallly.co/invite/lXVo8XfPd7WR" target="_blank" rel="noopener"
+           style="display:flex;align-items:center;justify-content:space-between;gap:2rem;
+                  background:var(--black);border:1px solid var(--border-light);border-radius:3px;
+                  padding:2.5rem;margin-top:1rem;transition:border-color 0.2s;text-decoration:none;"
+           onmouseover="this.style.borderColor='rgba(15,14,12,0.3)'"
+           onmouseout="this.style.borderColor='var(--border-light)'">
+          <div>
+            <div style="font-family:var(--font-body);font-size:0.68rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--amber);margin-bottom:0.6rem;">Vote for a date</div>
+            <div style="font-family:var(--font-display);font-size:1.5rem;font-weight:800;color:var(--black);letter-spacing:-0.01em;line-height:1.1;margin-bottom:0.5rem;">Pick your preferred date &amp; time</div>
+            <div style="font-family:var(--font-body);font-size:0.88rem;font-weight:300;color:rgba(15,14,12,0.55);line-height:1.6;">Opens in a new tab. Takes under 30 seconds.</div>
+          </div>
+          <div style="flex-shrink:0;background:var(--amber);color:var(--black);font-family:var(--font-body);font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.85rem 1.5rem;border-radius:2px;white-space:nowrap;">
+            Open Poll →
+          </div>
+        </a>
       </div>
     </div>
   </section>
