@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merch: Kansas City Bhangra</title>
+  <meta name="description" content="KC Bhangra tees, hoodies, and stickers. Wear the culture.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black:      #0f0e0c;
+      --black-warm: #1a1816;
+      --amber:      #f5a623;
+      --amber-dim:  rgba(245,166,35,0.10);
+      --cream:      #faf6f0;
+      --white:      #ffffff;
+      --muted:      rgba(250,246,240,0.45);
+      --border:     rgba(250,246,240,0.10);
+      --border-light: rgba(15,14,12,0.12);
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'Plus Jakarta Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--black); color: var(--white); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── NAV ─── */
+    #nav { position: fixed; top: 34px; left: 0; right: 0; z-index: 500; padding: 1.25rem 2.5rem; display: flex; align-items: center; justify-content: space-between; background: var(--black); border-bottom: 1px solid var(--border); }
+    .nav-wordmark { font-family: var(--font-display); font-weight: 800; font-size: 0.88rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); }
+    .nav-links { display: flex; align-items: center; gap: 2.25rem; list-style: none; }
+    .nav-links a { font-family: var(--font-body); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream); opacity: 0.6; transition: opacity 0.2s; }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; }
+    .nav-links .nav-cta { opacity: 1; background: var(--amber); color: var(--black); padding: 0.55rem 1.25rem; border-radius: 2px; font-weight: 700; transition: background 0.2s; }
+    .nav-links .nav-cta:hover { background: #e0961a; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--cream); }
+    .nav-drawer { display: none; position: fixed; inset: 0; background: var(--black); z-index: 490; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: var(--cream); opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
+    .nav-drawer a:hover { opacity: 1; color: var(--amber); }
+    .nav-drawer-close { position: absolute; top: 1.5rem; right: 2.5rem; font-size: 2rem; color: var(--cream); opacity: 0.5; cursor: pointer; }
+
+    /* ─── ANNOUNCEMENT BAR ─── */
+    #announcement-bar { background: var(--amber); padding: 0.6rem 2.5rem; display: flex; align-items: center; justify-content: center; gap: 1.5rem; position: fixed; top: 0; left: 0; right: 0; z-index: 501; }
+    #announcement-bar p { font-family: var(--font-body); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); }
+    #announcement-bar a { font-family: var(--font-body); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+    #announcement-bar button { background: none; border: none; cursor: pointer; color: var(--black); opacity: 0.4; font-size: 1rem; padding: 0; line-height: 1; }
+
+    /* ─── SECTION TAG ─── */
+    .section-tag { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-body); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--amber); margin-bottom: 1.25rem; }
+    .section-tag::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--amber); }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header { background: var(--black); padding: 9rem 2.5rem 5rem; position: relative; overflow: hidden; border-bottom: 1px solid var(--border); }
+    .page-header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: flex-end; justify-content: space-between; gap: 4rem; }
+    .page-header h1 { font-family: var(--font-display); font-size: clamp(3.5rem, 8vw, 8rem); font-weight: 800; line-height: 0.93; letter-spacing: -0.03em; color: var(--white); }
+    .page-header h1 span { color: var(--amber); }
+    .page-header-right { flex-shrink: 0; text-align: right; }
+    .page-header-right p { font-family: var(--font-body); font-size: 0.95rem; font-weight: 300; color: var(--muted); line-height: 1.65; max-width: 28ch; margin-left: auto; }
+
+    /* ─── HOW TO ORDER ─── */
+    .how-to-order { background: var(--black-warm); padding: 1.25rem 2.5rem; border-bottom: 1px solid var(--border); }
+    .how-to-order-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .how-to-order p { font-family: var(--font-body); font-size: 0.82rem; font-weight: 400; color: var(--muted); }
+    .how-to-order p strong { color: var(--cream); font-weight: 600; }
+    .order-btns { display: flex; gap: 0.6rem; flex-shrink: 0; }
+    .order-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-body); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.55rem 1rem; border-radius: 2px;
+      transition: opacity 0.2s; white-space: nowrap;
+    }
+    .order-btn:hover { opacity: 0.85; }
+    .order-btn-wa { background: #25D366; color: var(--white); }
+    .order-btn-ig { background: #E1306C; color: var(--white); }
+
+    /* ─── PRODUCTS GRID ─── */
+    .products-section { background: var(--black); padding: 5rem 2.5rem; }
+    .products-inner { max-width: 1200px; margin: 0 auto; }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+
+    .product-card {
+      background: var(--black-warm); border-radius: 3px; overflow: hidden;
+      border: 1px solid var(--border);
+      transition: border-color 0.25s, transform 0.25s;
+      cursor: pointer;
+    }
+    .product-card:hover { border-color: rgba(245,166,35,0.35); transform: translateY(-4px); }
+
+    .product-image {
+      aspect-ratio: 1/1; background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .product-image img { width: 100%; height: 100%; object-fit: contain; padding: 2rem; }
+    .product-badge {
+      position: absolute; top: 1rem; left: 1rem;
+      font-family: var(--font-body); font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      background: var(--amber); color: var(--black);
+      padding: 0.3rem 0.6rem; border-radius: 1px;
+    }
+
+    .product-info { padding: 1.5rem; }
+    .product-name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 800; color: var(--white); letter-spacing: -0.01em; margin-bottom: 0.4rem; }
+    .product-desc { font-family: var(--font-body); font-size: 0.82rem; font-weight: 300; color: var(--muted); line-height: 1.55; margin-bottom: 1.25rem; }
+    .product-order {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-family: var(--font-body); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--amber); transition: opacity 0.2s;
+    }
+    .product-order:hover { opacity: 0.7; }
+
+    /* ─── SIZE GUIDE ─── */
+    .size-section { background: var(--black-warm); padding: 5rem 2.5rem; border-top: 1px solid var(--border); }
+    .size-inner { max-width: 800px; margin: 0 auto; }
+    .size-inner h2 { font-family: var(--font-display); font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; color: var(--white); letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .size-inner p { font-family: var(--font-body); font-size: 0.9rem; font-weight: 300; color: var(--muted); margin-bottom: 2rem; line-height: 1.65; }
+    .size-table { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+    .size-table th { background: var(--black); font-family: var(--font-body); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); padding: 0.85rem 1.25rem; text-align: left; border-bottom: 1px solid var(--border); }
+    .size-table td { font-family: var(--font-body); font-size: 0.85rem; font-weight: 300; color: var(--cream); padding: 0.85rem 1.25rem; border-bottom: 1px solid var(--border); }
+    .size-table tr:last-child td { border-bottom: none; }
+    .size-table tr:nth-child(even) td { background: rgba(250,246,240,0.02); }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--black-warm); border-top: 1px solid var(--border); padding: 2rem 2.5rem; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .footer-bottom p { font-family: var(--font-body); font-size: 0.68rem; font-weight: 400; letter-spacing: 0.06em; color: rgba(250,246,240,0.22); }
+    .footer-bottom a { font-family: var(--font-body); font-size: 0.68rem; font-weight: 600; color: var(--amber); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* ─── GSAP ─── */
+    .js-reveal { opacity: 0; transform: translateY(40px); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .page-header-inner { flex-direction: column; align-items: flex-start; gap: 2rem; }
+      .page-header-right { text-align: left; }
+      .page-header-right p { margin-left: 0; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .how-to-order-inner { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      #nav { padding: 1rem 1.25rem; }
+      .page-header, .products-section, .size-section, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .how-to-order { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .products-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div id="announcement-bar">
+    <p>Fall 2026 sessions starting soon</p>
+    <a href="classes.html#enroll">Enroll now →</a>
+    <button onclick="document.getElementById('announcement-bar').style.display='none'" aria-label="Dismiss">✕</button>
+  </div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="index.html" class="nav-wordmark">Kansas City Bhangra</a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="classes.html">Classes</a></li>
+      <li><a href="workshops.html">Workshops</a></li>
+      <li><a href="performances.html">Performances</a></li>
+      <li><a href="merch.html" class="active">Merch</a></li>
+      <li><a href="classes.html#enroll" class="nav-cta">Enroll Free</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-drawer" id="nav-drawer">
+    <button class="nav-drawer-close" id="drawer-close">✕</button>
+    <a href="index.html" onclick="closeDrawer()">Home</a>
+    <a href="about.html" onclick="closeDrawer()">About</a>
+    <a href="classes.html" onclick="closeDrawer()">Classes</a>
+    <a href="workshops.html" onclick="closeDrawer()">Workshops</a>
+    <a href="performances.html" onclick="closeDrawer()">Performances</a>
+    <a href="merch.html" onclick="closeDrawer()">Merch</a>
+    <a href="classes.html#enroll" style="color:var(--amber);" onclick="closeDrawer()">Enroll Free</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="page-header-inner">
+      <h1>Wear the<br><span>culture.</span></h1>
+      <div class="page-header-right">
+        <p class="section-tag">Merch</p>
+        <p>KC Bhangra tees, hoodies, and stickers. Order via WhatsApp or Instagram.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- HOW TO ORDER -->
+  <div class="how-to-order">
+    <div class="how-to-order-inner">
+      <p><strong>How to order:</strong> Pick what you want below, then message us with the item, size, and quantity. We'll sort the rest.</p>
+      <div class="order-btns">
+        <!-- REPLACE: Update WhatsApp number -->
+        <a href="https://wa.me/16464219634" class="order-btn order-btn-wa" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+        <a href="https://instagram.com/kcbhangra" class="order-btn order-btn-ig" target="_blank" rel="noopener">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          Instagram DM
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <section class="products-section">
+    <div class="products-inner">
+      <div class="products-grid">
+
+        <!-- PRODUCT 1: Classic Tee -->
+        <div class="product-card js-reveal">
+          <div class="product-image">
+            <img src="assets/images/logo-transparent.png" alt="KC Bhangra Classic Tee">
+            <div class="product-badge">Available</div>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Classic Tee</div>
+            <p class="product-desc">The KC Bhangra instrument mark on black. 100% cotton. Unisex sizing.</p>
+            <a href="https://wa.me/16464219634" class="product-order" target="_blank" rel="noopener">Order via WhatsApp →</a>
+          </div>
+        </div>
+
+        <!-- PRODUCT 2: Sticker Pack -->
+        <div class="product-card js-reveal">
+          <div class="product-image">
+            <img src="assets/images/logo-color-transparent.png" alt="KC Bhangra Sticker">
+            <div class="product-badge">Available</div>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Sticker Pack</div>
+            <p class="product-desc">KC Bhangra logo stickers. Full color. Weather-resistant vinyl.</p>
+            <a href="https://wa.me/16464219634" class="product-order" target="_blank" rel="noopener">Order via WhatsApp →</a>
+          </div>
+        </div>
+
+        <!-- PRODUCT 3: Hoodie — Coming Soon -->
+        <div class="product-card js-reveal" style="opacity:0.5;pointer-events:none;">
+          <div class="product-image" style="background:rgba(250,246,240,0.03);">
+            <div style="font-family:var(--font-body);font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:rgba(250,246,240,0.2);">Coming soon</div>
+          </div>
+          <div class="product-info">
+            <div class="product-name">Hoodie</div>
+            <p class="product-desc">KC Bhangra heavyweight hoodie. Coming soon.</p>
+            <span class="product-order" style="color:var(--muted);cursor:default;">Notify me →</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SIZE GUIDE -->
+  <section class="size-section">
+    <div class="size-inner">
+      <p class="section-tag">Sizing</p>
+      <h2>Size guide.</h2>
+      <p>All tees are unisex. When in doubt, size up. Message us if you need help picking.</p>
+      <table class="size-table">
+        <thead>
+          <tr>
+            <th>Size</th>
+            <th>Chest (in)</th>
+            <th>Length (in)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>S</td><td>36 – 38</td><td>28</td></tr>
+          <tr><td>M</td><td>39 – 41</td><td>29</td></tr>
+          <tr><td>L</td><td>42 – 44</td><td>30</td></tr>
+          <tr><td>XL</td><td>45 – 47</td><td>31</td></tr>
+          <tr><td>XXL</td><td>48 – 50</td><td>32</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- FLOATING CONTACT -->
+  <div id="fab-wrap" style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:800;display:flex;flex-direction:column;align-items:flex-end;gap:0.6rem;">
+    <div id="fab-options" style="display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity 0.25s ease,transform 0.25s ease;">
+      <a href="https://wa.me/16464219634" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;background:#25D366;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a href="https://instagram.com/kcbhangra" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;background:#E1306C;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagram
+      </a>
+      <a href="https://m.me/kcbhangra" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;background:#0084FF;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.626 0 12-4.974 12-11.111C24 4.975 18.626 0 12 0zm1.193 14.963l-3.056-3.259-5.963 3.259L10.733 8.6l3.13 3.259 5.89-3.259-6.56 6.363z"/></svg>
+        Facebook
+      </a>
+    </div>
+    <button id="fab-btn" onclick="toggleFab()" style="width:52px;height:52px;border-radius:50%;background:var(--amber);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(245,166,35,0.4);transition:transform 0.2s;" aria-label="Contact us">
+      <svg id="fab-icon-msg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f0e0c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <svg id="fab-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f0e0c" stroke-width="2.5" stroke-linecap="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-bottom">
+      <p>© 2026 Kansas City Bhangra. Lenexa, Kansas.</p>
+      <a href="index.html">Back to home</a>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.js-reveal').forEach(el => {
+      gsap.fromTo(el, { opacity: 0, y: 44 }, {
+        opacity: 1, y: 0, duration: 0.85, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' }
+      });
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('nav-drawer');
+    const closeBtn = document.getElementById('drawer-close');
+    hamburger.addEventListener('click', () => drawer.classList.add('open'));
+    closeBtn.addEventListener('click', () => drawer.classList.remove('open'));
+    function closeDrawer() { drawer.classList.remove('open'); }
+
+    let fabOpen = false;
+    const fabOptions   = document.getElementById('fab-options');
+    const fabIconMsg   = document.getElementById('fab-icon-msg');
+    const fabIconClose = document.getElementById('fab-icon-close');
+    function toggleFab() {
+      fabOpen = !fabOpen;
+      fabOptions.style.opacity       = fabOpen ? '1' : '0';
+      fabOptions.style.pointerEvents = fabOpen ? 'auto' : 'none';
+      fabOptions.style.transform     = fabOpen ? 'translateY(0)' : 'translateY(8px)';
+      fabIconMsg.style.display   = fabOpen ? 'none'  : 'block';
+      fabIconClose.style.display = fabOpen ? 'block' : 'none';
+    }
+    document.addEventListener('click', e => {
+      if (fabOpen && !document.getElementById('fab-wrap').contains(e.target)) toggleFab();
+    });
+  </script>
+
+</body>
+</html>

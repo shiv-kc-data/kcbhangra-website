@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About: Kansas City Bhangra</title>
+  <meta name="description" content="The story behind Kansas City Bhangra. Real folk tradition from Punjab, built for Kansas City.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black:      #0f0e0c;
+      --black-warm: #1a1816;
+      --amber:      #f5a623;
+      --amber-dim:  rgba(245,166,35,0.10);
+      --cream:      #faf6f0;
+      --white:      #ffffff;
+      --muted:      rgba(250,246,240,0.45);
+      --border:     rgba(250,246,240,0.10);
+      --border-light: rgba(15,14,12,0.12);
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'Plus Jakarta Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--cream); color: var(--black); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── NAV ─── */
+    #nav {
+      position: fixed; top: 34px; left: 0; right: 0; z-index: 500;
+      padding: 1.25rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--black);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-wordmark {
+      font-family: var(--font-display); font-weight: 800; font-size: 0.88rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--white);
+    }
+    .nav-links { display: flex; align-items: center; gap: 2.25rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-body); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream); opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-links a.active { opacity: 1; }
+    .nav-links .nav-cta {
+      opacity: 1; background: var(--amber); color: var(--black);
+      padding: 0.55rem 1.25rem; border-radius: 2px; font-weight: 700; transition: background 0.2s;
+    }
+    .nav-links .nav-cta:hover { background: #e0961a; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--cream); }
+    .nav-drawer {
+      display: none; position: fixed; inset: 0; background: var(--black); z-index: 490;
+      flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: var(--cream); opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
+    .nav-drawer a:hover { opacity: 1; color: var(--amber); }
+    .nav-drawer-close { position: absolute; top: 1.5rem; right: 2.5rem; font-size: 2rem; color: var(--cream); opacity: 0.5; cursor: pointer; }
+
+    /* ─── ANNOUNCEMENT BAR ─── */
+    #announcement-bar {
+      background: var(--amber); padding: 0.6rem 2.5rem;
+      display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 501;
+    }
+    #announcement-bar p { font-family: var(--font-body); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); }
+    #announcement-bar a { font-family: var(--font-body); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+    #announcement-bar button { background: none; border: none; cursor: pointer; color: var(--black); opacity: 0.4; font-size: 1rem; padding: 0; line-height: 1; }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-family: var(--font-body); font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.9rem 1.75rem; border-radius: 2px;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s;
+      cursor: pointer; border: none;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-amber { background: var(--amber); color: var(--black); }
+    .btn-amber:hover { background: #e0961a; }
+    .btn-outline-dark { border: 1px solid var(--border-light); color: var(--black); background: none; }
+    .btn-outline-dark:hover { border-color: var(--black); }
+    .btn-outline-white { border: 1px solid var(--border); color: var(--cream); background: none; }
+    .btn-outline-white:hover { border-color: var(--cream); }
+
+    /* ─── SECTION TAG ─── */
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-body); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.24em; text-transform: uppercase; color: var(--amber);
+      margin-bottom: 1.25rem;
+    }
+    .section-tag::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--amber); }
+    .section-tag.dark { color: rgba(15,14,12,0.4); }
+    .section-tag.dark::before { background: rgba(15,14,12,0.3); }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      background: var(--black);
+      padding: 9rem 2.5rem 6rem;
+      position: relative; overflow: hidden;
+    }
+    .page-header-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: flex-end;
+    }
+    .page-header h1 {
+      font-family: var(--font-display); font-size: clamp(3.5rem, 7vw, 7rem);
+      font-weight: 800; line-height: 0.93; letter-spacing: -0.03em; color: var(--white);
+    }
+    .page-header h1 span { color: var(--amber); }
+    .page-header-right p {
+      font-family: var(--font-body); font-size: 1.05rem; font-weight: 300;
+      color: var(--muted); line-height: 1.72; max-width: 40ch;
+    }
+    .page-header::after {
+      content: ''; position: absolute; bottom: -20%; right: -5%; width: 45vw; height: 45vw;
+      background: radial-gradient(circle, rgba(245,166,35,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* ─── STORY SECTION ─── */
+    .story-section { background: var(--cream); padding: 7rem 2.5rem; }
+    .story-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;
+    }
+    .story-photo {
+      position: sticky; top: 8rem;
+      aspect-ratio: 3/4; background: var(--black-warm);
+      border-radius: 3px; overflow: hidden;
+    }
+    .story-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .story-photo-placeholder {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.75rem;
+      color: rgba(250,246,240,0.15); font-family: var(--font-body);
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; text-align: center; padding: 2rem;
+    }
+    .story-badge {
+      position: absolute; bottom: 1.75rem; right: -0.75rem;
+      background: var(--amber); color: var(--black);
+      padding: 1rem 1.25rem; border-radius: 2px;
+    }
+    .story-badge-num {
+      font-family: var(--font-display); font-size: 2rem; font-weight: 800; line-height: 1;
+    }
+    .story-badge-label {
+      font-family: var(--font-body); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    .story-content h2 {
+      font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800; letter-spacing: -0.02em; color: var(--black);
+      line-height: 1.02; margin-bottom: 2rem;
+    }
+    .story-content p {
+      font-family: var(--font-body); font-size: 1rem; font-weight: 300;
+      color: rgba(15,14,12,0.6); line-height: 1.82; margin-bottom: 1.25rem;
+    }
+    .story-content p:last-of-type { margin-bottom: 2.5rem; }
+    .story-pull {
+      border-left: 2px solid var(--amber); padding-left: 1.5rem;
+      margin: 2rem 0;
+    }
+    .story-pull p {
+      font-family: var(--font-display); font-size: 1.2rem; font-weight: 700;
+      color: var(--black); line-height: 1.4; font-style: italic; margin-bottom: 0;
+    }
+
+    /* ─── TRADITION SECTION ─── */
+    .tradition-section { background: var(--black); padding: 7rem 2.5rem; }
+    .tradition-inner { max-width: 1200px; margin: 0 auto; }
+    .tradition-inner h2 {
+      font-family: var(--font-display); font-size: clamp(2.25rem, 4vw, 3.75rem);
+      font-weight: 800; letter-spacing: -0.02em; color: var(--white);
+      line-height: 1.02; margin-bottom: 3.5rem; max-width: 16ch;
+    }
+    .tradition-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+      background: var(--border);
+    }
+    .tradition-item {
+      background: var(--black); padding: 2.5rem;
+    }
+    .tradition-item-num {
+      font-family: var(--font-display); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.22em; color: var(--amber); margin-bottom: 1.25rem;
+    }
+    .tradition-item h3 {
+      font-family: var(--font-display); font-size: 1.35rem; font-weight: 800;
+      color: var(--white); letter-spacing: -0.01em; margin-bottom: 0.85rem;
+    }
+    .tradition-item p {
+      font-family: var(--font-body); font-size: 0.88rem; font-weight: 300;
+      color: var(--muted); line-height: 1.72;
+    }
+
+    /* ─── NUMBERS STRIP ─── */
+    .numbers-section { background: var(--black-warm); padding: 4.5rem 2.5rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .numbers-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+    }
+    .number-item { padding: 1rem 1.5rem; border-left: 1px solid var(--border); }
+    .number-item:first-child { border-left: none; padding-left: 0; }
+    .number-val {
+      font-family: var(--font-display); font-size: clamp(2.5rem, 4vw, 3.75rem);
+      font-weight: 800; line-height: 1; letter-spacing: -0.03em; color: var(--white);
+    }
+    .number-val em { color: var(--amber); font-style: normal; }
+    .number-label {
+      font-family: var(--font-body); font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.07em; color: var(--muted); text-transform: uppercase; margin-top: 0.4rem;
+    }
+
+    /* ─── GALLERY PLACEHOLDER ─── */
+    .gallery-section { background: var(--cream); padding: 7rem 2.5rem; }
+    .gallery-inner { max-width: 1200px; margin: 0 auto; }
+    .gallery-inner h2 {
+      font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800; letter-spacing: -0.02em; color: var(--black); margin-bottom: 2.5rem;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 280px 280px;
+      gap: 0.75rem;
+    }
+    .gallery-item {
+      background: var(--black-warm); border-radius: 2px; overflow: hidden;
+      position: relative;
+    }
+    .gallery-item:first-child { grid-row: 1 / 3; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-placeholder {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-body); font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase; color: rgba(250,246,240,0.15);
+    }
+
+    /* ─── CTA STRIP ─── */
+    .cta-strip { background: var(--amber); padding: 4rem 2.5rem; }
+    .cta-strip-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 3rem;
+    }
+    .cta-strip h2 {
+      font-family: var(--font-display); font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800; color: var(--black); letter-spacing: -0.02em;
+    }
+    .cta-strip-btns { display: flex; gap: 0.75rem; flex-shrink: 0; }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--black-warm); border-top: 1px solid var(--border); padding: 2rem 2.5rem; }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    }
+    .footer-bottom p { font-family: var(--font-body); font-size: 0.68rem; font-weight: 400; letter-spacing: 0.06em; color: rgba(250,246,240,0.22); }
+    .footer-bottom a { font-family: var(--font-body); font-size: 0.68rem; font-weight: 600; color: var(--amber); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* ─── GSAP INIT ─── */
+    .js-reveal { opacity: 0; transform: translateY(40px); }
+    .js-fade   { opacity: 0; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .page-header-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .story-inner { grid-template-columns: 1fr; }
+      .story-photo { position: static; aspect-ratio: 4/3; max-width: 480px; }
+      .tradition-grid { grid-template-columns: 1fr; }
+      .numbers-inner { grid-template-columns: repeat(2, 1fr); }
+      .review-grid-about { grid-template-columns: 1fr !important; }
+      .number-item:nth-child(3) { border-left: none; padding-left: 0; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gallery-item:first-child { grid-row: auto; }
+      .cta-strip-inner { flex-direction: column; align-items: flex-start; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      #nav { padding: 1rem 1.25rem; }
+      .page-header, .story-section, .tradition-section, .numbers-section,
+      .gallery-section, .cta-strip, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .numbers-inner { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+      .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .story-badge { right: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div id="announcement-bar">
+    <p>Fall 2026 sessions starting soon</p>
+    <a href="classes.html#enroll">Enroll now →</a>
+    <button onclick="document.getElementById('announcement-bar').style.display='none'" aria-label="Dismiss">✕</button>
+  </div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="index.html" class="nav-wordmark">Kansas City Bhangra</a>
+    <ul class="nav-links">
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="classes.html">Classes</a></li>
+      <li><a href="workshops.html">Workshops</a></li>
+      <li><a href="performances.html">Performances</a></li>
+      <li><a href="merch.html">Merch</a></li>
+      <li><a href="classes.html#enroll" class="nav-cta">Enroll Free</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-drawer" id="nav-drawer">
+    <button class="nav-drawer-close" id="drawer-close">✕</button>
+    <a href="index.html" onclick="closeDrawer()">Home</a>
+    <a href="about.html" onclick="closeDrawer()">About</a>
+    <a href="classes.html" onclick="closeDrawer()">Classes</a>
+    <a href="workshops.html" onclick="closeDrawer()">Workshops</a>
+    <a href="performances.html" onclick="closeDrawer()">Performances</a>
+    <a href="merch.html" onclick="closeDrawer()">Merch</a>
+    <a href="classes.html#enroll" style="color:var(--amber);" onclick="closeDrawer()">Enroll Free</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="page-header-inner">
+      <h1>Rooted in<br>Punjab.<br><span>Built for KC.</span></h1>
+      <div class="page-header-right">
+        <p class="section-tag">Our Story</p>
+        <p>Kansas City Bhangra started in 2019 with five students and one belief: this city needed a home for real folk Bhangra, open to everyone, not just the Punjabi community.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- STORY -->
+  <section class="story-section">
+    <div class="story-inner">
+
+      <div class="story-photo js-fade">
+        <!-- REPLACE: add src="assets/images/coach.jpg" -->
+        <div class="story-photo-placeholder">Add coach photo<br>assets/images/coach.jpg</div>
+        <div class="story-badge">
+          <div class="story-badge-num">20<span style="color:rgba(15,14,12,0.5);">+</span></div>
+          <div class="story-badge-label">Years dancing</div>
+        </div>
+      </div>
+
+      <div class="story-content js-reveal">
+        <p>Our head coach Shiv started dancing Bhangra at age five in Jalandhar, Punjab. Not in a studio. Not from videos. From gurus who had carried the tradition for generations.</p>
+
+        <p>He danced through school. Through college. And when he moved to Kansas City, he brought the whole foundation with him.</p>
+
+        <div class="story-pull">
+          <p>"Kansas City had a Punjabi community that wanted to stay connected to its culture. And a broader community that didn't know Bhangra was open to them. I wanted to build something for both."</p>
+        </div>
+
+        <p>KC Bhangra started in 2019 with five students in Lenexa. Today, 250 students later, ages 5 to their 60s, from every background, the approach hasn't changed. Build the real foundations. Let people take them anywhere the music goes.</p>
+
+        <p>Shiv has choreographed 10+ wedding parties, performed at the Kauffman Center, KC Current, University of Missouri Kansas City, and Kansas State University. The academy has grown every session since it opened.</p>
+
+        <a href="classes.html" class="btn btn-amber">See all classes →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- THE TRADITION -->
+  <section class="tradition-section">
+    <div class="tradition-inner">
+      <h2 class="js-reveal">What folk Bhangra actually is.</h2>
+      <div class="tradition-grid">
+        <div class="tradition-item js-reveal">
+          <div class="tradition-item-num">01</div>
+          <h3>Not Bollywood</h3>
+          <p>Folk Bhangra predates the film industry by centuries. What you see in movies is a polished, choreographed version. What we teach is the harvest dance of Punjab. Raw, rhythmic, and rooted in the land.</p>
+        </div>
+        <div class="tradition-item js-reveal">
+          <div class="tradition-item-num">02</div>
+          <h3>The scaffolding approach</h3>
+          <p>We build foundations first. Core footwork. Core rhythm. Core body mechanics. Once you have those, you can apply them to any Punjabi music: classic or modern, slow or fast. The foundation never goes stale.</p>
+        </div>
+        <div class="tradition-item js-reveal">
+          <div class="tradition-item-num">03</div>
+          <h3>Open to anyone</h3>
+          <p>You don't need to be Punjabi. You don't need a dance background. You don't need to know what a dhol sounds like. You need to show up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUMBERS -->
+  <div class="numbers-section">
+    <div class="numbers-inner">
+      <div class="number-item">
+        <div class="number-val">250<em>+</em></div>
+        <div class="number-label">Students taught</div>
+      </div>
+      <div class="number-item">
+        <div class="number-val">2019</div>
+        <div class="number-label">Founded in Kansas City</div>
+      </div>
+      <div class="number-item">
+        <div class="number-val">10<em>+</em></div>
+        <div class="number-label">Wedding parties choreographed</div>
+      </div>
+      <div class="number-item">
+        <div class="number-val">4<em>+</em></div>
+        <div class="number-label">Major Kansas City venues</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <section class="gallery-section">
+    <div class="gallery-inner">
+      <p class="section-tag dark js-reveal">In action</p>
+      <h2 class="js-reveal">KC Bhangra in the community.</h2>
+      <!-- REPLACE: swap placeholder divs with real performance/class photos -->
+      <div class="gallery-grid">
+        <div class="gallery-item js-fade">
+          <div class="gallery-placeholder">Performance photo</div>
+        </div>
+        <div class="gallery-item js-fade">
+          <div class="gallery-placeholder">Class photo</div>
+        </div>
+        <div class="gallery-item js-fade">
+          <div class="gallery-placeholder">Performance photo</div>
+        </div>
+        <div class="gallery-item js-fade">
+          <div class="gallery-placeholder">Class photo</div>
+        </div>
+        <div class="gallery-item js-fade">
+          <div class="gallery-placeholder">Group photo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS SECTION -->
+  <section style="background:var(--black-warm);padding:6rem 2.5rem;border-top:1px solid var(--border);">
+    <div style="max-width:1200px;margin:0 auto;">
+      <p class="section-tag" style="margin-bottom:0.75rem;">Reviews</p>
+      <h2 style="font-family:var(--font-display);font-size:clamp(2rem,3.5vw,3rem);font-weight:800;letter-spacing:-0.02em;color:var(--white);margin-bottom:3rem;">Enjoyed a class?<br>Tell someone.</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;" class="review-grid-about">
+
+        <a href="https://www.facebook.com/kcbhangra/reviews" target="_blank" rel="noopener"
+          style="background:var(--black);border:1px solid var(--border);border-radius:3px;padding:2rem;display:flex;flex-direction:column;gap:0.75rem;text-decoration:none;transition:border-color 0.2s;"
+          onmouseover="this.style.borderColor='rgba(245,166,35,0.4)'" onmouseout="this.style.borderColor='var(--border)'">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <div style="font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--white);">Leave a Facebook review</div>
+          <div style="font-family:var(--font-body);font-size:0.82rem;font-weight:300;color:var(--muted);line-height:1.5;">Rate KC Bhangra on our Facebook page. Takes 30 seconds.</div>
+        </a>
+
+        <a href="https://instagram.com/kcbhangra" target="_blank" rel="noopener"
+          style="background:var(--black);border:1px solid var(--border);border-radius:3px;padding:2rem;display:flex;flex-direction:column;gap:0.75rem;text-decoration:none;transition:border-color 0.2s;"
+          onmouseover="this.style.borderColor='rgba(245,166,35,0.4)'" onmouseout="this.style.borderColor='var(--border)'">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          <div style="font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--white);">Tag us on Instagram</div>
+          <div style="font-family:var(--font-body);font-size:0.82rem;font-weight:300;color:var(--muted);line-height:1.5;">Share your experience and tag <strong style="color:var(--cream);font-weight:600;">@kcbhangra</strong>. We repost student stories.</div>
+        </a>
+
+        <a href="https://forms.google.com/REPLACE_WITH_YOUR_GOOGLE_FORM_ID" target="_blank" rel="noopener"
+          style="background:var(--amber-dim);border:1px solid rgba(245,166,35,0.25);border-radius:3px;padding:2rem;display:flex;flex-direction:column;gap:0.75rem;text-decoration:none;transition:border-color 0.2s;"
+          onmouseover="this.style.borderColor='rgba(245,166,35,0.6)'" onmouseout="this.style.borderColor='rgba(245,166,35,0.25)'">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <div style="font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--white);">Share your story</div>
+          <div style="font-family:var(--font-body);font-size:0.82rem;font-weight:300;color:var(--muted);line-height:1.5;">Tell us about your experience. We'll feature it on the site with your permission.</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <div class="cta-strip">
+    <div class="cta-strip-inner">
+      <h2>First class is free.<br>Come see for yourself.</h2>
+      <div class="cta-strip-btns">
+        <a href="classes.html#enroll" class="btn btn-outline-dark">Enroll Now →</a>
+        <a href="classes.html" class="btn" style="background:var(--black);color:var(--white);">See Classes</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING CONTACT -->
+  <div id="fab-wrap" style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:800;display:flex;flex-direction:column;align-items:flex-end;gap:0.6rem;">
+    <div id="fab-options" style="display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity 0.25s ease,transform 0.25s ease;">
+      <a href="https://wa.me/16464219634" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;background:#25D366;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a href="https://instagram.com/kcbhangra" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;background:#E1306C;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagram
+      </a>
+      <a href="https://m.me/kcbhangra" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;background:#0084FF;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.626 0 12-4.974 12-11.111C24 4.975 18.626 0 12 0zm1.193 14.963l-3.056-3.259-5.963 3.259L10.733 8.6l3.13 3.259 5.89-3.259-6.56 6.363z"/></svg>
+        Facebook
+      </a>
+    </div>
+    <button id="fab-btn" onclick="toggleFab()" style="width:52px;height:52px;border-radius:50%;background:var(--amber);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(245,166,35,0.4);transition:transform 0.2s;" aria-label="Contact us">
+      <svg id="fab-icon-msg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f0e0c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <svg id="fab-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f0e0c" stroke-width="2.5" stroke-linecap="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-bottom">
+      <p>© 2026 Kansas City Bhangra. Lenexa, Kansas.</p>
+      <a href="index.html">Back to home</a>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray('.js-reveal').forEach(el => {
+      gsap.fromTo(el, { opacity: 0, y: 44 }, {
+        opacity: 1, y: 0, duration: 0.85, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' }
+      });
+    });
+
+    gsap.utils.toArray('.js-fade').forEach(el => {
+      gsap.fromTo(el, { opacity: 0 }, {
+        opacity: 1, duration: 1, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 82%', toggleActions: 'play none none none' }
+      });
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('nav-drawer');
+    const closeBtn = document.getElementById('drawer-close');
+    hamburger.addEventListener('click', () => drawer.classList.add('open'));
+    closeBtn.addEventListener('click', () => drawer.classList.remove('open'));
+    function closeDrawer() { drawer.classList.remove('open'); }
+
+    let fabOpen = false;
+    const fabOptions   = document.getElementById('fab-options');
+    const fabIconMsg   = document.getElementById('fab-icon-msg');
+    const fabIconClose = document.getElementById('fab-icon-close');
+    function toggleFab() {
+      fabOpen = !fabOpen;
+      fabOptions.style.opacity       = fabOpen ? '1' : '0';
+      fabOptions.style.pointerEvents = fabOpen ? 'auto' : 'none';
+      fabOptions.style.transform     = fabOpen ? 'translateY(0)' : 'translateY(8px)';
+      fabIconMsg.style.display   = fabOpen ? 'none'  : 'block';
+      fabIconClose.style.display = fabOpen ? 'block' : 'none';
+    }
+    document.addEventListener('click', e => {
+      if (fabOpen && !document.getElementById('fab-wrap').contains(e.target)) toggleFab();
+    });
+  </script>
+
+</body>
+</html>

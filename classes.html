@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classes: Kansas City Bhangra</title>
+  <meta name="description" content="Folk Bhangra classes for all levels. Beginners, Intermediate, Advanced, and Adults. Sundays in Lenexa, KS. First class free.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black:      #0f0e0c;
+      --black-warm: #1a1816;
+      --amber:      #f5a623;
+      --amber-dim:  rgba(245,166,35,0.1);
+      --cream:      #faf6f0;
+      --white:      #ffffff;
+      --muted:      rgba(250,246,240,0.45);
+      --border:     rgba(250,246,240,0.10);
+      --border-light: rgba(15,14,12,0.12);
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'Plus Jakarta Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--cream); color: var(--black); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── NAV (shared) ─── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      padding: 1.25rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--black);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-wordmark {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-display); font-weight: 800; font-size: 0.88rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--white);
+    }
+    .nav-wordmark img { height: 44px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 2.25rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-body); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream); opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; }
+    .nav-links .nav-cta {
+      opacity: 1; background: var(--amber); color: var(--black);
+      padding: 0.55rem 1.25rem; border-radius: 2px; font-weight: 700;
+      transition: background 0.2s;
+    }
+    .nav-links .nav-cta:hover { background: #e0961a; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--cream); }
+    .nav-drawer {
+      display: none; position: fixed; inset: 0; background: var(--black); z-index: 490;
+      flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      font-family: var(--font-display); font-size: 2rem; font-weight: 800;
+      color: var(--cream); opacity: 0.7; transition: opacity 0.2s, color 0.2s;
+    }
+    .nav-drawer a:hover { opacity: 1; color: var(--amber); }
+    .nav-drawer-close { position: absolute; top: 1.5rem; right: 2.5rem; font-size: 2rem; color: var(--cream); opacity: 0.5; cursor: pointer; }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-family: var(--font-body); font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.9rem 1.75rem; border-radius: 2px;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s;
+      cursor: pointer; border: none;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-amber { background: var(--amber); color: var(--black); }
+    .btn-amber:hover { background: #e0961a; }
+    .btn-outline-dark { border: 1px solid var(--border-light); color: var(--black); background: none; }
+    .btn-outline-dark:hover { border-color: var(--black); }
+    .btn-outline-white { border: 1px solid var(--border); color: var(--cream); background: none; }
+    .btn-outline-white:hover { border-color: var(--cream); }
+    .btn-whatsapp { background: #25D366; color: var(--white); }
+    .btn-whatsapp:hover { background: #1eaa56; }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      background: var(--black);
+      padding: 9rem 2.5rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header-inner { max-width: 1200px; margin: 0 auto; }
+    .page-header .section-tag {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-body); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.24em; text-transform: uppercase; color: var(--amber);
+      margin-bottom: 1.25rem;
+    }
+    .page-header .section-tag::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--amber); }
+    .page-header h1 {
+      font-family: var(--font-display); font-size: clamp(3rem, 7vw, 7rem);
+      font-weight: 800; line-height: 0.93; letter-spacing: -0.03em;
+      color: var(--white); margin-bottom: 1.5rem;
+    }
+    .page-header p {
+      font-family: var(--font-body); font-size: 1.05rem; font-weight: 300;
+      color: var(--muted); max-width: 44ch; line-height: 1.65;
+    }
+    /* Amber glow blob */
+    .page-header::after {
+      content: ''; position: absolute; top: -20%; right: -10%; width: 50vw; height: 50vw;
+      background: radial-gradient(circle, rgba(245,166,35,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* ─── SECTION UTILITIES ─── */
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-body); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.24em; text-transform: uppercase; color: var(--amber);
+      margin-bottom: 1.25rem;
+    }
+    .section-tag::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--amber); }
+    .section-tag.dark { color: rgba(15,14,12,0.4); }
+    .section-tag.dark::before { background: rgba(15,14,12,0.3); }
+
+    /* ─── FREE TRIAL FUNNEL ─── */
+    .trial-section {
+      background: var(--amber);
+      padding: 3.5rem 2.5rem;
+    }
+    .trial-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 3rem;
+    }
+    .trial-left h2 {
+      font-family: var(--font-display); font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800; color: var(--black); letter-spacing: -0.02em; margin-bottom: 0.5rem;
+    }
+    .trial-left p { font-family: var(--font-body); font-size: 0.95rem; color: rgba(15,14,12,0.65); font-weight: 400; }
+    .trial-steps {
+      display: flex; gap: 0; align-items: center;
+    }
+    .trial-step {
+      display: flex; align-items: center; gap: 0.85rem;
+      background: rgba(15,14,12,0.1); border-radius: 2px;
+      padding: 1.1rem 1.5rem;
+      min-width: 190px;
+    }
+    .trial-step-num {
+      font-family: var(--font-display); font-size: 1.6rem; font-weight: 800;
+      color: var(--black); opacity: 0.25; line-height: 1; flex-shrink: 0;
+    }
+    .trial-step-text { font-family: var(--font-body); font-size: 0.85rem; font-weight: 700; color: var(--black); line-height: 1.4; white-space: nowrap; }
+    .trial-arrow { color: rgba(15,14,12,0.25); font-size: 1.1rem; padding: 0 0.25rem; flex-shrink: 0; }
+    .trial-cta { flex-shrink: 0; }
+
+    /* ─── CLASS TIERS ─── */
+    .tiers-section {
+      background: var(--cream); padding: 6rem 2.5rem;
+    }
+    .tiers-inner { max-width: 1200px; margin: 0 auto; }
+    .tiers-header { margin-bottom: 3rem; }
+    .tiers-header h2 {
+      font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800; letter-spacing: -0.02em; color: var(--black); margin-bottom: 0.5rem;
+    }
+    .tiers-header p {
+      font-family: var(--font-body); font-size: 0.95rem; color: rgba(15,14,12,0.5);
+      font-weight: 300; max-width: 48ch;
+    }
+
+    .tiers-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+    }
+    .tier-card {
+      background: var(--black); border-radius: 3px; padding: 2rem;
+      position: relative; overflow: hidden;
+      transition: transform 0.25s;
+    }
+    .tier-card:hover { transform: translateY(-4px); }
+    .tier-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--amber);
+    }
+    .tier-card.adults::before { background: rgba(250,246,240,0.2); }
+    .tier-num {
+      font-family: var(--font-display); font-size: 3.5rem; font-weight: 800;
+      color: rgba(250,246,240,0.06); line-height: 1; margin-bottom: 1rem;
+      letter-spacing: -0.03em;
+    }
+    .tier-name {
+      font-family: var(--font-display); font-size: 1.4rem; font-weight: 800;
+      color: var(--white); letter-spacing: -0.01em; margin-bottom: 0.5rem;
+    }
+    .tier-age {
+      font-family: var(--font-body); font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber);
+      margin-bottom: 1.25rem;
+    }
+    .tier-card.adults .tier-age { color: var(--muted); }
+    .tier-desc {
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 300;
+      color: var(--muted); line-height: 1.65; margin-bottom: 1.5rem;
+    }
+    .tier-fits {
+      font-family: var(--font-body); font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: rgba(250,246,240,0.3);
+      margin-bottom: 0.5rem;
+    }
+    .tier-fit-list {
+      display: flex; flex-direction: column; gap: 0.35rem;
+    }
+    .tier-fit-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-body); font-size: 0.8rem; color: rgba(250,246,240,0.55); font-weight: 300;
+    }
+    .tier-fit-item::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+    .tier-card.adults .tier-fit-item::before { background: rgba(250,246,240,0.3); }
+
+    /* ─── SESSION INFO ─── */
+    .sessions-section { background: var(--black-warm); padding: 6rem 2.5rem; }
+    .sessions-inner { max-width: 1200px; margin: 0 auto; }
+    .sessions-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 3rem;
+    }
+    .session-card {
+      background: var(--black); border-radius: 3px; padding: 2.5rem;
+      position: relative; overflow: hidden;
+    }
+    .session-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--amber);
+    }
+    .session-card.inactive::before { background: rgba(250,246,240,0.08); }
+    .session-label {
+      font-family: var(--font-body); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.75rem;
+    }
+    .session-card.inactive .session-label { color: var(--muted); }
+    .session-title {
+      font-family: var(--font-display); font-size: 2.25rem; font-weight: 800;
+      line-height: 1; letter-spacing: -0.02em; color: var(--white); margin-bottom: 2rem;
+    }
+    .session-meta {
+      display: flex; flex-direction: column; gap: 0.6rem;
+      margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border);
+    }
+    .session-meta-row { display: flex; gap: 0.75rem; font-size: 0.85rem; }
+    .session-meta-key { color: var(--cream); font-weight: 600; min-width: 80px; }
+    .session-meta-val { color: var(--muted); font-weight: 300; }
+    .session-price {
+      font-family: var(--font-display); font-size: 2.75rem; font-weight: 800;
+      color: var(--white); letter-spacing: -0.03em; line-height: 1;
+    }
+    .session-price-note { font-size: 0.78rem; color: var(--muted); font-weight: 300; margin: 0.3rem 0 1.5rem; }
+    .session-discount {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--amber-dim); border: 1px solid rgba(245,166,35,0.2);
+      border-radius: 2px; padding: 0.5rem 0.85rem; margin-bottom: 1.5rem;
+      font-family: var(--font-body); font-size: 0.75rem; font-weight: 600;
+      color: var(--amber); letter-spacing: 0.06em;
+    }
+
+    /* ─── PRICING CLARITY ─── */
+    .pricing-section { background: var(--cream); padding: 6rem 2.5rem; }
+    .pricing-inner { max-width: 1200px; margin: 0 auto; }
+    .pricing-table {
+      border: 1px solid var(--border-light); border-radius: 3px; overflow: hidden;
+      margin-top: 3rem;
+    }
+    .pricing-row {
+      display: grid; grid-template-columns: 2fr 1fr 2fr;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .pricing-row:last-child { border-bottom: none; }
+    .pricing-row.header { background: var(--black); }
+    .pricing-row.header div {
+      font-family: var(--font-body); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+      padding: 1rem 1.5rem;
+    }
+    .pricing-cell {
+      padding: 1.25rem 1.5rem; border-right: 1px solid var(--border-light);
+      font-family: var(--font-body); font-size: 0.9rem;
+    }
+    .pricing-cell:last-child { border-right: none; }
+    .pricing-cell strong { font-weight: 600; color: var(--black); display: block; margin-bottom: 0.2rem; }
+    .pricing-cell span { font-size: 0.8rem; color: rgba(15,14,12,0.5); font-weight: 300; }
+    .pricing-row.header .pricing-cell { color: var(--muted); }
+    .price-val {
+      font-family: var(--font-display); font-size: 1.6rem; font-weight: 800;
+      color: var(--black); letter-spacing: -0.02em;
+    }
+    .price-val em { font-style: normal; color: var(--amber); }
+    .pricing-note {
+      margin-top: 1rem; font-family: var(--font-body); font-size: 0.8rem;
+      color: rgba(15,14,12,0.45); font-weight: 300; line-height: 1.6;
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials-strip {
+      background: var(--black); padding: 4rem 2.5rem;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .testimonials-strip-inner { max-width: 1200px; margin: 0 auto; }
+    .t-strip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+    .t-card {
+      background: var(--black-warm); border: 1px solid var(--border); border-radius: 3px; padding: 1.75rem;
+    }
+    .t-mark { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; color: var(--amber); opacity: 0.5; line-height: 1; margin-bottom: 0.5rem; }
+    .t-text { font-family: var(--font-body); font-size: 0.88rem; font-weight: 300; line-height: 1.7; color: var(--muted); margin-bottom: 1.25rem; }
+    .t-author { font-family: var(--font-body); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cream); }
+    .t-role { font-size: 0.68rem; color: rgba(250,246,240,0.3); font-weight: 400; margin-top: 0.15rem; }
+
+    /* ─── ENROLLMENT FORM ─── */
+    .enroll-section { background: var(--cream); padding: 6rem 2.5rem; }
+    .enroll-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+
+    .enroll-left h2 {
+      font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800; letter-spacing: -0.02em; color: var(--black); margin-bottom: 1rem;
+    }
+    .enroll-left p {
+      font-family: var(--font-body); font-size: 0.95rem; font-weight: 300;
+      color: rgba(15,14,12,0.55); line-height: 1.7; margin-bottom: 2rem;
+    }
+    .enroll-highlights { display: flex; flex-direction: column; gap: 0.75rem; }
+    .enroll-highlight {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      font-family: var(--font-body); font-size: 0.88rem; color: rgba(15,14,12,0.6); font-weight: 300; line-height: 1.5;
+    }
+    .enroll-highlight-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber); flex-shrink: 0; margin-top: 0.4rem; }
+
+    /* Form */
+    .enroll-form {
+      background: var(--black); border-radius: 3px; padding: 2.5rem;
+    }
+    .form-title {
+      font-family: var(--font-display); font-size: 1.25rem; font-weight: 800;
+      color: var(--white); margin-bottom: 0.4rem;
+    }
+    .form-subtitle {
+      font-family: var(--font-body); font-size: 0.8rem; font-weight: 300;
+      color: var(--muted); margin-bottom: 2rem;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block; font-family: var(--font-body); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase; color: rgba(250,246,240,0.5);
+      margin-bottom: 0.45rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; background: rgba(250,246,240,0.05); border: 1px solid var(--border);
+      border-radius: 2px; padding: 0.8rem 1rem; color: var(--cream);
+      font-family: var(--font-body); font-size: 0.88rem; font-weight: 300;
+      transition: border-color 0.2s;
+      -webkit-appearance: none; appearance: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(250,246,240,0.2); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none; border-color: var(--amber);
+    }
+    .form-group select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(250,246,240,0.4)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; }
+    .form-group select option { background: var(--black-warm); color: var(--cream); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+
+    /* Under-5 conditional field */
+    .under5-toggle { margin-bottom: 0; }
+    .under5-toggle label { display: flex; align-items: center; gap: 0.6rem; cursor: pointer; }
+    .under5-toggle input[type="checkbox"] {
+      width: 16px; height: 16px; border-radius: 2px; padding: 0;
+      accent-color: var(--amber); flex-shrink: 0;
+    }
+    .under5-toggle .toggle-text {
+      font-family: var(--font-body); font-size: 0.82rem; font-weight: 400;
+      color: rgba(250,246,240,0.55); letter-spacing: 0;
+      text-transform: none;
+    }
+    .under5-field { display: none; margin-top: 0.75rem; }
+    .under5-field.visible { display: block; }
+
+    .form-divider {
+      height: 1px; background: var(--border); margin: 1.25rem 0;
+    }
+    .form-ctas { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+    .form-ctas .btn { width: 100%; justify-content: center; }
+    .form-or {
+      text-align: center; font-family: var(--font-body); font-size: 0.7rem;
+      font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(250,246,240,0.25);
+    }
+
+    /* ─── FAQ ─── */
+    .faq-section { background: var(--black-warm); padding: 6rem 2.5rem; }
+    .faq-inner { max-width: 800px; margin: 0 auto; }
+    .faq-inner h2 {
+      font-family: var(--font-display); font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800; letter-spacing: -0.02em; color: var(--white); margin-top: 1rem; margin-bottom: 2.5rem;
+    }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
+    .faq-item:first-of-type { border-top: 1px solid var(--border); }
+    .faq-q {
+      font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+      color: var(--white); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+      user-select: none;
+    }
+    .faq-q .faq-icon { flex-shrink: 0; font-size: 1.2rem; color: var(--amber); transition: transform 0.3s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-a {
+      font-family: var(--font-body); font-size: 0.9rem; font-weight: 300;
+      color: var(--muted); line-height: 1.72; max-height: 0; overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding-top: 1rem; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--black-warm); border-top: 1px solid var(--border);
+      padding: 3rem 2.5rem 2rem;
+    }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    }
+    .footer-bottom p {
+      font-family: var(--font-body); font-size: 0.68rem; font-weight: 400;
+      letter-spacing: 0.06em; color: rgba(250,246,240,0.22);
+    }
+    .footer-bottom a {
+      font-family: var(--font-body); font-size: 0.68rem; font-weight: 600;
+      color: var(--amber); letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    /* ─── GSAP ─── */
+    .js-reveal { opacity: 0; transform: translateY(40px); }
+    .js-fade { opacity: 0; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .trial-inner { flex-direction: column; align-items: flex-start; }
+      .trial-steps { flex-wrap: wrap; }
+      .tiers-grid { grid-template-columns: repeat(2, 1fr); }
+      .sessions-grid { grid-template-columns: 1fr; }
+      .pricing-row { grid-template-columns: 1fr 1fr; }
+      .t-strip-grid { grid-template-columns: 1fr 1fr; }
+      .enroll-inner { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    @media (max-width: 600px) {
+      #nav { padding: 1rem 1.25rem; }
+      .page-header { padding: 8rem 1.25rem 4rem; }
+      .trial-section, .tiers-section, .sessions-section, .pricing-section,
+      .testimonials-strip, .enroll-section, .faq-section, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .tiers-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .pricing-row { grid-template-columns: 1fr 1fr; }
+      .pricing-row > div:nth-child(3), .pricing-cell:nth-child(3) { display: none; }
+      .t-strip-grid { grid-template-columns: 1fr; }
+      .trial-steps { flex-direction: column; }
+      .trial-arrow { transform: rotate(90deg); }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div style="background:var(--amber);padding:0.6rem 2.5rem;display:flex;align-items:center;justify-content:center;gap:1.5rem;position:fixed;top:0;left:0;right:0;z-index:501;" id="announcement-bar">
+    <p style="font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--black);">Fall 2026 sessions starting soon</p>
+    <a href="#enroll" style="font-family:var(--font-body);font-size:0.72rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--black);text-decoration:underline;text-underline-offset:3px;white-space:nowrap;">Enroll now →</a>
+    <button onclick="document.getElementById('announcement-bar').style.display='none'" style="background:none;border:none;cursor:pointer;color:var(--black);opacity:0.4;font-size:1rem;padding:0;margin-left:0.5rem;line-height:1;" aria-label="Dismiss">✕</button>
+  </div>
+
+  <!-- NAV -->
+  <nav id="nav" style="top:34px;">
+    <a href="index.html" class="nav-wordmark">Kansas City Bhangra</a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="classes.html" class="active">Classes</a></li>
+      <li><a href="workshops.html">Workshops</a></li>
+      <li><a href="performances.html">Performances</a></li>
+      <li><a href="merch.html">Merch</a></li>
+      <li><a href="#enroll" class="nav-cta">Enroll Free</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-drawer" id="nav-drawer">
+    <button class="nav-drawer-close" id="drawer-close">✕</button>
+    <a href="index.html" onclick="closeDrawer()">Home</a>
+    <a href="about.html" onclick="closeDrawer()">About</a>
+    <a href="classes.html" onclick="closeDrawer()">Classes</a>
+    <a href="workshops.html" onclick="closeDrawer()">Workshops</a>
+    <a href="performances.html" onclick="closeDrawer()">Performances</a>
+    <a href="merch.html" onclick="closeDrawer()">Merch</a>
+    <a href="#enroll" style="color:var(--amber);" onclick="closeDrawer()">Enroll Free</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="page-header-inner">
+      <p class="section-tag">Classes</p>
+      <h1>Learn the<br>real thing.</h1>
+      <p>Four tiers. Two sessions per year. Sundays in Lenexa, Kansas. Your first class costs nothing.</p>
+    </div>
+  </header>
+
+  <!-- FREE TRIAL FUNNEL -->
+  <div class="trial-section">
+    <div class="trial-inner">
+      <div class="trial-left">
+        <h2>Start with a free class.</h2>
+        <p>No commitment. No pressure. Just show up and see if it's for you.</p>
+      </div>
+      <div class="trial-steps">
+        <div class="trial-step">
+          <div class="trial-step-num">1</div>
+          <div class="trial-step-text">Fill out the form</div>
+        </div>
+        <div class="trial-arrow">&#8250;</div>
+        <div class="trial-step">
+          <div class="trial-step-num">2</div>
+          <div class="trial-step-text">We confirm your spot</div>
+        </div>
+        <div class="trial-arrow">&#8250;</div>
+        <div class="trial-step">
+          <div class="trial-step-num">3</div>
+          <div class="trial-step-text">Show up. Sunday in Lenexa.</div>
+        </div>
+      </div>
+      <div class="trial-cta">
+        <a href="#enroll" class="btn btn-outline-dark">Enroll Free ↓</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLASS TIERS -->
+  <section class="tiers-section">
+    <div class="tiers-inner">
+      <div class="tiers-header js-reveal">
+        <p class="section-tag dark">The four tiers</p>
+        <h2>Every level has a place here.</h2>
+        <p>Classes run back-to-back on Sunday afternoons. Each is one hour. You join the tier that fits where you are today.</p>
+      </div>
+
+      <div class="tiers-grid">
+        <!-- BEGINNERS -->
+        <div class="tier-card js-reveal">
+          <div class="tier-num">01</div>
+          <div class="tier-name">Beginners</div>
+          <p class="tier-desc">The foundation. First-time students learn the core footwork and rhythm patterns of folk Bhangra. No dance background needed.</p>
+          <div class="tier-fits">Good fit if you:</div>
+          <div class="tier-fit-list">
+            <div class="tier-fit-item">Have never danced Bhangra before</div>
+            <div class="tier-fit-item">Want to start from the very basics</div>
+            <div class="tier-fit-item">Are trying it for the first time</div>
+          </div>
+        </div>
+
+        <!-- INTERMEDIATE -->
+        <div class="tier-card js-reveal">
+          <div class="tier-num">02</div>
+          <div class="tier-name">Intermediate</div>
+          <p class="tier-desc">Students who know the fundamentals and are ready to expand. More complex patterns, faster transitions, stronger technique — and we start introducing props.</p>
+          <div class="tier-fits">Good fit if you:</div>
+          <div class="tier-fit-list">
+            <div class="tier-fit-item">Completed a Beginners session</div>
+            <div class="tier-fit-item">Know the basics but want more</div>
+            <div class="tier-fit-item">Are building toward Advanced</div>
+          </div>
+        </div>
+
+        <!-- ADVANCED -->
+        <div class="tier-card js-reveal">
+          <div class="tier-num">03</div>
+          <div class="tier-name">Advanced</div>
+          <p class="tier-desc">The top tier. Students who can handle anything. Full choreographies, performance-level precision, and the full depth of folk tradition.</p>
+          <div class="tier-fits">Good fit if you:</div>
+          <div class="tier-fit-list">
+            <div class="tier-fit-item">Have mastered Intermediate material</div>
+            <div class="tier-fit-item">Want performance-ready skills</div>
+            <div class="tier-fit-item">Are ready for the hardest material</div>
+          </div>
+        </div>
+
+        <!-- ADULTS -->
+        <div class="tier-card adults js-reveal">
+          <div class="tier-num">04</div>
+          <div class="tier-name">Adults</div>
+          <p class="tier-desc">Open level for adults. High-energy, full-body, and built around the authentic folk tradition.</p>
+          <div class="tier-fits">Good fit if you:</div>
+          <div class="tier-fit-list">
+            <div class="tier-fit-item">Are curious about Bhangra</div>
+            <div class="tier-fit-item">Want a real workout and learn choreographies to the most viral Punjabi songs</div>
+            <div class="tier-fit-item">Have zero dance background — or are a professional dancer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SESSION INFO -->
+  <section class="sessions-section">
+    <div class="sessions-inner">
+      <p class="section-tag">Sessions</p>
+
+      <div class="sessions-grid">
+        <!-- FALL -->
+        <div class="session-card js-reveal">
+          <p class="session-label">Fall Session 2026</p>
+          <h3 class="session-title">Fall<br>Enrollment</h3>
+          <div class="session-meta">
+            <div class="session-meta-row">
+              <span class="session-meta-key">Day</span>
+              <span class="session-meta-val">Sundays</span>
+            </div>
+            <div class="session-meta-row">
+              <span class="session-meta-key">Time</span>
+              <span class="session-meta-val">Afternoon (confirmed before session starts)</span>
+            </div>
+            <div class="session-meta-row">
+              <span class="session-meta-key">Location</span>
+              <span class="session-meta-val">Lenexa, Kansas</span>
+            </div>
+            <div class="session-meta-row">
+              <span class="session-meta-key">Format</span>
+              <span class="session-meta-val">8 classes + 1 free intro class</span>
+            </div>
+            <div class="session-meta-row">
+              <span class="session-meta-key">Ages</span>
+              <span class="session-meta-val">5 and up</span>
+            </div>
+          </div>
+          <div class="session-price">$200</div>
+          <div class="session-price-note">Per student, per session</div>
+          <div class="session-discount">Family of 3 or more? Contact us for rates.</div>
+          <a href="#enroll" class="btn btn-amber" style="width:100%;justify-content:center;">Enroll for Fall 2026 →</a>
+        </div>
+
+        <!-- SPRING -->
+        <div class="session-card inactive js-reveal">
+          <p class="session-label">Spring Session 2027</p>
+          <h3 class="session-title">Spring<br>Enrollment</h3>
+          <div class="session-meta">
+            <div class="session-meta-row">
+              <span class="session-meta-key">Day</span>
+              <span class="session-meta-val">Sundays</span>
+            </div>
+            <div class="session-meta-row">
+              <span class="session-meta-key">Time</span>
+              <span class="session-meta-val">Afternoon (confirmed before session starts)</span>
+            </div>
+            <div class="session-meta-row">
+              <span class="session-meta-key">Location</span>
+              <span class="session-meta-val">Lenexa, Kansas</span>
+            </div>
+            <div class="session-meta-row">
+              <span class="session-meta-key">Format</span>
+              <span class="session-meta-val">8 classes + 1 free intro class</span>
+            </div>
+            <div class="session-meta-row">
+              <span class="session-meta-key">Ages</span>
+              <span class="session-meta-val">5 and up</span>
+            </div>
+          </div>
+          <div class="session-price">$200</div>
+          <div class="session-price-note">Per student, per session</div>
+          <a href="#enroll" class="btn btn-outline-white" style="width:100%;justify-content:center;border-color:rgba(250,246,240,0.12);">Join the Spring 2027 Waitlist →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING BREAKDOWN -->
+  <section class="pricing-section" id="pricing">
+    <div class="pricing-inner">
+      <p class="section-tag dark">Pricing</p>
+      <h2 style="font-family:var(--font-display);font-size:clamp(2rem,3.5vw,3rem);font-weight:800;letter-spacing:-0.02em;color:var(--black);margin-bottom:0.5rem;">Transparent pricing.<br>No surprises.</h2>
+      <p style="font-family:var(--font-body);font-size:0.95rem;color:rgba(15,14,12,0.5);font-weight:300;">All fees are per session. Each session is 8 classes. First class is always free.</p>
+
+      <div class="pricing-table js-reveal">
+        <div class="pricing-row header">
+          <div>What you get</div>
+          <div>Per student</div>
+          <div>Includes</div>
+        </div>
+        <div class="pricing-row">
+          <div class="pricing-cell">
+            <strong>One session</strong>
+            <span>Fall or Spring, 8 Sundays</span>
+          </div>
+          <div class="pricing-cell">
+            <div class="price-val">$200</div>
+          </div>
+          <div class="pricing-cell">
+            <span>8 classes + 1 free intro class</span>
+          </div>
+        </div>
+        <div class="pricing-row">
+          <div class="pricing-cell">
+            <strong>Free intro class</strong>
+            <span>Your first class, no commitment</span>
+          </div>
+          <div class="pricing-cell">
+            <div class="price-val" style="color:var(--amber);">$0</div>
+          </div>
+          <div class="pricing-cell">
+            <span>Try any tier before you commit</span>
+          </div>
+        </div>
+        <div class="pricing-row">
+          <div class="pricing-cell">
+            <strong>Family discount</strong>
+            <span>3 or more students from same household</span>
+          </div>
+          <div class="pricing-cell" colspan="3" style="grid-column:2/-1;">
+            <span>Contact us for family pricing. We work it out case by case.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS NEAR CTA -->
+  <section class="testimonials-strip">
+    <div class="testimonials-strip-inner">
+      <p class="section-tag">Why people stay</p>
+      <div class="t-strip-grid">
+        <div class="t-card js-reveal">
+          <div class="t-mark">"</div>
+          <p class="t-text">The most energetic hour of our week. My kids beg to go every Sunday. Our coaches have a gift for making everyone feel like they belong.</p>
+          <div class="t-author">Sarah M.</div>
+          <div class="t-role">Parent, 2 students enrolled</div>
+        </div>
+        <div class="t-card js-reveal">
+          <div class="t-mark">"</div>
+          <p class="t-text">I had zero connection to Punjabi culture before this. Now I understand it through my body, not just my head. That's a rare thing.</p>
+          <div class="t-author">James T.</div>
+          <div class="t-role">Adult student</div>
+        </div>
+        <div class="t-card js-reveal">
+          <div class="t-mark">"</div>
+          <p class="t-text">Our coaches don't just teach steps. They teach you why each move exists, where it comes from. That depth makes all the difference.</p>
+          <div class="t-author">Priya K.</div>
+          <div class="t-role">Student since 2020</div>
+        </div>
+      </div>
+      <p style="font-size:0.68rem;color:rgba(250,246,240,0.2);font-family:var(--font-body);margin-top:1.25rem;font-style:italic;">Placeholder quotes. Real testimonials coming soon.</p>
+    </div>
+  </section>
+
+  <!-- ENROLLMENT FORM -->
+  <section class="enroll-section" id="enroll">
+    <div class="enroll-inner">
+      <div class="enroll-left js-reveal">
+        <p class="section-tag dark">Enroll</p>
+        <h2>Your first class is free.</h2>
+        <p>Fill out the form and we'll reach out to confirm your spot. No payment until you decide to continue after the free intro class.</p>
+
+        <a href="#faq" style="display:inline-flex;align-items:center;gap:0.4rem;font-family:var(--font-body);font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(15,14,12,0.4);margin-bottom:1.5rem;transition:color 0.2s;" onmouseover="this.style.color='var(--black)'" onmouseout="this.style.color='rgba(15,14,12,0.4)'">Have questions? See the FAQ ↓</a>
+        <div class="enroll-highlights">
+          <div class="enroll-highlight">
+            <div class="enroll-highlight-dot"></div>
+            First class costs nothing. No card required.
+          </div>
+          <div class="enroll-highlight">
+            <div class="enroll-highlight-dot"></div>
+            We'll confirm the exact Sunday time before the session starts.
+          </div>
+          <div class="enroll-highlight">
+            <div class="enroll-highlight-dot"></div>
+            Comfortable clothes and a water bottle. No dance gear needed.
+          </div>
+          <div class="enroll-highlight">
+            <div class="enroll-highlight-dot"></div>
+            Questions? WhatsApp us and we'll reply same day.
+          </div>
+        </div>
+      </div>
+
+      <!-- REPLACE: Update action with your Formspree form ID -->
+      <form class="enroll-form js-reveal" action="https://formspree.io/f/REPLACE_WITH_YOUR_ID" method="POST">
+        <div class="form-title">Get your free class</div>
+        <div class="form-subtitle">We'll be in touch within 24 hours.</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First name</label>
+            <input type="text" id="fname" name="first_name" placeholder="Priya" required>
+          </div>
+          <div class="form-group">
+            <label for="lname">Last name</label>
+            <input type="text" id="lname" name="last_name" placeholder="Sharma" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone number</label>
+          <input type="tel" id="phone" name="phone" placeholder="(913) 555-0000">
+        </div>
+
+        <div class="form-group">
+          <label for="interest">Who's enrolling?</label>
+          <select id="interest" name="interest" required>
+            <option value="" disabled selected>Select a tier</option>
+            <option value="beginners-kids">Beginners (ages 5+)</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+            <option value="adults">Adults (18+)</option>
+            <option value="not-sure">Not sure yet</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="session">Preferred session</label>
+          <select id="session" name="session">
+            <option value="fall-2026">Fall 2026</option>
+            <option value="spring-2027">Spring 2027</option>
+            <option value="free-trial">Free trial class only</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="referral">How did you hear about us?</label>
+          <select id="referral" name="referral">
+            <option value="" disabled selected>Select one</option>
+            <option value="instagram">Instagram</option>
+            <option value="facebook">Facebook</option>
+            <option value="friend">Friend or family</option>
+            <option value="google">Google search</option>
+            <option value="event">Saw a performance</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <!-- Under-5 toggle -->
+        <div class="form-group under5-toggle">
+          <label>
+            <input type="checkbox" id="under5-check" name="child_under_5">
+            <span class="toggle-text">My child is under 5 years old</span>
+          </label>
+          <div class="under5-field" id="under5-field">
+            <label for="child-dob" style="margin-top:0.75rem;display:block;font-family:var(--font-body);font-size:0.68rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(250,246,240,0.5);margin-bottom:0.45rem;">Child's date of birth</label>
+            <input type="date" id="child-dob" name="child_birthdate">
+            <p style="font-family:var(--font-body);font-size:0.72rem;color:rgba(250,246,240,0.3);margin-top:0.4rem;font-weight:300;">We'll reach out when they turn 5 and are ready to join.</p>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:1rem;">
+          <label for="message">Anything else we should know?</label>
+          <textarea id="message" name="message" placeholder="Questions, class placement, special needs..."></textarea>
+        </div>
+
+        <div class="form-ctas">
+          <button type="submit" class="btn btn-amber">Send Enrollment Request →</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" id="faq">
+    <div class="faq-inner">
+      <p class="section-tag">Questions</p>
+      <h2>Things people ask before joining.</h2>
+
+      <div class="faq-item">
+        <div class="faq-q">Do I need to know Punjabi or Bhangra?<span class="faq-icon">+</span></div>
+        <div class="faq-a">No. Our Beginners and Adults tiers are built for people with zero background. You don't need to speak Punjabi, know any moves, or have any dance experience. Just show up.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">What do I wear?<span class="faq-icon">+</span></div>
+        <div class="faq-a">Comfortable clothes you can move in. Athletic wear is fine. No special shoes or dance attire required for your first class. As you progress, we'll let you know if anything traditional is needed for performances.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">My child is really young. Can they join?<span class="faq-icon">+</span></div>
+        <div class="faq-a">The minimum age for classes is 5. If your child is younger, fill out the form and select "my child is under 5" to share their birthdate. We'll reach out when they're ready.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">How do I know which tier is right for us?<span class="faq-icon">+</span></div>
+        <div class="faq-a">When you submit the enrollment form, we'll ask a few questions and help place your student in the right tier. If you're not sure, just select "Not sure yet" and we'll figure it out together.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Can adults with no dance experience really keep up?<span class="faq-icon">+</span></div>
+        <div class="faq-a">Yes. The Adults class is designed for all levels, including complete beginners. Bhangra is high-energy but accessible. The first few sessions build the foundation. Everyone starts somewhere.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">What happens after the free intro class?<span class="faq-icon">+</span></div>
+        <div class="faq-a">If you want to continue, you enroll for the full session. That covers the remaining 8 classes. No auto-renewals. Each session is a fresh decision.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Do you offer discounts for siblings or families?<span class="faq-icon">+</span></div>
+        <div class="faq-a">Yes, we offer family pricing for households enrolling 3 or more students. Contact us through the form or WhatsApp and we'll work out the details.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-bottom">
+      <p>© 2026 Kansas City Bhangra. Lenexa, Kansas.</p>
+      <a href="index.html">Back to home</a>
+    </div>
+  </footer>
+
+  <!-- ─── FLOATING CONTACT ─────────────────────────── -->
+  <div id="fab-wrap" style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:800;display:flex;flex-direction:column;align-items:flex-end;gap:0.6rem;">
+    <div id="fab-options" style="display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity 0.25s ease,transform 0.25s ease;">
+      <a href="https://wa.me/16464219634" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;background:#25D366;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a href="https://instagram.com/kcbhangra" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;background:#E1306C;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagram
+      </a>
+      <a href="https://m.me/kcbhangra" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;background:#0084FF;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.626 0 12-4.974 12-11.111C24 4.975 18.626 0 12 0zm1.193 14.963l-3.056-3.259-5.963 3.259L10.733 8.6l3.13 3.259 5.89-3.259-6.56 6.363z"/></svg>
+        Facebook
+      </a>
+    </div>
+    <button id="fab-btn" onclick="toggleFab()" style="width:52px;height:52px;border-radius:50%;background:var(--amber);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(245,166,35,0.4);transition:transform 0.2s,background 0.2s;" aria-label="Contact us">
+      <svg id="fab-icon-msg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f0e0c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <svg id="fab-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f0e0c" stroke-width="2.5" stroke-linecap="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray('.js-reveal').forEach(el => {
+      gsap.fromTo(el, { opacity: 0, y: 44 }, {
+        opacity: 1, y: 0, duration: 0.85, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' }
+      });
+    });
+
+    /* Nav */
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('nav-drawer');
+    const closeBtn = document.getElementById('drawer-close');
+    hamburger.addEventListener('click', () => drawer.classList.add('open'));
+    closeBtn.addEventListener('click', () => drawer.classList.remove('open'));
+    function closeDrawer() { drawer.classList.remove('open'); }
+
+    /* Under-5 toggle */
+    const under5Check = document.getElementById('under5-check');
+    const under5Field = document.getElementById('under5-field');
+    under5Check.addEventListener('change', () => {
+      under5Field.classList.toggle('visible', under5Check.checked);
+    });
+
+    /* Floating contact button */
+    let fabOpen = false;
+    const fabOptions   = document.getElementById('fab-options');
+    const fabIconMsg   = document.getElementById('fab-icon-msg');
+    const fabIconClose = document.getElementById('fab-icon-close');
+    function toggleFab() {
+      fabOpen = !fabOpen;
+      fabOptions.style.opacity       = fabOpen ? '1' : '0';
+      fabOptions.style.pointerEvents = fabOpen ? 'auto' : 'none';
+      fabOptions.style.transform     = fabOpen ? 'translateY(0)' : 'translateY(8px)';
+      fabIconMsg.style.display   = fabOpen ? 'none'  : 'block';
+      fabIconClose.style.display = fabOpen ? 'block' : 'none';
+    }
+    document.addEventListener('click', e => {
+      if (fabOpen && !document.getElementById('fab-wrap').contains(e.target)) toggleFab();
+    });
+
+    /* FAQ accordion */
+    document.querySelectorAll('.faq-q').forEach(q => {
+      q.addEventListener('click', () => {
+        const item = q.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>

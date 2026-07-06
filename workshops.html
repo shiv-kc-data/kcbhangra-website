@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workshops: Kansas City Bhangra</title>
+  <meta name="description" content="Bring Bhangra to your organization or join a community workshop. Kansas City Bhangra workshops for universities, corporate events, and more.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black:      #0f0e0c;
+      --black-warm: #1a1816;
+      --amber:      #f5a623;
+      --amber-dim:  rgba(245,166,35,0.10);
+      --cream:      #faf6f0;
+      --white:      #ffffff;
+      --muted:      rgba(250,246,240,0.45);
+      --border:     rgba(250,246,240,0.10);
+      --border-light: rgba(15,14,12,0.12);
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'Plus Jakarta Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--cream); color: var(--black); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── NAV ─── */
+    #nav {
+      position: fixed; top: 34px; left: 0; right: 0; z-index: 500;
+      padding: 1.25rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--black); border-bottom: 1px solid var(--border);
+    }
+    .nav-wordmark {
+      font-family: var(--font-display); font-weight: 800; font-size: 0.88rem;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--white);
+    }
+    .nav-links { display: flex; align-items: center; gap: 2.25rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-body); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream); opacity: 0.6; transition: opacity 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; }
+    .nav-links .nav-cta {
+      opacity: 1; background: var(--amber); color: var(--black);
+      padding: 0.55rem 1.25rem; border-radius: 2px; font-weight: 700; transition: background 0.2s;
+    }
+    .nav-links .nav-cta:hover { background: #e0961a; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--cream); }
+    .nav-drawer {
+      display: none; position: fixed; inset: 0; background: var(--black); z-index: 490;
+      flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: var(--cream); opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
+    .nav-drawer a:hover { opacity: 1; color: var(--amber); }
+    .nav-drawer-close { position: absolute; top: 1.5rem; right: 2.5rem; font-size: 2rem; color: var(--cream); opacity: 0.5; cursor: pointer; }
+
+    /* ─── ANNOUNCEMENT BAR ─── */
+    #announcement-bar {
+      background: var(--amber); padding: 0.6rem 2.5rem;
+      display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 501;
+    }
+    #announcement-bar p { font-family: var(--font-body); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); }
+    #announcement-bar a { font-family: var(--font-body); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+    #announcement-bar button { background: none; border: none; cursor: pointer; color: var(--black); opacity: 0.4; font-size: 1rem; padding: 0; line-height: 1; }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-family: var(--font-body); font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.9rem 1.75rem; border-radius: 2px;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s;
+      cursor: pointer; border: none;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-amber { background: var(--amber); color: var(--black); }
+    .btn-amber:hover { background: #e0961a; }
+    .btn-outline-dark { border: 1px solid var(--border-light); color: var(--black); background: none; }
+    .btn-outline-dark:hover { border-color: var(--black); }
+    .btn-outline-white { border: 1px solid var(--border); color: var(--cream); background: none; }
+    .btn-outline-white:hover { border-color: var(--cream); }
+
+    /* ─── SECTION TAG ─── */
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-family: var(--font-body); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.24em; text-transform: uppercase; color: var(--amber); margin-bottom: 1.25rem;
+    }
+    .section-tag::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--amber); }
+    .section-tag.dark { color: rgba(15,14,12,0.4); }
+    .section-tag.dark::before { background: rgba(15,14,12,0.3); }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header {
+      background: var(--black); padding: 9rem 2.5rem 6rem;
+      position: relative; overflow: hidden;
+    }
+    .page-header-inner { max-width: 1200px; margin: 0 auto; }
+    .page-header h1 {
+      font-family: var(--font-display); font-size: clamp(3rem, 7vw, 7rem);
+      font-weight: 800; line-height: 0.93; letter-spacing: -0.03em; color: var(--white); margin-bottom: 1.5rem;
+    }
+    .page-header h1 span { color: var(--amber); }
+    .page-header p {
+      font-family: var(--font-body); font-size: 1.05rem; font-weight: 300;
+      color: var(--muted); max-width: 44ch; line-height: 1.65;
+    }
+    .page-header::after {
+      content: ''; position: absolute; top: -20%; right: -5%; width: 45vw; height: 45vw;
+      background: radial-gradient(circle, rgba(245,166,35,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    /* ─── TWO TYPES SWITCHER ─── */
+    .type-tabs {
+      background: var(--cream); padding: 0 2.5rem;
+      border-bottom: 1px solid var(--border-light);
+      position: sticky; top: 106px; z-index: 100;
+    }
+    .type-tabs-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; gap: 0;
+    }
+    .type-tab {
+      font-family: var(--font-body); font-size: 0.78rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: rgba(15,14,12,0.4);
+      padding: 1.1rem 0; margin-right: 2.5rem;
+      border-bottom: 2px solid transparent; cursor: pointer;
+      transition: color 0.2s, border-color 0.2s; background: none; border-top: none; border-left: none; border-right: none;
+    }
+    .type-tab.active { color: var(--black); border-bottom-color: var(--amber); }
+
+    /* ─── B2B SECTION ─── */
+    .b2b-section { background: var(--cream); padding: 6rem 2.5rem; }
+    .b2b-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+
+    .b2b-left h2 {
+      font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800; letter-spacing: -0.02em; color: var(--black); line-height: 1.02; margin-bottom: 1.25rem;
+    }
+    .b2b-left p {
+      font-family: var(--font-body); font-size: 1rem; font-weight: 300;
+      color: rgba(15,14,12,0.6); line-height: 1.78; margin-bottom: 1rem;
+    }
+
+    .format-card {
+      background: var(--black); border-radius: 3px; padding: 2rem; margin: 2rem 0;
+    }
+    .format-card-label {
+      font-family: var(--font-body); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber); margin-bottom: 1.25rem;
+    }
+    .format-steps { display: flex; flex-direction: column; gap: 0; }
+    .format-step {
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      padding: 1rem 0; border-bottom: 1px solid var(--border);
+    }
+    .format-step:last-child { border-bottom: none; padding-bottom: 0; }
+    .format-step-time {
+      font-family: var(--font-display); font-size: 0.7rem; font-weight: 800;
+      color: var(--amber); letter-spacing: 0.08em; white-space: nowrap;
+      min-width: 64px; padding-top: 2px;
+    }
+    .format-step-desc {
+      font-family: var(--font-body); font-size: 0.88rem; font-weight: 300;
+      color: var(--muted); line-height: 1.6;
+    }
+    .format-step-desc strong { font-weight: 600; color: var(--cream); display: block; margin-bottom: 0.2rem; }
+
+    .venue-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1.5rem; }
+    .venue-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-family: var(--font-body); font-size: 0.88rem; font-weight: 400;
+      color: rgba(15,14,12,0.6);
+    }
+    .venue-item::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+
+    /* Form */
+    .b2b-form {
+      background: var(--black); border-radius: 3px; padding: 2.5rem;
+    }
+    .form-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--white); margin-bottom: 0.4rem; }
+    .form-subtitle { font-family: var(--font-body); font-size: 0.8rem; font-weight: 300; color: var(--muted); margin-bottom: 2rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block; font-family: var(--font-body); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase; color: rgba(250,246,240,0.5); margin-bottom: 0.45rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; background: rgba(250,246,240,0.05); border: 1px solid var(--border);
+      border-radius: 2px; padding: 0.8rem 1rem; color: var(--cream);
+      font-family: var(--font-body); font-size: 0.88rem; font-weight: 300;
+      transition: border-color 0.2s; -webkit-appearance: none; appearance: none;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(250,246,240,0.2); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--amber); }
+    .form-group select {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(250,246,240,0.4)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 1rem center;
+    }
+    .form-group select option { background: var(--black-warm); color: var(--cream); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+
+    /* ─── COMMUNITY SECTION ─── */
+    .community-section { background: var(--black-warm); padding: 6rem 2.5rem; border-top: 1px solid var(--border); }
+    .community-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+
+    .community-left h2 {
+      font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800; letter-spacing: -0.02em; color: var(--white); line-height: 1.02; margin-bottom: 1.25rem;
+    }
+    .community-left p {
+      font-family: var(--font-body); font-size: 1rem; font-weight: 300;
+      color: var(--muted); line-height: 1.78; margin-bottom: 1rem;
+    }
+    .how-it-works { display: flex; flex-direction: column; gap: 0; margin-top: 2rem; }
+    .how-step {
+      display: flex; gap: 1.25rem; padding: 1.1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .how-step:last-child { border-bottom: none; }
+    .how-step-num {
+      font-family: var(--font-display); font-size: 1.5rem; font-weight: 800;
+      color: rgba(250,246,240,0.12); line-height: 1; flex-shrink: 0; min-width: 2rem;
+    }
+    .how-step-text {
+      font-family: var(--font-body); font-size: 0.88rem; font-weight: 300;
+      color: var(--muted); line-height: 1.65;
+    }
+    .how-step-text strong { font-weight: 600; color: var(--cream); display: block; margin-bottom: 0.2rem; }
+
+    /* Poll embed area */
+    .poll-area {
+      background: var(--black); border: 1px solid var(--border); border-radius: 3px;
+      padding: 2.5rem; min-height: 320px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+    }
+    .poll-empty-icon {
+      width: 56px; height: 56px; border: 1px solid var(--border); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .poll-empty-icon svg { color: var(--muted); }
+    .poll-empty-title {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; color: var(--white); text-align: center;
+    }
+    .poll-empty-sub {
+      font-family: var(--font-body); font-size: 0.82rem; font-weight: 300; color: var(--muted);
+      text-align: center; max-width: 28ch; line-height: 1.6;
+    }
+    .poll-follow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-body); font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber);
+      margin-top: 0.5rem;
+    }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--black-warm); border-top: 1px solid var(--border); padding: 2rem 2.5rem; }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    }
+    .footer-bottom p { font-family: var(--font-body); font-size: 0.68rem; font-weight: 400; letter-spacing: 0.06em; color: rgba(250,246,240,0.22); }
+    .footer-bottom a { font-family: var(--font-body); font-size: 0.68rem; font-weight: 600; color: var(--amber); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* ─── GSAP ─── */
+    .js-reveal { opacity: 0; transform: translateY(40px); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .b2b-inner, .community-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      #nav { padding: 1rem 1.25rem; }
+      .page-header, .b2b-section, .community-section, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .type-tabs { padding-left: 1.25rem; padding-right: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div id="announcement-bar">
+    <p>Fall 2026 sessions starting soon</p>
+    <a href="classes.html#enroll">Enroll now →</a>
+    <button onclick="document.getElementById('announcement-bar').style.display='none'" aria-label="Dismiss">✕</button>
+  </div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="index.html" class="nav-wordmark">Kansas City Bhangra</a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="classes.html">Classes</a></li>
+      <li><a href="workshops.html" class="active">Workshops</a></li>
+      <li><a href="performances.html">Performances</a></li>
+      <li><a href="merch.html">Merch</a></li>
+      <li><a href="classes.html#enroll" class="nav-cta">Enroll Free</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-drawer" id="nav-drawer">
+    <button class="nav-drawer-close" id="drawer-close">✕</button>
+    <a href="index.html" onclick="closeDrawer()">Home</a>
+    <a href="about.html" onclick="closeDrawer()">About</a>
+    <a href="classes.html" onclick="closeDrawer()">Classes</a>
+    <a href="workshops.html" onclick="closeDrawer()">Workshops</a>
+    <a href="performances.html" onclick="closeDrawer()">Performances</a>
+    <a href="merch.html" onclick="closeDrawer()">Merch</a>
+    <a href="classes.html#enroll" style="color:var(--amber);" onclick="closeDrawer()">Enroll Free</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="page-header-inner">
+      <p class="section-tag">Workshops</p>
+      <h1>Bhangra<br>for your <span>crowd.</span></h1>
+      <p>We come to you, or you join us. Two types of workshop, one goal: get people moving to folk Bhangra.</p>
+    </div>
+  </header>
+
+  <!-- TAB NAV -->
+  <div class="type-tabs">
+    <div class="type-tabs-inner">
+      <button class="type-tab active" onclick="switchTab('community', this)">Adults workshop: pick a night</button>
+      <button class="type-tab" onclick="switchTab('b2b', this)">Bring us to your event</button>
+    </div>
+  </div>
+
+  <!-- B2B SECTION -->
+  <section class="b2b-section" id="b2b" style="display:none;">
+    <div class="b2b-inner">
+      <div class="b2b-left js-reveal">
+        <p class="section-tag dark">For organizations</p>
+        <h2>We come to you.</h2>
+        <p>Universities, corporate events, community organizations, schools, festivals. We build a workshop around your group, your space, and your audience.</p>
+        <p>No prior dance experience needed. No setup required. Works for groups of 10 to 200+.</p>
+
+        <div class="format-card">
+          <div class="format-card-label">Workshop format</div>
+          <div class="format-steps">
+            <div class="format-step">
+              <div class="format-step-desc">
+                <strong>What is folk Bhangra?</strong>
+                Where it comes from, what it sounds like, why it's not Bollywood. No dancing yet. Just context.
+              </div>
+            </div>
+            <div class="format-step">
+              <div class="format-step-desc">
+                <strong>Learn 2 to 3 choreographies</strong>
+                Everyone participates. Real folk steps set to music your audience knows. No experience needed to keep up.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="section-tag dark" style="margin-top:2rem;">Past venues</p>
+        <div class="venue-list">
+          <div class="venue-item">Kauffman Center for the Performing Arts</div>
+          <div class="venue-item">KC Current</div>
+          <div class="venue-item">University of Missouri, Kansas City</div>
+          <div class="venue-item">Kansas State University</div>
+        </div>
+      </div>
+
+      <!-- REPLACE: Update form action with your Formspree ID -->
+      <form class="b2b-form js-reveal" action="https://formspree.io/f/REPLACE_WITH_YOUR_ID" method="POST">
+        <div class="form-title">Book a workshop</div>
+        <div class="form-subtitle">We'll respond within 48 hours to discuss availability and pricing.</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>First name</label>
+            <input type="text" name="first_name" placeholder="Sarah" required>
+          </div>
+          <div class="form-group">
+            <label>Last name</label>
+            <input type="text" name="last_name" placeholder="Johnson" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Organization name</label>
+          <input type="text" name="organization" placeholder="University of Missouri, Kansas City" required>
+        </div>
+
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" name="email" placeholder="you@organization.com" required>
+        </div>
+
+        <div class="form-group">
+          <label>Phone number</label>
+          <input type="tel" name="phone" placeholder="(913) 555-0000">
+        </div>
+
+        <div class="form-group">
+          <label>Event type</label>
+          <select name="event_type">
+            <option value="" disabled selected>Select one</option>
+            <option value="university">University / campus event</option>
+            <option value="corporate">Corporate event</option>
+            <option value="community">Community organization</option>
+            <option value="school">K-12 school</option>
+            <option value="festival">Festival or public event</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Estimated group size</label>
+            <select name="group_size">
+              <option value="" disabled selected>Select range</option>
+              <option value="under-25">Under 25</option>
+              <option value="25-50">25 to 50</option>
+              <option value="50-100">50 to 100</option>
+              <option value="100-200">100 to 200</option>
+              <option value="200+">200+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Preferred date</label>
+            <input type="date" name="preferred_date">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Tell us about your event</label>
+          <textarea name="message" placeholder="Event context, goals, any questions..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-amber" style="width:100%;justify-content:center;margin-top:0.5rem;">Send Inquiry →</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- COMMUNITY SECTION -->
+  <section class="community-section" id="community">
+    <div class="community-inner">
+      <div class="community-left js-reveal">
+        <p class="section-tag">For everyone</p>
+        <h2>Join the next community workshop.</h2>
+        <p>Open to the public. No experience needed. We pick a date, gather enough interest, and run a workshop in Kansas City.</p>
+        <p>Vote for the time that works for you. When enough people commit to the same slot, we confirm and reach out to everyone who voted.</p>
+
+        <div class="how-it-works">
+          <div class="how-step">
+            <div class="how-step-num">1</div>
+            <div class="how-step-text">
+              <strong>Vote for a time</strong>
+              Pick the date and time that works for you in the poll.
+            </div>
+          </div>
+          <div class="how-step">
+            <div class="how-step-num">2</div>
+            <div class="how-step-text">
+              <strong>We hit a threshold</strong>
+              Once enough people vote for the same slot, the workshop is confirmed.
+            </div>
+          </div>
+          <div class="how-step">
+            <div class="how-step-num">3</div>
+            <div class="how-step-text">
+              <strong>We reach out</strong>
+              Everyone who voted gets contacted with location and details.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="js-reveal">
+        <!-- REPLACE: Paste your Rallly.co embed here when a poll is active -->
+        <!-- To create a poll: go to rallly.co, create event with proposed dates, copy embed code -->
+        <div class="poll-area">
+          <div class="poll-empty-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="poll-empty-title">No active poll right now.</div>
+          <div class="poll-empty-sub">Follow @kcbhangra on Instagram to know when the next community workshop vote opens.</div>
+          <a href="https://instagram.com/kcbhangra" class="poll-follow" target="_blank" rel="noopener">
+            Follow @kcbhangra →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOATING CONTACT -->
+  <div id="fab-wrap" style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:800;display:flex;flex-direction:column;align-items:flex-end;gap:0.6rem;">
+    <div id="fab-options" style="display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity 0.25s ease,transform 0.25s ease;">
+      <a href="https://wa.me/16464219634" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;background:#25D366;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a href="https://instagram.com/kcbhangra" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;background:#E1306C;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagram
+      </a>
+      <a href="https://m.me/kcbhangra" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;background:#0084FF;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.626 0 12-4.974 12-11.111C24 4.975 18.626 0 12 0zm1.193 14.963l-3.056-3.259-5.963 3.259L10.733 8.6l3.13 3.259 5.89-3.259-6.56 6.363z"/></svg>
+        Facebook
+      </a>
+    </div>
+    <button id="fab-btn" onclick="toggleFab()" style="width:52px;height:52px;border-radius:50%;background:var(--amber);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(245,166,35,0.4);transition:transform 0.2s;" aria-label="Contact us">
+      <svg id="fab-icon-msg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f0e0c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <svg id="fab-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f0e0c" stroke-width="2.5" stroke-linecap="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-bottom">
+      <p>© 2026 Kansas City Bhangra. Lenexa, Kansas.</p>
+      <a href="index.html">Back to home</a>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray('.js-reveal').forEach(el => {
+      gsap.fromTo(el, { opacity: 0, y: 44 }, {
+        opacity: 1, y: 0, duration: 0.85, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' }
+      });
+    });
+
+    /* Tab switcher */
+    function switchTab(tab, btn) {
+      document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('b2b').style.display       = tab === 'b2b'       ? 'block' : 'none';
+      document.getElementById('community').style.display = tab === 'community' ? 'block' : 'none';
+    }
+
+    /* Nav */
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('nav-drawer');
+    const closeBtn = document.getElementById('drawer-close');
+    hamburger.addEventListener('click', () => drawer.classList.add('open'));
+    closeBtn.addEventListener('click', () => drawer.classList.remove('open'));
+    function closeDrawer() { drawer.classList.remove('open'); }
+
+    /* FAB */
+    let fabOpen = false;
+    const fabOptions   = document.getElementById('fab-options');
+    const fabIconMsg   = document.getElementById('fab-icon-msg');
+    const fabIconClose = document.getElementById('fab-icon-close');
+    function toggleFab() {
+      fabOpen = !fabOpen;
+      fabOptions.style.opacity       = fabOpen ? '1' : '0';
+      fabOptions.style.pointerEvents = fabOpen ? 'auto' : 'none';
+      fabOptions.style.transform     = fabOpen ? 'translateY(0)' : 'translateY(8px)';
+      fabIconMsg.style.display   = fabOpen ? 'none'  : 'block';
+      fabIconClose.style.display = fabOpen ? 'block' : 'none';
+    }
+    document.addEventListener('click', e => {
+      if (fabOpen && !document.getElementById('fab-wrap').contains(e.target)) toggleFab();
+    });
+  </script>
+
+</body>
+</html>

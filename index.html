@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kansas City Bhangra: Folk Dance Academy</title>
+  <meta name="description" content="Kansas City's authentic folk Bhangra academy. Real Punjabi tradition, open to all ages and backgrounds. Classes in Lenexa, KS.">
+  <meta property="og:title" content="Kansas City Bhangra: Folk Dance Academy">
+  <meta property="og:description" content="Real folk tradition from Punjab. Open to all ages and backgrounds. Classes in Lenexa, KS.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────── */
+    :root {
+      --black:      #0f0e0c;
+      --black-warm: #1a1816;
+      --amber:      #f5a623;
+      --amber-dim:  rgba(245,166,35,0.12);
+      --cream:      #faf6f0;
+      --white:      #ffffff;
+      --muted:      rgba(250,246,240,0.45);
+      --border:     rgba(250,246,240,0.10);
+      --border-light: rgba(15,14,12,0.12);
+
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* ─── RESET ──────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+    body.cursor-active { cursor: none; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; border: none; background: none; font: inherit; }
+
+    /* ─── CUSTOM CURSOR (desktop only) ──────── */
+    #cursor-dot, #cursor-ring {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      top: -100px; left: -100px;
+    }
+    #cursor-dot {
+      width: 7px; height: 7px;
+      background: var(--amber);
+      transition: width 0.2s, height 0.2s, opacity 0.2s;
+    }
+    #cursor-ring {
+      width: 34px; height: 34px;
+      border: 1.5px solid rgba(245,166,35,0.6);
+      transition: width 0.3s cubic-bezier(0.25,0.46,0.45,0.94),
+                  height 0.3s cubic-bezier(0.25,0.46,0.45,0.94),
+                  opacity 0.3s;
+    }
+    .cursor-expanded #cursor-ring { width: 50px; height: 50px; opacity: 1; }
+
+    /* ─── NAV ────────────────────────────────── */
+    #nav {
+      position: fixed;
+      top: 34px; left: 0; right: 0;
+      z-index: 500;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.45s ease, padding 0.35s ease, border-bottom 0.45s ease;
+      border-bottom: 1px solid transparent;
+    }
+    #nav.scrolled {
+      background: var(--black);
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      border-bottom-color: var(--border);
+    }
+
+    .nav-wordmark {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .nav-wordmark-dot {
+      width: 8px; height: 8px;
+      background: var(--amber);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-links .nav-cta {
+      opacity: 1;
+      background: var(--amber);
+      color: var(--black);
+      padding: 0.55rem 1.25rem;
+      border-radius: 2px;
+      font-weight: 700;
+      transition: background 0.2s, opacity 0.2s;
+    }
+    .nav-links .nav-cta:hover { background: #e0961a; }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px; height: 1.5px;
+      background: var(--cream);
+      transition: all 0.3s;
+    }
+
+    /* Mobile nav drawer */
+    .nav-drawer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 490;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--cream);
+      opacity: 0.7;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .nav-drawer a:hover { opacity: 1; color: var(--amber); }
+    .nav-drawer-close {
+      position: absolute;
+      top: 1.5rem; right: 2.5rem;
+      font-size: 2rem;
+      color: var(--cream);
+      opacity: 0.5;
+      cursor: pointer;
+      font-family: var(--font-display);
+    }
+
+    /* ─── HERO ───────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      background: var(--black);
+      display: flex;
+      align-items: flex-end;
+      padding: 9rem 2.5rem 5rem;
+      overflow: hidden;
+    }
+
+    /* Subtle noise grain */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.5;
+    }
+
+    /* Watermark logo in hero background */
+    .hero-watermark {
+      position: absolute;
+      right: -4%;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 88vh;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Amber glow at bottom-left */
+    .hero-glow {
+      position: absolute;
+      bottom: -20%;
+      left: -10%;
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1.75rem;
+      opacity: 0;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 1.75rem; height: 1px;
+      background: var(--amber);
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(3.75rem, 9.5vw, 9.5rem);
+      line-height: 0.91;
+      letter-spacing: -0.025em;
+      color: var(--white);
+      margin-bottom: 2.25rem;
+    }
+    .hero-headline .line {
+      display: block;
+      overflow: hidden;
+      padding-bottom: 0.04em;
+    }
+    .hero-headline .line-inner { display: block; }
+    .hero-headline .amber { color: var(--amber); }
+
+    .hero-sub {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 38ch;
+      line-height: 1.65;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      opacity: 0;
+    }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute;
+      right: 2.5rem;
+      bottom: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      z-index: 2;
+      opacity: 0;
+    }
+    .hero-scroll-line {
+      width: 1px; height: 52px;
+      background: linear-gradient(to bottom, var(--amber), transparent);
+      animation: scrollDrop 2s ease-in-out infinite;
+    }
+    .hero-scroll-label {
+      font-family: var(--font-body);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      writing-mode: vertical-rl;
+    }
+    @keyframes scrollDrop {
+      0% { transform: scaleY(1); opacity: 0.5; }
+      50% { transform: scaleY(0.5); opacity: 1; transform-origin: top; }
+      100% { transform: scaleY(1); opacity: 0.5; }
+    }
+
+    /* ─── BUTTONS ────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.9rem 1.75rem;
+      border-radius: 2px;
+      transition: transform 0.2s, background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-amber {
+      background: var(--amber);
+      color: var(--black);
+    }
+    .btn-amber:hover { background: #e0961a; }
+    .btn-outline-white {
+      border: 1px solid rgba(250,246,240,0.25);
+      color: var(--cream);
+    }
+    .btn-outline-white:hover { border-color: var(--cream); }
+    .btn-outline-dark {
+      border: 1px solid var(--border-light);
+      color: var(--black);
+    }
+    .btn-outline-dark:hover { border-color: var(--black); }
+
+    /* ─── VENUE MARQUEE ──────────────────────── */
+    .venue-bar {
+      background: var(--black-warm);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 0;
+      overflow: hidden;
+      position: relative;
+    }
+    /* Fade edges */
+    .venue-bar::before,
+    .venue-bar::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 5rem;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .venue-bar::before { left: 0; background: linear-gradient(to right, var(--black-warm), transparent); }
+    .venue-bar::after  { right: 0; background: linear-gradient(to left, var(--black-warm), transparent); }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-set {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-shrink: 0;
+    }
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0 2.5rem;
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(250,246,240,0.45);
+      white-space: nowrap;
+    }
+    .marquee-label {
+      color: var(--amber);
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      opacity: 0.8;
+    }
+    .marquee-dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--amber);
+      opacity: 0.5;
+      flex-shrink: 0;
+    }
+
+    /* ─── STATS ──────────────────────────────── */
+    .stats-section {
+      background: var(--cream);
+      padding: 4rem 2.5rem;
+    }
+    .stats-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .stat-item {
+      padding: 1.5rem;
+      border-left: 1px solid var(--border-light);
+    }
+    .stat-item:first-child { border-left: none; padding-left: 0; }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: clamp(2.25rem, 4vw, 3.75rem);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--black);
+      letter-spacing: -0.03em;
+    }
+    .stat-number em { color: var(--amber); font-style: normal; }
+    .stat-label {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      color: rgba(15,14,12,0.45);
+      text-transform: uppercase;
+      margin-top: 0.4rem;
+    }
+
+    /* ─── SECTION UTILITIES ──────────────────── */
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1.25rem;
+    }
+    .section-tag::before {
+      content: '';
+      display: block;
+      width: 1.5rem; height: 1px;
+      background: var(--amber);
+    }
+    .section-tag.dark { color: rgba(15,14,12,0.4); }
+    .section-tag.dark::before { background: rgba(15,14,12,0.3); }
+
+    /* ─── POSITIONING SECTION ─────────────────── */
+    .positioning-section {
+      background: var(--black);
+      padding: 7rem 2.5rem;
+    }
+    .positioning-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .pos-left h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.25rem, 4vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      margin-bottom: 1.75rem;
+    }
+    .pos-left p {
+      font-family: var(--font-body);
+      font-size: 1.02rem;
+      font-weight: 300;
+      line-height: 1.78;
+      color: var(--muted);
+      margin-bottom: 1.1rem;
+    }
+    .pos-left p:last-of-type { margin-bottom: 2.25rem; }
+
+    .pos-card {
+      background: var(--black-warm);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .pos-card-header {
+      padding: 1.25rem 1.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .pos-card-header p {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+    .pos-card-row {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      padding: 1.5rem 1.75rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .pos-card-row:last-child { border-bottom: none; }
+    .pos-card-row:hover { background: rgba(245,166,35,0.03); }
+    .pos-icon {
+      width: 30px; height: 30px;
+      flex-shrink: 0;
+      border: 1px solid rgba(245,166,35,0.25);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: var(--amber);
+      margin-top: 1px;
+    }
+    .pos-card-row strong {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 0.3rem;
+    }
+    .pos-card-row p {
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ─── CLASSES PREVIEW ─────────────────────── */
+    .classes-section {
+      background: var(--cream);
+      padding: 7rem 2.5rem;
+    }
+    .classes-inner { max-width: 1200px; margin: 0 auto; }
+
+    .classes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+      gap: 1rem;
+    }
+    .classes-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      color: var(--black);
+    }
+    .classes-header .see-all {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(15,14,12,0.45);
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .classes-header .see-all:hover { color: var(--black); }
+
+    .sessions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .session-card {
+      background: var(--black);
+      border-radius: 3px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .session-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--amber);
+    }
+    .session-card.inactive::before {
+      background: rgba(250,246,240,0.1);
+    }
+
+    .session-label {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.75rem;
+    }
+    .session-card.inactive .session-label { color: var(--muted); }
+
+    .session-title {
+      font-family: var(--font-display);
+      font-size: 2.25rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      margin-bottom: 1.75rem;
+    }
+
+    .session-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .session-meta-row {
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+    }
+    .session-meta-key {
+      color: var(--cream);
+      font-weight: 600;
+      min-width: 72px;
+    }
+    .session-meta-val { color: var(--muted); font-weight: 300; }
+
+    .session-tiers {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      margin-bottom: 1.75rem;
+    }
+    .tier-row {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .tier-pip {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--amber);
+      flex-shrink: 0;
+    }
+    .session-card.inactive .tier-pip { background: rgba(250,246,240,0.2); }
+
+    .session-price-block {
+      margin-bottom: 1.5rem;
+    }
+    .session-price {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .session-price-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 300;
+      margin-top: 0.3rem;
+    }
+
+    .free-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--amber-dim);
+      border: 1px solid rgba(245,166,35,0.25);
+      border-radius: 2px;
+      padding: 0.55rem 0.9rem;
+      margin-top: 1rem;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--amber);
+      letter-spacing: 0.06em;
+    }
+    .free-tag::before {
+      content: '→';
+    }
+
+    /* ─── TESTIMONIALS ───────────────────────── */
+    .testimonials-section {
+      background: var(--black-warm);
+      padding: 7rem 2.5rem;
+    }
+    .testimonials-inner { max-width: 1200px; margin: 0 auto; }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+    .testimonial-card {
+      background: var(--black);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .t-mark {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--amber);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      opacity: 0.6;
+    }
+    .t-text {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 300;
+      line-height: 1.72;
+      color: var(--muted);
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+    .t-author {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cream);
+    }
+    .t-role {
+      font-size: 0.7rem;
+      color: rgba(250,246,240,0.35);
+      font-weight: 400;
+      margin-top: 0.2rem;
+      letter-spacing: 0.04em;
+    }
+    .testimonials-note {
+      font-size: 0.68rem;
+      color: rgba(250,246,240,0.2);
+      font-family: var(--font-body);
+      margin-top: 1.25rem;
+      font-style: italic;
+    }
+
+    /* ─── INSTRUCTOR ─────────────────────────── */
+    .instructor-section {
+      background: var(--cream);
+      padding: 7rem 2.5rem;
+    }
+    .instructor-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .instructor-photo {
+      position: relative;
+      aspect-ratio: 3/4;
+      background: var(--black-warm);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .instructor-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .instructor-photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      color: rgba(250,246,240,0.15);
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 2rem;
+    }
+    .instructor-badge {
+      position: absolute;
+      bottom: 1.75rem;
+      right: -0.75rem;
+      background: var(--amber);
+      color: var(--black);
+      padding: 1rem 1.25rem;
+      border-radius: 2px;
+    }
+    .instructor-badge-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .instructor-badge-label {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .instructor-right h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      color: var(--black);
+      margin-bottom: 1.5rem;
+    }
+    .instructor-right p {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.78;
+      color: rgba(15,14,12,0.58);
+      margin-bottom: 1rem;
+    }
+    .instructor-right p:last-of-type { margin-bottom: 2.25rem; }
+
+    /* ─── MERCH TEASER ───────────────────────── */
+    .merch-section {
+      background: var(--black);
+      padding: 5.5rem 2.5rem;
+      overflow: hidden;
+    }
+    .merch-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4rem;
+    }
+    .merch-left { flex-shrink: 0; max-width: 400px; }
+    .merch-left h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.02;
+      color: var(--white);
+      margin-bottom: 0.75rem;
+    }
+    .merch-left p {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+    .merch-products {
+      display: flex;
+      gap: 1rem;
+    }
+    .merch-product {
+      width: 170px;
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .merch-product img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+    }
+    .merch-product-name {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(15,14,12,0.85);
+      backdrop-filter: blur(4px);
+      padding: 0.6rem 0.9rem;
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cream);
+    }
+
+    /* ─── FOOTER ──────────────────────────────── */
+    footer {
+      background: var(--black-warm);
+      border-top: 1px solid var(--border);
+      padding: 4rem 2.5rem 2rem;
+    }
+    .footer-top {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .footer-brand-name {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .footer-brand-dot {
+      width: 7px; height: 7px;
+      background: var(--amber);
+      border-radius: 50%;
+    }
+    .footer-brand-desc {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 22ch;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 0.6rem;
+      margin-bottom: 1.25rem;
+    }
+    .footer-social-link {
+      width: 34px; height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .footer-social-link:hover { border-color: var(--amber); color: var(--amber); }
+
+    .footer-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #25D366;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.55rem 1rem;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .footer-whatsapp:hover { background: #1eaa56; }
+
+    .footer-col h4 {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 1.25rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .footer-col li a {
+      font-family: var(--font-body);
+      font-size: 0.855rem;
+      font-weight: 300;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .footer-col li a:hover { color: var(--cream); }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .footer-bottom p {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: rgba(250,246,240,0.22);
+    }
+
+    /* ─── GSAP INIT ──────────────────────────── */
+    .js-reveal { opacity: 0; transform: translateY(44px); }
+    .js-fade   { opacity: 0; }
+
+    /* ─── RESPONSIVE ─────────────────────────── */
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .apart-grid { grid-template-columns: 1fr !important; }
+      .wedding-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+      .wedding-grid > div:first-child { border-right: none !important; padding-right: 0 !important; border-bottom: 1px solid var(--border); padding-bottom: 2rem; }
+      .review-grid { grid-template-columns: 1fr !important; }
+      .hero { padding-bottom: 6rem; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(3) { border-left: none; padding-left: 0; }
+      .positioning-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .sessions-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr 1fr; }
+      .instructor-inner { grid-template-columns: 1fr; }
+      .instructor-photo { aspect-ratio: 4/3; max-width: 480px; }
+      .merch-inner { flex-direction: column; align-items: flex-start; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      #nav { padding: 1.1rem 1.25rem; }
+      .hero { padding: 0 1.25rem 4rem; }
+      .venue-bar { display: none; } /* optional: show on mobile too if desired */
+      .stats-section { padding: 3rem 1.25rem; }
+      .stats-inner { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+      .stat-item { padding: 1rem; }
+      .stat-item:nth-child(odd)  { border-left: none; padding-left: 0; }
+      .stat-item:nth-child(even) { border-left: 1px solid var(--border-light); padding-left: 1rem; }
+      .positioning-section,
+      .classes-section,
+      .testimonials-section,
+      .instructor-section,
+      .merch-section,
+      footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .instructor-badge { right: 1rem; }
+      .merch-products { flex-wrap: wrap; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-brand { grid-column: auto; }
+      #cursor-dot, #cursor-ring { display: none !important; }
+    }
+  </style>
+</head>
+<body class="cursor-active">
+
+  <!-- Custom cursor (hidden on touch) -->
+  <div id="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ─── NAV ──────────────────────────────────── -->
+  <nav id="nav">
+    <a href="index.html" class="nav-wordmark">Kansas City Bhangra</a>
+
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="classes.html">Classes</a></li>
+      <li><a href="workshops.html">Workshops</a></li>
+      <li><a href="performances.html">Performances</a></li>
+      <li><a href="merch.html">Merch</a></li>
+      <li><a href="classes.html#enroll" class="nav-cta">Enroll Free</a></li>
+    </ul>
+
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile nav drawer -->
+  <div class="nav-drawer" id="nav-drawer">
+    <button class="nav-drawer-close" id="drawer-close" aria-label="Close menu">✕</button>
+    <a href="about.html" onclick="closeDrawer()">About</a>
+    <a href="classes.html" onclick="closeDrawer()">Classes</a>
+    <a href="workshops.html" onclick="closeDrawer()">Workshops</a>
+    <a href="performances.html" onclick="closeDrawer()">Performances</a>
+    <a href="merch.html" onclick="closeDrawer()">Merch</a>
+    <a href="classes.html#enroll" style="color: var(--amber);" onclick="closeDrawer()">Enroll Free →</a>
+  </div>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div style="background:var(--amber);padding:0.6rem 2.5rem;display:flex;align-items:center;justify-content:center;gap:1.5rem;position:fixed;top:0;left:0;right:0;z-index:501;margin-top:0;" id="announcement-bar">
+    <p style="font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--black);">Fall 2026 sessions starting soon</p>
+    <a href="classes.html#enroll" style="font-family:var(--font-body);font-size:0.72rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--black);text-decoration:underline;text-underline-offset:3px;white-space:nowrap;">Enroll now →</a>
+    <button onclick="document.getElementById('announcement-bar').style.display='none';document.getElementById('nav').style.top='0'" style="background:none;border:none;cursor:pointer;color:var(--black);opacity:0.4;font-size:1rem;padding:0;margin-left:0.5rem;line-height:1;" aria-label="Dismiss">✕</button>
+  </div>
+
+  <!-- ─── HERO ───────────────────────────────────── -->
+  <section class="hero">
+    <!-- REPLACE: swap this with a <video> element or background-image using a KC Bhangra performance photo -->
+    <div class="hero-glow" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <h1 class="hero-headline">
+        <span class="line"><span class="line-inner">Bhangra</span></span>
+        <span class="line"><span class="line-inner">belongs to</span></span>
+        <span class="line"><span class="line-inner amber">everyone.</span></span>
+      </h1>
+
+      <p class="hero-sub">
+        Real folk tradition from Punjab. Ages 5 and up, all backgrounds.
+        No language barrier. No experience. Just show up.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="classes.html" class="btn btn-amber">Book Your Free Class →</a>
+        <a href="about.html" class="btn btn-outline-white">Our Story</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="hero-scroll-line"></div>
+      <span class="hero-scroll-label">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ─── VENUE MARQUEE ──────────────────────────── -->
+  <div class="venue-bar" role="complementary" aria-label="Past performance venues">
+    <div class="marquee-track">
+      <div class="marquee-set" aria-hidden="true">
+        <span class="marquee-item">
+          <span class="marquee-label">Performed at</span>
+          <span class="marquee-dot"></span>
+          Kauffman Center for the Performing Arts
+          <span class="marquee-dot"></span>
+          KC Current
+          <span class="marquee-dot"></span>
+          University of Missouri, Kansas City
+          <span class="marquee-dot"></span>
+          Kansas State University
+          <span class="marquee-dot"></span>
+        </span>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="marquee-set" aria-hidden="true">
+        <span class="marquee-item">
+          <span class="marquee-label">Performed at</span>
+          <span class="marquee-dot"></span>
+          Kauffman Center for the Performing Arts
+          <span class="marquee-dot"></span>
+          KC Current
+          <span class="marquee-dot"></span>
+          University of Missouri, Kansas City
+          <span class="marquee-dot"></span>
+          Kansas State University
+          <span class="marquee-dot"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── STATS ──────────────────────────────────── -->
+  <div class="stats-section">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-number">250<em>+</em></div>
+        <div class="stat-label">Students taught</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">2019</div>
+        <div class="stat-label">Founded in Kansas City</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">5<em>–60+</em></div>
+        <div class="stat-label">Ages in our community</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">10<em>+</em></div>
+        <div class="stat-label">Wedding parties choreographed</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── POSITIONING ──────────────────────────────── -->
+  <section class="positioning-section">
+    <div class="positioning-inner">
+      <div class="pos-left js-reveal">
+        <p class="section-tag">The tradition</p>
+        <h2>Not Bollywood.<br>It's folk.</h2>
+        <p>Folk Bhangra is not what you've seen in movies. It's a harvest celebration from Punjab. Raw, high-energy, and centuries old. The footwork you learn here is the real thing, not a studio adaptation.</p>
+        <p>Once you have the foundations our coaches teach, you can apply them to any Punjabi music. Old or new. Traditional or modern. The scaffolding holds everything.</p>
+        <a href="about.html" class="btn btn-outline-white">Learn the tradition →</a>
+      </div>
+
+      <div class="pos-card js-reveal">
+        <div class="pos-card-header">
+          <p>What makes KC Bhangra different</p>
+        </div>
+        <div class="pos-card-row">
+          <div class="pos-icon">↗</div>
+          <div>
+            <strong>Real folk foundations</strong>
+            <p>Coached by instructors trained in traditional Punjabi folk Bhangra from age 5, under authentic gurus. Not a movie adaptation.</p>
+          </div>
+        </div>
+        <div class="pos-card-row">
+          <div class="pos-icon">◎</div>
+          <div>
+            <strong>Scaffolding approach</strong>
+            <p>We build your foundation first. Then you can apply it to any Punjabi music: old or new, forever.</p>
+          </div>
+        </div>
+        <div class="pos-card-row">
+          <div class="pos-icon">→</div>
+          <div>
+            <strong>Open to everyone</strong>
+            <p>No background needed. Kansas City's only folk Bhangra academy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WHAT SETS US APART ───────────────────────── -->
+  <section style="background:var(--cream);padding:6rem 2.5rem;">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:3.5rem;" class="js-reveal">
+        <p class="section-tag dark" style="justify-content:center;">Why KC Bhangra</p>
+        <h2 style="font-family:var(--font-display);font-size:clamp(2rem,3.5vw,3rem);font-weight:800;letter-spacing:-0.02em;color:var(--black);">Built for everyone.<br>Rooted in the real thing.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;" class="apart-grid">
+        <div class="apart-card js-reveal" style="background:var(--black);border-radius:3px;padding:2.25rem;position:relative;overflow:hidden;">
+          <h3 style="font-family:var(--font-display);font-size:1.25rem;font-weight:800;color:var(--white);letter-spacing:-0.01em;margin-bottom:0.75rem;">Authentic folk tradition</h3>
+          <p style="font-family:var(--font-body);font-size:0.88rem;font-weight:300;color:var(--muted);line-height:1.7;">Not Bollywood. Not a studio adaptation. Our coaches learned from traditional Punjabi gurus and teach the real foundations, the kind that apply to any Punjabi music.</p>
+        </div>
+        <div class="apart-card js-reveal" style="background:var(--black);border-radius:3px;padding:2.25rem;position:relative;overflow:hidden;">
+          <h3 style="font-family:var(--font-display);font-size:1.25rem;font-weight:800;color:var(--white);letter-spacing:-0.01em;margin-bottom:0.75rem;">Beginner friendly, always</h3>
+          <p style="font-family:var(--font-body);font-size:0.88rem;font-weight:300;color:var(--muted);line-height:1.7;">Every session starts with a free intro class. No experience needed, no cultural background required.</p>
+        </div>
+        <div class="apart-card js-reveal" style="background:var(--black);border-radius:3px;padding:2.25rem;position:relative;overflow:hidden;">
+          <h3 style="font-family:var(--font-display);font-size:1.25rem;font-weight:800;color:var(--white);letter-spacing:-0.01em;margin-bottom:0.75rem;">A real community</h3>
+          <p style="font-family:var(--font-body);font-size:0.88rem;font-weight:300;color:var(--muted);line-height:1.7;">250+ students since 2019. Punjabi families, non-Punjabi adults, curious beginners of every background.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CLASSES PREVIEW ────────────────────────── -->
+  <section class="classes-section">
+    <div class="classes-inner">
+      <div class="classes-header">
+        <div>
+          <p class="section-tag dark">Programs</p>
+          <h2>Two sessions<br>per year.</h2>
+          <p style="font-family:var(--font-body);font-size:0.88rem;font-weight:300;color:rgba(15,14,12,0.5);margin-top:0.5rem;">Fall and Spring. Eight Sundays each.</p>
+        </div>
+        <a href="classes.html" class="see-all">See full schedule →</a>
+      </div>
+
+      <div class="sessions-grid">
+        <!-- FALL SESSION -->
+        <div class="session-card js-reveal">
+          <p class="session-label">Fall Session · 2026</p>
+          <h3 class="session-title">Fall<br>Enrollment</h3>
+
+          <div class="session-meta">
+            <div class="session-meta-row">
+              <span class="session-meta-key">When</span>
+              <span class="session-meta-val">Sundays · 8 classes</span>
+            </div>
+            <div class="session-meta-row">
+              <span class="session-meta-key">Where</span>
+              <span class="session-meta-val">Lenexa, Kansas</span>
+            </div>
+            <div class="session-meta-row">
+              <span class="session-meta-key">Ages</span>
+              <span class="session-meta-val">5 and up</span>
+            </div>
+          </div>
+
+          <div class="session-tiers">
+            <div class="tier-row"><span class="tier-pip"></span>Beginners</div>
+            <div class="tier-row"><span class="tier-pip"></span>Intermediate</div>
+            <div class="tier-row"><span class="tier-pip"></span>Advanced</div>
+            <div class="tier-row"><span class="tier-pip"></span>Adults</div>
+          </div>
+
+          <div class="session-price-block">
+            <div class="session-price">$200</div>
+            <div class="session-price-note">Per session · family discounts available</div>
+          </div>
+
+          <a href="classes.html" class="btn btn-amber" style="width: 100%; justify-content: center;">Enroll Now →</a>
+
+          <div class="free-tag">First class is always free. No commitment.</div>
+        </div>
+
+        <!-- SPRING SESSION -->
+        <div class="session-card inactive js-reveal">
+          <p class="session-label">Spring Session · 2027</p>
+          <h3 class="session-title">Spring<br>Enrollment</h3>
+
+          <div class="session-meta">
+            <div class="session-meta-row">
+              <span class="session-meta-key">When</span>
+              <span class="session-meta-val">Sundays · 8 classes</span>
+            </div>
+            <div class="session-meta-row">
+              <span class="session-meta-key">Where</span>
+              <span class="session-meta-val">Lenexa, Kansas</span>
+            </div>
+            <div class="session-meta-row">
+              <span class="session-meta-key">Ages</span>
+              <span class="session-meta-val">5 and up</span>
+            </div>
+          </div>
+
+          <div class="session-tiers">
+            <div class="tier-row"><span class="tier-pip"></span>Beginners</div>
+            <div class="tier-row"><span class="tier-pip"></span>Intermediate</div>
+            <div class="tier-row"><span class="tier-pip"></span>Advanced</div>
+            <div class="tier-row"><span class="tier-pip"></span>Adults</div>
+          </div>
+
+          <div class="session-price-block">
+            <div class="session-price">$200</div>
+            <div class="session-price-note">Per session · family discounts available</div>
+          </div>
+
+          <a href="classes.html" class="btn btn-outline-white" style="width: 100%; justify-content: center; border-color: rgba(250,246,240,0.15);">Join Waitlist →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── TESTIMONIALS ──────────────────────────── -->
+  <section class="testimonials-section">
+    <div class="testimonials-inner">
+      <p class="section-tag">What people say</p>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card js-reveal">
+          <div class="t-mark">"</div>
+          <p class="t-text">The most energetic hour of our week. My kids beg to go every Sunday. Our coaches have a gift for making everyone feel like they belong.</p>
+          <div class="t-author">Sarah M.</div>
+          <div class="t-role">Parent · KC Bhangra since 2022</div>
+        </div>
+        <div class="testimonial-card js-reveal">
+          <div class="t-mark">"</div>
+          <p class="t-text">I had zero connection to Punjabi culture before this. Now I understand it through my body, not just my head. That's a rare thing.</p>
+          <div class="t-author">James T.</div>
+          <div class="t-role">Adult student</div>
+        </div>
+        <div class="testimonial-card js-reveal">
+          <div class="t-mark">"</div>
+          <p class="t-text">Our coaches don't just teach steps. They teach you why each move exists, where it comes from. That depth makes all the difference.</p>
+          <div class="t-author">Priya K.</div>
+          <div class="t-role">Student since 2020</div>
+        </div>
+      </div>
+      <p class="testimonials-note">Placeholder quotes. Real testimonials coming soon.</p>
+
+      <!-- REVIEW CTA -->
+      <div style="margin-top:3.5rem;padding-top:3rem;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem;" class="review-grid">
+
+        <a href="https://www.facebook.com/kcbhangra/reviews" target="_blank" rel="noopener"
+          style="background:var(--black);border:1px solid var(--border);border-radius:3px;padding:2rem;display:flex;flex-direction:column;gap:0.75rem;text-decoration:none;transition:border-color 0.2s;"
+          onmouseover="this.style.borderColor='rgba(245,166,35,0.4)'" onmouseout="this.style.borderColor='var(--border)'">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <div style="font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--white);">Leave a Facebook review</div>
+          <div style="font-family:var(--font-body);font-size:0.82rem;font-weight:300;color:var(--muted);line-height:1.5;">Rate KC Bhangra on our Facebook page. Takes 30 seconds.</div>
+        </a>
+
+        <a href="https://instagram.com/kcbhangra" target="_blank" rel="noopener"
+          style="background:var(--black);border:1px solid var(--border);border-radius:3px;padding:2rem;display:flex;flex-direction:column;gap:0.75rem;text-decoration:none;transition:border-color 0.2s;"
+          onmouseover="this.style.borderColor='rgba(245,166,35,0.4)'" onmouseout="this.style.borderColor='var(--border)'">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          <div style="font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--white);">Tag us on Instagram</div>
+          <div style="font-family:var(--font-body);font-size:0.82rem;font-weight:300;color:var(--muted);line-height:1.5;">Share your experience and tag <strong style="color:var(--cream);font-weight:600;">@kcbhangra</strong>. We repost student stories.</div>
+        </a>
+
+        <!-- REPLACE: Create a Google Form at forms.google.com with fields: Name, How long have you been a student?, Your review -->
+        <!-- Then go to Send > Embed, copy the src URL, paste it below replacing the placeholder href -->
+        <a href="https://forms.google.com/REPLACE_WITH_YOUR_GOOGLE_FORM_ID" target="_blank" rel="noopener"
+          style="background:var(--amber-dim);border:1px solid rgba(245,166,35,0.25);border-radius:3px;padding:2rem;display:flex;flex-direction:column;gap:0.75rem;text-decoration:none;transition:border-color 0.2s;"
+          onmouseover="this.style.borderColor='rgba(245,166,35,0.6)'" onmouseout="this.style.borderColor='rgba(245,166,35,0.25)'">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <div style="font-family:var(--font-display);font-size:1rem;font-weight:800;color:var(--white);">Share your story</div>
+          <div style="font-family:var(--font-body);font-size:0.82rem;font-weight:300;color:var(--muted);line-height:1.5;">Tell us about your experience. We'll feature it on the site with your permission.</div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── INSTRUCTOR ─────────────────────────────── -->
+  <section class="instructor-section">
+    <div class="instructor-inner">
+      <div class="instructor-photo js-fade">
+        <!-- REPLACE: Add src="assets/images/shiv.jpg" with a real photo -->
+        <div class="instructor-photo-placeholder">
+          Add coach photo<br>to assets/images/coach.jpg
+        </div>
+        <div class="instructor-badge">
+          <div class="instructor-badge-num">20<em style="font-style:normal; color:rgba(15,14,12,0.6)">+</em></div>
+          <div class="instructor-badge-label">Years dancing</div>
+        </div>
+      </div>
+
+      <div class="instructor-right js-reveal">
+        <p class="section-tag dark">Our Coaches</p>
+        <h2>Trained in Punjab.<br>Built for Kansas City.</h2>
+        <p>Our head coach Shiv brings real Punjabi folk tradition. Trained from age five in Jalandhar, Punjab, learning directly from traditional gurus.</p>
+        <p>When KC Bhangra was founded in 2019, it started with five students and a simple belief: Kansas City needed a home for authentic Bhangra, open to everyone.</p>
+        <p>Today, 250+ students later, the approach hasn't changed: build the real foundations, let people apply them wherever the music takes them.</p>
+        <a href="about.html" class="btn btn-amber">Meet Our Coaches →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WEDDING CHOREOGRAPHY ─────────────────────── -->
+  <section style="background:var(--black-warm);padding:5rem 2.5rem;border-top:1px solid var(--border);">
+    <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:auto 1fr auto;gap:4rem;align-items:center;" class="wedding-grid js-reveal">
+
+      <!-- Big stat -->
+      <div style="text-align:center;border-right:1px solid var(--border);padding-right:4rem;">
+        <div style="font-family:var(--font-display);font-size:clamp(5rem,10vw,8rem);font-weight:800;color:var(--white);line-height:1;letter-spacing:-0.04em;">10<span style="color:var(--amber);">+</span></div>
+        <div style="font-family:var(--font-body);font-size:0.68rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--amber);margin-top:0.25rem;">Wedding parties choreographed</div>
+      </div>
+
+      <!-- Description -->
+      <div>
+        <p class="section-tag">Wedding Choreography</p>
+        <h2 style="font-family:var(--font-display);font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800;letter-spacing:-0.02em;color:var(--white);margin-bottom:1rem;line-height:1.05;">Make your wedding<br>unforgettable.</h2>
+        <p style="font-family:var(--font-body);font-size:0.95rem;font-weight:300;color:var(--muted);line-height:1.72;max-width:44ch;">Ten-plus wedding parties choreographed. Sangeet performances, baraat entries, family group numbers. We build custom Bhangra choreography around your family, your music, and your timeline. No prior dance experience needed.</p>
+      </div>
+
+      <!-- CTA -->
+      <div style="display:flex;flex-direction:column;gap:0.75rem;flex-shrink:0;">
+        <a href="services.html" class="btn btn-amber">Inquire →</a>
+        <a href="https://wa.me/16464219634" class="btn btn-outline-white" target="_blank" rel="noopener" style="font-size:0.72rem;">WhatsApp us</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── MERCH TEASER ───────────────────────────── -->
+  <section class="merch-section">
+    <div class="merch-inner">
+      <div class="merch-left js-reveal">
+        <p class="section-tag">Merch</p>
+        <h2>Wear the<br>culture.</h2>
+        <p>KC Bhangra tees, hoodies, and stickers. For people who move.</p>
+        <a href="merch.html" class="btn btn-outline-white">Shop →</a>
+      </div>
+      <div class="merch-products js-reveal">
+        <div class="merch-product">
+          <img src="assets/images/logo-transparent.png" alt="KC Bhangra Classic Tee" style="object-fit:contain;padding:1rem;">
+          <div class="merch-product-name">Classic Tee</div>
+        </div>
+        <div class="merch-product">
+          <img src="assets/images/logo-color-transparent.png" alt="KC Bhangra Sticker" style="object-fit:contain;padding:1rem;">
+          <div class="merch-product-name">Sticker Pack</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────────────────────── -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/images/logo-transparent.png" alt="Kansas City Bhangra" style="height:72px;width:auto;margin-bottom:0.75rem;">
+        <div class="footer-brand-name">
+          <span class="footer-brand-dot"></span>
+          Kansas City Bhangra
+        </div>
+        <p class="footer-brand-desc">Kansas City's authentic folk Bhangra academy. Real Punjabi tradition, open to all.</p>
+
+        <div class="footer-socials">
+          <a class="footer-social-link" href="https://instagram.com/kcbhangra" target="_blank" rel="noopener" title="Instagram">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a class="footer-social-link" href="https://facebook.com/kcbhangra" target="_blank" rel="noopener" title="Facebook">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.25rem;">
+          <!-- REPLACE: Update href with your actual WhatsApp number -->
+          <a class="footer-whatsapp" href="https://wa.me/16464219634" target="_blank" rel="noopener" title="WhatsApp">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+          <a class="footer-whatsapp" href="https://instagram.com/kcbhangra" target="_blank" rel="noopener" style="background:#E1306C;" title="Instagram DM">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            Instagram
+          </a>
+          <a class="footer-whatsapp" href="https://m.me/kcbhangra" target="_blank" rel="noopener" style="background:#0084FF;" title="Facebook Message">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.626 0 12-4.974 12-11.111C24 4.975 18.626 0 12 0zm1.193 14.963l-3.056-3.259-5.963 3.259L10.733 8.6l3.13 3.259 5.89-3.259-6.56 6.363z"/></svg>
+            Facebook
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Academy</h4>
+        <ul>
+          <li><a href="about.html">About KC Bhangra</a></li>
+          <li><a href="classes.html">All Classes</a></li>
+          <li><a href="classes.html#enroll">Enroll Now</a></li>
+          <li><a href="classes.html#enroll">Free Trial Class</a></li>
+          <li><a href="classes.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="workshops.html">Workshops</a></li>
+          <li><a href="performances.html">Performances</a></li>
+          <li><a href="services.html">Wedding Choreo</a></li>
+          <li><a href="services.html">Private Lessons</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="merch.html">Shop Merch</a></li>
+          <li><a href="https://instagram.com/kcbhangra" target="_blank">Instagram</a></li>
+          <li><a href="https://facebook.com/kcbhangra" target="_blank">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Kansas City Bhangra · Lenexa, Kansas · All rights reserved.</p>
+      <p>Authentic folk Bhangra since 2019.</p>
+    </div>
+  </footer>
+
+  <!-- ─── FLOATING CONTACT ─────────────────────────── -->
+  <div id="fab-wrap" style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:800;display:flex;flex-direction:column;align-items:flex-end;gap:0.6rem;">
+
+    <!-- Expanded options (hidden by default) -->
+    <div id="fab-options" style="display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity 0.25s ease,transform 0.25s ease;">
+
+      <a href="https://wa.me/16464219634" target="_blank" rel="noopener"
+        style="display:inline-flex;align-items:center;gap:0.6rem;background:#25D366;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+
+      <a href="https://instagram.com/kcbhangra" target="_blank" rel="noopener"
+        style="display:inline-flex;align-items:center;gap:0.6rem;background:#E1306C;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagram
+      </a>
+
+      <a href="https://m.me/kcbhangra" target="_blank" rel="noopener"
+        style="display:inline-flex;align-items:center;gap:0.6rem;background:#0084FF;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.626 0 12-4.974 12-11.111C24 4.975 18.626 0 12 0zm1.193 14.963l-3.056-3.259-5.963 3.259L10.733 8.6l3.13 3.259 5.89-3.259-6.56 6.363z"/></svg>
+        Facebook
+      </a>
+
+    </div>
+
+    <!-- Main toggle button -->
+    <button id="fab-btn" onclick="toggleFab()"
+      style="width:52px;height:52px;border-radius:50%;background:var(--amber);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(245,166,35,0.4);transition:transform 0.2s,background 0.2s;"
+      aria-label="Contact us">
+      <svg id="fab-icon-msg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f0e0c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <svg id="fab-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f0e0c" stroke-width="2.5" stroke-linecap="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+  </div>
+
+  <!-- ─── GSAP ───────────────────────────────────── -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script>
+    /* ─── CUSTOM CURSOR ───────────────────────── */
+    const isTouchDevice = window.matchMedia('(hover: none)').matches;
+    const cursorDot  = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
+
+    if (!isTouchDevice) {
+      let mx = -100, my = -100;
+      let rx = -100, ry = -100;
+
+      document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        cursorDot.style.left = mx + 'px';
+        cursorDot.style.top  = my + 'px';
+      });
+
+      (function rafLoop() {
+        rx += (mx - rx) * 0.11;
+        ry += (my - ry) * 0.11;
+        cursorRing.style.left = rx + 'px';
+        cursorRing.style.top  = ry + 'px';
+        requestAnimationFrame(rafLoop);
+      })();
+
+      document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-expanded'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-expanded'));
+      });
+    } else {
+      document.body.classList.remove('cursor-active');
+    }
+
+    /* ─── NAV SCROLL ──────────────────────────── */
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    /* ─── MOBILE DRAWER ───────────────────────── */
+    const drawer   = document.getElementById('nav-drawer');
+    const hamburger = document.getElementById('hamburger');
+    const closeBtn  = document.getElementById('drawer-close');
+
+    hamburger.addEventListener('click', () => drawer.classList.add('open'));
+    closeBtn.addEventListener('click', () => drawer.classList.remove('open'));
+
+    function closeDrawer() { drawer.classList.remove('open'); }
+
+    /* ─── GSAP SETUP ──────────────────────────── */
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* Hero entrance */
+    const heroTl = gsap.timeline({ delay: 0.15 });
+    heroTl
+      .from('.hero-headline .line-inner', {
+        y: '105%',
+        duration: 1,
+        stagger: 0.1,
+        ease: 'power4.out'
+      })
+      .to('.hero-sub', { opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.4')
+      .to('.hero-ctas', { opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.5')
+      .to('.hero-scroll', { opacity: 1, duration: 0.8, ease: 'power2.out' }, '-=0.3');
+
+    /* Scroll reveals */
+    gsap.utils.toArray('.js-reveal').forEach(el => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 48 },
+        {
+          opacity: 1, y: 0,
+          duration: 0.85,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 87%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    gsap.utils.toArray('.js-fade').forEach(el => {
+      gsap.fromTo(el,
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 1.1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 82%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+
+    /* Stat stagger */
+    gsap.from('.stat-item', {
+      opacity: 0, y: 30,
+      duration: 0.7,
+      stagger: 0.12,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.stats-section',
+        start: 'top 82%'
+      }
+    });
+
+    /* Testimonial card stagger */
+    gsap.from('.testimonial-card', {
+      opacity: 0, y: 36,
+      duration: 0.75,
+      stagger: 0.12,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.testimonials-grid',
+        start: 'top 85%'
+      }
+    });
+    /* ─── FLOATING CONTACT BUTTON ───────────── */
+    let fabOpen = false;
+    const fabOptions = document.getElementById('fab-options');
+    const fabBtn    = document.getElementById('fab-btn');
+    const fabIconMsg   = document.getElementById('fab-icon-msg');
+    const fabIconClose = document.getElementById('fab-icon-close');
+
+    function toggleFab() {
+      fabOpen = !fabOpen;
+      fabOptions.style.opacity       = fabOpen ? '1' : '0';
+      fabOptions.style.pointerEvents = fabOpen ? 'auto' : 'none';
+      fabOptions.style.transform     = fabOpen ? 'translateY(0)' : 'translateY(8px)';
+      fabIconMsg.style.display   = fabOpen ? 'none'  : 'block';
+      fabIconClose.style.display = fabOpen ? 'block' : 'none';
+      fabBtn.style.transform = fabOpen ? 'rotate(0deg) scale(1.05)' : 'scale(1)';
+    }
+
+    /* Close when clicking outside */
+    document.addEventListener('click', e => {
+      if (fabOpen && !document.getElementById('fab-wrap').contains(e.target)) toggleFab();
+    });
+  </script>
+
+</body>
+</html>

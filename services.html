@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services: Kansas City Bhangra</title>
+  <meta name="description" content="Wedding choreography and private Bhangra lessons with Kansas City Bhangra. 10+ weddings choreographed.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black:      #0f0e0c;
+      --black-warm: #1a1816;
+      --amber:      #f5a623;
+      --amber-dim:  rgba(245,166,35,0.10);
+      --cream:      #faf6f0;
+      --white:      #ffffff;
+      --muted:      rgba(250,246,240,0.45);
+      --border:     rgba(250,246,240,0.10);
+      --border-light: rgba(15,14,12,0.12);
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'Plus Jakarta Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--cream); color: var(--black); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── NAV ─── */
+    #nav { position: fixed; top: 34px; left: 0; right: 0; z-index: 500; padding: 1.25rem 2.5rem; display: flex; align-items: center; justify-content: space-between; background: var(--black); border-bottom: 1px solid var(--border); }
+    .nav-wordmark { font-family: var(--font-display); font-weight: 800; font-size: 0.88rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); }
+    .nav-links { display: flex; align-items: center; gap: 2.25rem; list-style: none; }
+    .nav-links a { font-family: var(--font-body); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream); opacity: 0.6; transition: opacity 0.2s; }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; }
+    .nav-links .nav-cta { opacity: 1; background: var(--amber); color: var(--black); padding: 0.55rem 1.25rem; border-radius: 2px; font-weight: 700; transition: background 0.2s; }
+    .nav-links .nav-cta:hover { background: #e0961a; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 4px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--cream); }
+    .nav-drawer { display: none; position: fixed; inset: 0; background: var(--black); z-index: 490; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: var(--cream); opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
+    .nav-drawer a:hover { opacity: 1; color: var(--amber); }
+    .nav-drawer-close { position: absolute; top: 1.5rem; right: 2.5rem; font-size: 2rem; color: var(--cream); opacity: 0.5; cursor: pointer; }
+
+    /* ─── ANNOUNCEMENT BAR ─── */
+    #announcement-bar { background: var(--amber); padding: 0.6rem 2.5rem; display: flex; align-items: center; justify-content: center; gap: 1.5rem; position: fixed; top: 0; left: 0; right: 0; z-index: 501; }
+    #announcement-bar p { font-family: var(--font-body); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); }
+    #announcement-bar a { font-family: var(--font-body); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+    #announcement-bar button { background: none; border: none; cursor: pointer; color: var(--black); opacity: 0.4; font-size: 1rem; padding: 0; line-height: 1; }
+
+    /* ─── BUTTONS ─── */
+    .btn { display: inline-flex; align-items: center; gap: 0.45rem; font-family: var(--font-body); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.9rem 1.75rem; border-radius: 2px; transition: transform 0.2s, background 0.2s, border-color 0.2s; cursor: pointer; border: none; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-amber { background: var(--amber); color: var(--black); }
+    .btn-amber:hover { background: #e0961a; }
+    .btn-outline-dark { border: 1px solid var(--border-light); color: var(--black); background: none; }
+    .btn-outline-dark:hover { border-color: var(--black); }
+    .btn-outline-white { border: 1px solid var(--border); color: var(--cream); background: none; }
+    .btn-outline-white:hover { border-color: var(--cream); }
+    .btn-whatsapp { background: #25D366; color: var(--white); }
+    .btn-whatsapp:hover { background: #1eaa56; }
+
+    /* ─── SECTION TAG ─── */
+    .section-tag { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-body); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--amber); margin-bottom: 1.25rem; }
+    .section-tag::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--amber); }
+    .section-tag.dark { color: rgba(15,14,12,0.4); }
+    .section-tag.dark::before { background: rgba(15,14,12,0.3); }
+
+    /* ─── PAGE HEADER ─── */
+    .page-header { background: var(--black); padding: 9rem 2.5rem 6rem; position: relative; overflow: hidden; }
+    .page-header-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: flex-end; }
+    .page-header h1 { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 7rem); font-weight: 800; line-height: 0.93; letter-spacing: -0.03em; color: var(--white); }
+    .page-header h1 span { color: var(--amber); }
+    .page-header-right p { font-family: var(--font-body); font-size: 1.05rem; font-weight: 300; color: var(--muted); line-height: 1.65; max-width: 40ch; }
+    .page-header::after { content: ''; position: absolute; bottom: -20%; right: -5%; width: 45vw; height: 45vw; background: radial-gradient(circle, rgba(245,166,35,0.05) 0%, transparent 65%); pointer-events: none; }
+
+    /* ─── WEDDING SECTION ─── */
+    .wedding-section { background: var(--cream); padding: 7rem 2.5rem; }
+    .wedding-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+
+    .service-stat {
+      font-family: var(--font-display); font-size: clamp(6rem, 12vw, 10rem);
+      font-weight: 800; line-height: 1; letter-spacing: -0.04em; color: var(--black);
+    }
+    .service-stat span { color: var(--amber); }
+    .service-stat-label {
+      font-family: var(--font-body); font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase; color: rgba(15,14,12,0.4);
+      margin-top: 0.5rem;
+    }
+
+    .service-content h2 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800; letter-spacing: -0.02em; color: var(--black); line-height: 1.02; margin-bottom: 1.25rem; }
+    .service-content p { font-family: var(--font-body); font-size: 1rem; font-weight: 300; color: rgba(15,14,12,0.6); line-height: 1.78; margin-bottom: 1rem; }
+    .service-content p:last-of-type { margin-bottom: 0; }
+
+    .what-we-do { background: var(--black); border-radius: 3px; padding: 2rem; margin: 2rem 0; }
+    .what-we-do-label { font-family: var(--font-body); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber); margin-bottom: 1.25rem; }
+    .what-we-do-list { display: flex; flex-direction: column; gap: 0.65rem; }
+    .what-we-do-item { display: flex; align-items: center; gap: 0.75rem; font-family: var(--font-body); font-size: 0.88rem; font-weight: 300; color: var(--muted); line-height: 1.5; }
+    .what-we-do-item::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--amber); flex-shrink: 0; }
+
+    .cta-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 2rem; }
+
+    /* ─── DIVIDER ─── */
+    .section-divider { height: 1px; background: var(--border-light); max-width: 1200px; margin: 0 auto; }
+
+    /* ─── PRIVATE LESSONS SECTION ─── */
+    .lessons-section { background: var(--black); padding: 7rem 2.5rem; }
+    .lessons-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+
+    .lessons-left h2 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800; letter-spacing: -0.02em; color: var(--white); line-height: 1.02; margin-bottom: 1.25rem; }
+    .lessons-left p { font-family: var(--font-body); font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.78; margin-bottom: 1rem; }
+
+    .lessons-cards { display: flex; flex-direction: column; gap: 1px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .lessons-card { background: var(--black-warm); padding: 1.75rem 2rem; }
+    .lessons-card-title { font-family: var(--font-display); font-size: 1rem; font-weight: 800; color: var(--white); margin-bottom: 0.5rem; }
+    .lessons-card-desc { font-family: var(--font-body); font-size: 0.85rem; font-weight: 300; color: var(--muted); line-height: 1.6; }
+
+    /* ─── FORM SECTION ─── */
+    .form-section { background: var(--cream); padding: 7rem 2.5rem; }
+    .form-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+    .form-left h2 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800; letter-spacing: -0.02em; color: var(--black); line-height: 1.02; margin-bottom: 1rem; }
+    .form-left p { font-family: var(--font-body); font-size: 0.95rem; font-weight: 300; color: rgba(15,14,12,0.55); line-height: 1.72; margin-bottom: 1rem; }
+
+    .inquiry-form { background: var(--black); border-radius: 3px; padding: 2.5rem; }
+    .form-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--white); margin-bottom: 0.4rem; }
+    .form-subtitle { font-family: var(--font-body); font-size: 0.8rem; font-weight: 300; color: var(--muted); margin-bottom: 2rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-family: var(--font-body); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(250,246,240,0.5); margin-bottom: 0.45rem; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; background: rgba(250,246,240,0.05); border: 1px solid var(--border); border-radius: 2px; padding: 0.8rem 1rem; color: var(--cream); font-family: var(--font-body); font-size: 0.88rem; font-weight: 300; transition: border-color 0.2s; -webkit-appearance: none; appearance: none; }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(250,246,240,0.2); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--amber); }
+    .form-group select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(250,246,240,0.4)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; }
+    .form-group select option { background: var(--black-warm); color: var(--cream); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-ctas { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem; }
+    .form-ctas .btn { width: 100%; justify-content: center; }
+    .form-or { text-align: center; font-family: var(--font-body); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(250,246,240,0.25); }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--black-warm); border-top: 1px solid var(--border); padding: 2rem 2.5rem; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .footer-bottom p { font-family: var(--font-body); font-size: 0.68rem; font-weight: 400; letter-spacing: 0.06em; color: rgba(250,246,240,0.22); }
+    .footer-bottom a { font-family: var(--font-body); font-size: 0.68rem; font-weight: 600; color: var(--amber); letter-spacing: 0.08em; text-transform: uppercase; }
+
+    /* ─── GSAP ─── */
+    .js-reveal { opacity: 0; transform: translateY(40px); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .page-header-inner, .wedding-inner, .lessons-inner, .form-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      #nav { padding: 1rem 1.25rem; }
+      .page-header, .wedding-section, .lessons-section, .form-section, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div id="announcement-bar">
+    <p>Fall 2026 sessions starting soon</p>
+    <a href="classes.html#enroll">Enroll now →</a>
+    <button onclick="document.getElementById('announcement-bar').style.display='none'" aria-label="Dismiss">✕</button>
+  </div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="index.html" class="nav-wordmark">Kansas City Bhangra</a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="classes.html">Classes</a></li>
+      <li><a href="workshops.html">Workshops</a></li>
+      <li><a href="performances.html">Performances</a></li>
+      <li><a href="merch.html">Merch</a></li>
+      <li><a href="classes.html#enroll" class="nav-cta">Enroll Free</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-drawer" id="nav-drawer">
+    <button class="nav-drawer-close" id="drawer-close">✕</button>
+    <a href="index.html" onclick="closeDrawer()">Home</a>
+    <a href="about.html" onclick="closeDrawer()">About</a>
+    <a href="classes.html" onclick="closeDrawer()">Classes</a>
+    <a href="workshops.html" onclick="closeDrawer()">Workshops</a>
+    <a href="performances.html" onclick="closeDrawer()">Performances</a>
+    <a href="merch.html" onclick="closeDrawer()">Merch</a>
+    <a href="classes.html#enroll" style="color:var(--amber);" onclick="closeDrawer()">Enroll Free</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
+    <div class="page-header-inner">
+      <h1>Beyond<br>the <span>class.</span></h1>
+      <div class="page-header-right">
+        <p class="section-tag">Services</p>
+        <p>Wedding choreography and private lessons. Both tailored to you. Both by inquiry only.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- WEDDING CHOREOGRAPHY -->
+  <section class="wedding-section" id="wedding">
+    <div class="wedding-inner">
+
+      <div class="js-reveal">
+        <div class="service-stat">10<span>+</span></div>
+        <div class="service-stat-label">Wedding parties choreographed</div>
+      </div>
+
+      <div class="service-content js-reveal">
+        <p class="section-tag dark">Wedding Choreography</p>
+        <h2>Your wedding.<br>Bhangra done right.</h2>
+
+        <p>Sangeet performances. Baraat entries. Family group numbers. We build custom Bhangra choreography around your family, your music, and your timeline.</p>
+
+        <p>No prior dance experience needed from participants. We work with first-timers and trained dancers alike. The goal is a performance your guests remember.</p>
+
+        <div class="what-we-do">
+          <div class="what-we-do-label">What we choreograph</div>
+          <div class="what-we-do-list">
+            <div class="what-we-do-item">Sangeet group performances</div>
+            <div class="what-we-do-item">Baraat entries</div>
+            <div class="what-we-do-item">Bride or groom surprise dances</div>
+            <div class="what-we-do-item">Family group numbers</div>
+            <div class="what-we-do-item">Mixed group choreographies</div>
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <a href="#inquire" class="btn btn-amber">Inquire about wedding choreo →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- PRIVATE LESSONS -->
+  <section class="lessons-section" id="lessons">
+    <div class="lessons-inner">
+
+      <div class="lessons-left js-reveal">
+        <p class="section-tag">Private Lessons</p>
+        <h2>One-on-one.<br>Your pace.</h2>
+
+        <p>Private lessons with our head coach. Whether you're preparing for a wedding, picking up where a class left off, or starting fresh — lessons are built around what you need.</p>
+
+        <p>Scheduling is flexible. Pricing by inquiry.</p>
+
+        <div class="cta-row" style="margin-top:2rem;">
+          <a href="#inquire" class="btn btn-outline-white">Inquire about private lessons →</a>
+        </div>
+      </div>
+
+      <div class="lessons-cards js-reveal">
+        <div class="lessons-card">
+          <div class="lessons-card-title">Wedding prep</div>
+          <div class="lessons-card-desc">Getting ready for a sangeet or baraat? Private sessions to build confidence before the big performance.</div>
+        </div>
+        <div class="lessons-card">
+          <div class="lessons-card-title">Class supplement</div>
+          <div class="lessons-card-desc">Already in a class but want to accelerate? Private lessons fill the gaps between weekly sessions.</div>
+        </div>
+        <div class="lessons-card">
+          <div class="lessons-card-title">Starting from zero</div>
+          <div class="lessons-card-desc">No class session available right now? Private lessons let you start immediately, at your own schedule.</div>
+        </div>
+        <div class="lessons-card">
+          <div class="lessons-card-title">Performance prep</div>
+          <div class="lessons-card-desc">Getting ready for a stage performance or cultural event. Drill the details privately before going public.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- INQUIRY FORM -->
+  <section class="form-section" id="inquire">
+    <div class="form-inner">
+      <div class="form-left js-reveal">
+        <p class="section-tag dark">Get in touch</p>
+        <h2>Tell us what you need.</h2>
+        <p>Whether it's a wedding, a private lesson, or something we haven't listed — reach out and we'll figure it out together.</p>
+        <p>We respond within 48 hours. Pricing discussed once we understand what you're looking for.</p>
+      </div>
+
+      <!-- REPLACE: Update action with your Formspree ID -->
+      <form class="inquiry-form js-reveal" action="https://formspree.io/f/REPLACE_WITH_YOUR_ID" method="POST">
+        <div class="form-title">Send an inquiry</div>
+        <div class="form-subtitle">No commitment. Just a conversation.</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>First name</label>
+            <input type="text" name="first_name" placeholder="Priya" required>
+          </div>
+          <div class="form-group">
+            <label>Last name</label>
+            <input type="text" name="last_name" placeholder="Sharma" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" name="email" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label>Phone number</label>
+          <input type="tel" name="phone" placeholder="(913) 555-0000">
+        </div>
+
+        <div class="form-group">
+          <label>What are you looking for?</label>
+          <select name="service" required>
+            <option value="" disabled selected>Select one</option>
+            <option value="wedding-choreography">Wedding choreography</option>
+            <option value="private-lessons">Private lessons</option>
+            <option value="both">Both</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Event date (if applicable)</label>
+          <input type="date" name="event_date">
+        </div>
+
+        <div class="form-group">
+          <label>Tell us more</label>
+          <textarea name="message" placeholder="Wedding details, number of participants, timeline, goals..."></textarea>
+        </div>
+
+        <div class="form-ctas">
+          <button type="submit" class="btn btn-amber">Send Inquiry →</button>
+          <div class="form-or">or</div>
+          <!-- REPLACE: Update with your WhatsApp number -->
+          <a href="https://wa.me/16464219634" class="btn btn-whatsapp" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp us directly
+          </a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FLOATING CONTACT -->
+  <div id="fab-wrap" style="position:fixed;bottom:1.75rem;right:1.75rem;z-index:800;display:flex;flex-direction:column;align-items:flex-end;gap:0.6rem;">
+    <div id="fab-options" style="display:flex;flex-direction:column;gap:0.5rem;align-items:flex-end;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity 0.25s ease,transform 0.25s ease;">
+      <a href="https://wa.me/16464219634" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;background:#25D366;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a href="https://instagram.com/kcbhangra" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;background:#E1306C;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagram
+      </a>
+      <a href="https://m.me/kcbhangra" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:0.6rem;background:#0084FF;color:#fff;font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.65rem 1.1rem;border-radius:2rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);white-space:nowrap;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 4.975 0 11.111c0 3.497 1.745 6.616 4.472 8.652V24l4.086-2.242c1.09.301 2.246.464 3.442.464 6.626 0 12-4.974 12-11.111C24 4.975 18.626 0 12 0zm1.193 14.963l-3.056-3.259-5.963 3.259L10.733 8.6l3.13 3.259 5.89-3.259-6.56 6.363z"/></svg>
+        Facebook
+      </a>
+    </div>
+    <button id="fab-btn" onclick="toggleFab()" style="width:52px;height:52px;border-radius:50%;background:var(--amber);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(245,166,35,0.4);transition:transform 0.2s;" aria-label="Contact us">
+      <svg id="fab-icon-msg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f0e0c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <svg id="fab-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f0e0c" stroke-width="2.5" stroke-linecap="round" style="display:none;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-bottom">
+      <p>© 2026 Kansas City Bhangra. Lenexa, Kansas.</p>
+      <a href="index.html">Back to home</a>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray('.js-reveal').forEach(el => {
+      gsap.fromTo(el, { opacity: 0, y: 44 }, {
+        opacity: 1, y: 0, duration: 0.85, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' }
+      });
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('nav-drawer');
+    const closeBtn = document.getElementById('drawer-close');
+    hamburger.addEventListener('click', () => drawer.classList.add('open'));
+    closeBtn.addEventListener('click', () => drawer.classList.remove('open'));
+    function closeDrawer() { drawer.classList.remove('open'); }
+
+    let fabOpen = false;
+    const fabOptions   = document.getElementById('fab-options');
+    const fabIconMsg   = document.getElementById('fab-icon-msg');
+    const fabIconClose = document.getElementById('fab-icon-close');
+    function toggleFab() {
+      fabOpen = !fabOpen;
+      fabOptions.style.opacity       = fabOpen ? '1' : '0';
+      fabOptions.style.pointerEvents = fabOpen ? 'auto' : 'none';
+      fabOptions.style.transform     = fabOpen ? 'translateY(0)' : 'translateY(8px)';
+      fabIconMsg.style.display   = fabOpen ? 'none'  : 'block';
+      fabIconClose.style.display = fabOpen ? 'block' : 'none';
+    }
+    document.addEventListener('click', e => {
+      if (fabOpen && !document.getElementById('fab-wrap').contains(e.target)) toggleFab();
+    });
+  </script>
+
+</body>
+</html>

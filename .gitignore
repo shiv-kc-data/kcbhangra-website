@@ -1,0 +1,27 @@
+# Design source files
+*.psd
+*.ai
+*.sketch
+
+# Research / working docs
+screencapture-*.png
+*.txt
+instagram_competitive_analysis.*
+kcbhangra_complete.pdf
+bhangrarhymes-home.md
+furteelay-home.md
+rvdacademy-home.md
+rvdacademy-about.md
+rvdacademy/
+content_instructions.md
+
+# Merch design assets (originals)
+Copy of *
+Sticker_Design 1.png
+T-shirt_Design black.png
+
+# Claude working files
+.claude/
+
+# OS
+.DS_Store
