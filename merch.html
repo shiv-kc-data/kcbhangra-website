@@ -101,6 +101,13 @@
       position: relative; overflow: hidden;
     }
     .product-image img { width: 100%; height: 100%; object-fit: contain; padding: 2rem; }
+    .product-image .img-hover {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; padding: 0;
+      opacity: 0; transition: opacity 0.35s ease;
+    }
+    .product-card:hover .img-hover { opacity: 1; }
+    .product-card:hover .img-default { opacity: 0; transition: opacity 0.35s ease; }
     .product-badge {
       position: absolute; top: 1rem; left: 1rem;
       font-family: var(--font-body); font-size: 0.62rem; font-weight: 700;
@@ -232,7 +239,8 @@
         <!-- PRODUCT 1: Classic Tee -->
         <div class="product-card js-reveal">
           <div class="product-image">
-            <img src="assets/images/logo-transparent.png" alt="KC Bhangra Classic Tee">
+            <img class="img-default" src="assets/images/logo-transparent.png" alt="KC Bhangra Classic Tee">
+            <img class="img-hover" src="assets/images/merch tee images.jpg" alt="KC Bhangra Classic Tee on model">
             <div class="product-badge">Available</div>
           </div>
           <div class="product-info">
