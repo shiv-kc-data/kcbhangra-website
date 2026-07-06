@@ -1,0 +1,25 @@
+{
+  "name": "kcbhangra-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shiv-kc-data/kcbhangra-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/shiv-kc-data/kcbhangra-website/issues"
+  },
+  "homepage": "https://github.com/shiv-kc-data/kcbhangra-website#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.61.1"
+  }
+}

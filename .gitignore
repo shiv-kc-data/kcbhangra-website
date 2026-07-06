@@ -23,5 +23,10 @@ T-shirt_Design black.png
 # Claude working files
 .claude/
 
+# Node / Playwright
+node_modules/
+test-results/
+playwright-report/
+
 # OS
 .DS_Store
