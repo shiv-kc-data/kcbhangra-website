@@ -26,7 +26,7 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
     body { font-family: var(--font-body); background: var(--cream); color: var(--black); overflow-x: hidden; }
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
@@ -61,7 +61,7 @@
     .nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 10px; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; cursor: pointer; }
     .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--cream); }
     .nav-drawer {
-      display: none; position: fixed; inset: 0; background: var(--black); z-index: 490;
+      display: none; position: fixed; inset: 0; background: var(--black); z-index: 502;
       flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
     }
     .nav-drawer.open { display: flex; }

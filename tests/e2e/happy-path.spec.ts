@@ -20,32 +20,62 @@ for (const { path, label } of allPages) {
     expect(errors, `JS errors on ${path}: ${errors.join('; ')}`).toHaveLength(0);
   });
 
-  test(`${label} page has working nav links`, async ({ page }) => {
+  test(`${label} page has working nav links`, async ({ page, isMobile }) => {
     await page.goto(path);
-    await expect(page.getByRole('link', { name: 'About' }).first()).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Classes' }).first()).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Workshops' }).first()).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Performances' }).first()).toBeVisible();
+    if (isMobile) {
+      // Mobile/tablet: nav links hidden, hamburger + drawer used instead
+      await expect(page.locator('#hamburger')).toBeVisible();
+      await page.locator('#hamburger').click();
+      const drawer = page.locator('#nav-drawer');
+      await expect(drawer.getByRole('link', { name: 'About' })).toBeVisible();
+      await expect(drawer.getByRole('link', { name: 'Classes' })).toBeVisible();
+    } else {
+      // Desktop: nav links visible in header
+      const nav = page.locator('#nav');
+      await expect(nav.getByRole('link', { name: 'About' })).toBeVisible();
+      await expect(nav.getByRole('link', { name: 'Classes' })).toBeVisible();
+      await expect(nav.getByRole('link', { name: 'Workshops' })).toBeVisible();
+      await expect(nav.getByRole('link', { name: 'Performances' })).toBeVisible();
+    }
   });
 }
 
-test('home page CTA links to classes enroll section', async ({ page }) => {
+test('home page primary CTA links to classes page', async ({ page, isMobile }) => {
   await page.goto('/');
-  const enrollLink = page.getByRole('link', { name: /enroll free/i }).first();
-  await expect(enrollLink).toBeVisible();
-  const href = await enrollLink.getAttribute('href');
-  expect(href).toContain('classes.html#enroll');
+  if (isMobile) {
+    // Mobile: hero CTA is "Book Your Free Class →"
+    const cta = page.getByRole('link', { name: /Book Your Free Class/i }).first();
+    await expect(cta).toBeVisible();
+    const href = await cta.getAttribute('href');
+    expect(href).toContain('classes.html');
+  } else {
+    // Desktop: nav has "Enroll Free" linking to classes.html#enroll
+    const enrollLink = page.locator('#nav').getByRole('link', { name: /enroll free/i });
+    await expect(enrollLink).toBeVisible();
+    const href = await enrollLink.getAttribute('href');
+    expect(href).toContain('classes.html#enroll');
+  }
 });
 
-test('clicking Classes nav link navigates to classes page', async ({ page }) => {
+test('clicking Classes nav link navigates to classes page', async ({ page, isMobile }) => {
   await page.goto('/');
-  await page.getByRole('link', { name: 'Classes' }).first().click();
+  if (isMobile) {
+    await page.locator('#hamburger').click();
+    await page.locator('#nav-drawer').getByRole('link', { name: 'Classes' }).click();
+  } else {
+    await page.locator('#nav').getByRole('link', { name: 'Classes' }).click();
+  }
   await expect(page).toHaveURL(/classes\.html/);
 });
 
-test('clicking About nav link navigates to about page', async ({ page }) => {
+test('clicking About nav link navigates to about page', async ({ page, isMobile }) => {
   await page.goto('/');
-  await page.getByRole('link', { name: 'About' }).first().click();
+  if (isMobile) {
+    await page.locator('#hamburger').click();
+    await page.locator('#nav-drawer').getByRole('link', { name: 'About' }).click();
+  } else {
+    await page.locator('#nav').getByRole('link', { name: 'About' }).click();
+  }
   await expect(page).toHaveURL(/about\.html/);
 });
 

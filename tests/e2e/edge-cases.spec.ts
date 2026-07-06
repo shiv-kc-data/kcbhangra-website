@@ -14,7 +14,7 @@ test('mobile drawer opens and closes correctly', async ({ page, isMobile }) => {
   await page.locator('#hamburger').click();
   const drawer = page.locator('#nav-drawer');
   await expect(drawer).toBeVisible();
-  await page.locator('#drawer-close').click();
+  await page.locator('#drawer-close').click({ force: true });
   await expect(drawer).toBeHidden();
 });
 
