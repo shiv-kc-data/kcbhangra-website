@@ -1353,19 +1353,19 @@
       <p class="section-tag">What people say</p>
 
       <div class="testimonials-grid">
-        <div class="testimonial-card js-reveal">
+        <div class="testimonial-card">
           <div class="t-mark">"</div>
           <p class="t-text">The professional effort that goes into every session is commendable. Well articulated and instructed. Attention paid to details, time taken for every question asked. I highly recommend KC Bhangra.</p>
           <div class="t-author">KC Bhangra student</div>
           <div class="t-role">Community member</div>
         </div>
-        <div class="testimonial-card js-reveal">
+        <div class="testimonial-card">
           <div class="t-mark">"</div>
           <p class="t-text">Thank you to our coach for working hard on our next generation. For encouraging these kids into their passion about Bhangra. The folk Bhangra foundations that my young kids have learnt are invaluable.</p>
           <div class="t-author">KC Bhangra parent</div>
           <div class="t-role">Parent of two students</div>
         </div>
-        <div class="testimonial-card js-reveal">
+        <div class="testimonial-card">
           <div class="t-mark">"</div>
           <p class="t-text">The kids love it, and we are so proud of their hard work. Their confidence speaks for itself. They are on the right path.</p>
           <div class="t-author">KC Bhangra parent</div>
@@ -1702,16 +1702,19 @@
     });
 
     /* Testimonial card stagger */
-    gsap.from('.testimonial-card', {
-      opacity: 0, y: 36,
-      duration: 0.75,
-      stagger: 0.12,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.testimonials-grid',
-        start: 'top 85%'
+    gsap.fromTo('.testimonial-card',
+      { opacity: 0, y: 36 },
+      {
+        opacity: 1, y: 0,
+        duration: 0.75,
+        stagger: 0.12,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.testimonials-grid',
+          start: 'top 85%'
+        }
       }
-    });
+    );
     /* ─── FLOATING CONTACT BUTTON ───────────── */
     let fabOpen = false;
     const fabOptions = document.getElementById('fab-options');
