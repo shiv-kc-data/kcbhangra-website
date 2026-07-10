@@ -564,6 +564,11 @@
       document.getElementById('community').style.display = tab === 'community' ? 'block' : 'none';
     }
 
+    if (location.hash === '#b2b') {
+      const b2bBtn = document.querySelector('.type-tab:nth-child(2)');
+      if (b2bBtn) switchTab('b2b', b2bBtn);
+    }
+
     /* Nav */
     const hamburger = document.getElementById('hamburger');
     const drawer = document.getElementById('nav-drawer');
