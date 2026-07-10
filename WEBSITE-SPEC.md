@@ -1,6 +1,6 @@
 # KC Bhangra Website — Project Spec
 
-Load this file at session start before touching any code.
+Load at session start before touching code.
 After feedback session, add new rules to relevant section.
 
 ---
@@ -8,7 +8,7 @@ After feedback session, add new rules to relevant section.
 ## What This Project Is
 
 Full website redesign for **Kansas City Bhangra**, folk Bhangra dance academy in Lenexa, Kansas.
-Goals: enroll new students, attract non-Punjabi adults/families, establish credibility in Kansas City.
+Goals: enroll new students, attract non-Punjabi adults/families, establish KC credibility.
 
 **Live files:** All HTML files in this folder. No build system. No framework. Static HTML + CSS + GSAP.
 
@@ -21,7 +21,7 @@ Goals: enroll new students, attract non-Punjabi adults/families, establish credi
 - Wordmark: "KANSAS CITY BHANGRA" in wide-spaced clean caps
 - File (dark bg, white outline): `assets/images/logo-transparent.png` — use on dark sections
 - File (color, transparent): `assets/images/logo-color-transparent.png` — use on merch/light
-- Both PNGs are RGBA (true transparent background) — no background rectangle will show
+- Both PNGs are RGBA (true transparent background) — no background rectangle shows
 
 ### Colors (exact hex values — do not drift)
 ```
@@ -35,7 +35,7 @@ Goals: enroll new students, attract non-Punjabi adults/families, establish credi
 --border:     rgba(250,246,240,0.10) (borders on dark sections)
 --border-light: rgba(15,14,12,0.12) (borders on light sections)
 ```
-Maximum 6 hex values. No purple. No gradients. No color drift.
+Max 6 hex values. No purple. No gradients. No color drift.
 
 ### Typography
 - **Display:** `Syne` weight 800 — all major headlines
@@ -61,7 +61,7 @@ Maximum 6 hex values. No purple. No gradients. No color drift.
 - No formulaic hooks (statement + 3 bullets + engagement question)
 - No "Shiv" anywhere on site — use "our coaches" or "our head coach" instead
 - No "open to all ages" — minimum age is 5. Say "Ages 5 and up" or "ages 5 to their 60s"
-- Never say "No Punjabi" — reads as exclusionary. Say "No language barrier" instead.
+- Never say "No Punjabi" — reads exclusionary. Say "No language barrier" instead.
 
 ### Copy tone
 - Short sentences. Remove adjectives. Dry, specific.
@@ -78,7 +78,7 @@ Maximum 6 hex values. No purple. No gradients. No color drift.
 - Big decorative eyebrow line above headline
 - Stock photos that don't match copy
 - Basic scroll-reveal as only animation (use GSAP with intent)
-- Nav logo + wordmark stacked in two lines (too tall, looks cluttered)
+- Nav logo + wordmark stacked two lines (too tall, cluttered)
 - Logo in nav with visible background rectangle (always use transparent PNG)
 - Hero eyebrow text directly below nav logo (visual collision in same corner)
 - Watermark logo too prominent (fights headline — remove or keep opacity < 0.06)
@@ -100,7 +100,7 @@ Maximum 6 hex values. No purple. No gradients. No color drift.
 
 ## Founder / Brand Story
 
-**Name usage rule:** "Shiv" allowed in coaches/about section only — e.g. "our head coach Shiv". Not in hero copy, stats, positioning sections, or CTAs. Default to "our coaches" everywhere else.
+**Name usage rule:** "Shiv" allowed in coaches/about section only — e.g. "our head coach Shiv". Not in hero copy, stats, positioning sections, or CTAs. Default to "our coaches" elsewhere.
 
 - Founded ~2019 in Kansas City by head coach trained from age 5 in Jalandhar, Punjab
 - Trained through school and college in Punjab under traditional gurus
@@ -115,8 +115,8 @@ Maximum 6 hex values. No purple. No gradients. No color drift.
 
 ### Structure
 - 2 sessions per year: Fall + Spring
-- Location: Lenexa, Kansas (Sundays in the afternoon)
-- Time: varies by session — confirmed before session starts (do not hardcode a time)
+- Location: Lenexa, Kansas (Sundays in afternoon)
+- Time: varies by session — confirmed before session starts (do not hardcode time)
 - Each session: 8 classes + 1 free intro class
 - Duration per class: 1 hour
 - Classes run back-to-back on Sunday afternoons
@@ -129,7 +129,7 @@ Maximum 6 hex values. No purple. No gradients. No color drift.
 
 ### Pricing
 - $200 per student per session
-- Family/sibling discount: families of 3 or more — contact us (do not publish a number, do not offer for 2)
+- Family/sibling discount: families of 3 or more — contact us (do not publish number, do not offer for 2)
 - First class: always free, no commitment, no card required
 - No auto-renewals. One payment per session per student.
 
@@ -143,7 +143,7 @@ Maximum 6 hex values. No purple. No gradients. No color drift.
 
 - **Wedding choreography:** 10+ wedding receptions completed. Inquiry form only, no pricing shown.
 - **Private lessons:** 9-10 completed. Inquiry form only, no pricing shown.
-- Both secondary services — mention in footer/services page, not featured on homepage.
+- Both secondary — mention in footer/services page, not featured on homepage.
 
 ---
 
@@ -208,7 +208,7 @@ Logo/photo assets: placeholders for now. Real assets to be added.
 
 - Products: T-shirts, hoodies, stickers
 - Existing assets: `assets/images/logo-transparent.png` (t-shirt), `assets/images/logo-color-transparent.png` (sticker)
-- Order flow: DM on Instagram or WhatsApp to order (no payment processing yet)
+- Order flow: DM on Instagram or WhatsApp (no payment processing yet)
 
 ---
 
@@ -277,7 +277,7 @@ Logo/photo assets: placeholders for now. Real assets to be added.
 |------|---------------|----------------|
 | 2026-07-05 | Nav overcrowded: logo icon + two-line wordmark + hero eyebrow colliding in top-left corner | Simplified nav to logo icon + single-line "KC Bhangra" text; removed hero eyebrow entirely |
 | 2026-07-05 | Logo JPEGs had colored backgrounds, looked like black rectangles in nav | Switched to RGBA transparent PNGs (`logo-transparent.png`) |
-| 2026-07-05 | Hero watermark (logo at low opacity) was distracting, amber cup too visible | Removed watermark entirely from hero |
+| 2026-07-05 | Hero watermark (logo at low opacity) was distracting, amber cup too visible | Removed watermark from hero |
 | 2026-07-05 | "Open to all ages" — incorrect, minimum age is 5 | Changed to "Ages 5 and up" |
 | 2026-07-05 | Name "Shiv" used throughout copy | Replaced all instances with "our coaches" / "our head coach" |
 | 2026-07-05 | Em dashes (`—`) used in copy and titles | Zero tolerance rule added; replaced with periods and colons throughout |

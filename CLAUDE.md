@@ -2,25 +2,25 @@
 
 ## Frontend Design Work
 
-When asked to build, design, or modify any UI, webpage, or visual layout — invoke the `frontend-design` skill before writing any code or making design decisions.
+Building, designing, or modifying any UI, webpage, or visual layout — invoke `frontend-design` skill before writing code or making design decisions.
 
 ---
 
 ## Design Guardrails
 
-These apply to all visual and written output for this project:
+Apply to all visual and written output:
 
 **Avoid:**
 - Generic AI aesthetics: Inter, Roboto, Arial, system fonts as primary typefaces
 - Purple gradients on white backgrounds
 - Predictable double-column layouts and cookie-cutter component patterns
 - Corporate buzzword copy ("leverage scalable ecosystems", "game-changing outcomes")
-- Em dash overuse as a crutch for structure
+- Em dash overuse as structure crutch
 - Green checkmark emoji lists
-- Formulaic hooks followed by 3–4 bullets followed by an engagement question
+- Formulaic hooks followed by 3–4 bullets followed by engagement question
 - Filler words: "delve", "rich tapestry", "navigate"
 
-**Goal:** Every design and copy choice should be specific to Bhangra culture — its energy, color, movement, and community — not a generic template dressed in ethnic motifs.
+**Goal:** Every design and copy choice specific to Bhangra culture — energy, color, movement, community. Not generic template dressed in ethnic motifs.
 
 ---
 
