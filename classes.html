@@ -325,7 +325,7 @@
     .t-role { font-size: 0.68rem; color: rgba(250,246,240,0.3); font-weight: 400; margin-top: 0.15rem; }
 
     /* ─── ENROLLMENT FORM ─── */
-    .enroll-section { background: var(--cream); padding: 6rem 2.5rem; }
+    .enroll-section { background: var(--cream); padding: 6rem 2.5rem; scroll-margin-top: 110px; }
     .enroll-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
 
     .enroll-left h2 {
@@ -464,6 +464,7 @@
       .pricing-row { grid-template-columns: 1fr 1fr; }
       .t-strip-grid { grid-template-columns: 1fr 1fr; }
       .enroll-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .enroll-form { order: -1; }
     }
     @media (max-width: 600px) {
       #nav { padding: 1rem 1.25rem; }
@@ -564,6 +565,122 @@
       </div>
     </div>
   </div>
+
+  <!-- ENROLLMENT FORM -->
+  <section class="enroll-section" id="enroll">
+    <div class="enroll-inner">
+      <div class="enroll-left js-reveal">
+        <p class="section-tag dark">Enroll</p>
+        <h2>Your first class is free.</h2>
+        <p>Fill out the form and we'll reach out to confirm your spot. No payment until you decide to continue after the free intro class.</p>
+
+        <a href="#faq" style="display:inline-flex;align-items:center;gap:0.4rem;font-family:var(--font-body);font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(15,14,12,0.4);margin-bottom:1.5rem;transition:color 0.2s;" onmouseover="this.style.color='var(--black)'" onmouseout="this.style.color='rgba(15,14,12,0.4)'">Have questions? See the FAQ ↓</a>
+        <div class="enroll-highlights">
+          <div class="enroll-highlight">
+            <div class="enroll-highlight-dot"></div>
+            First class costs nothing. No card required.
+          </div>
+          <div class="enroll-highlight">
+            <div class="enroll-highlight-dot"></div>
+            We'll confirm the exact Sunday time before the session starts.
+          </div>
+          <div class="enroll-highlight">
+            <div class="enroll-highlight-dot"></div>
+            Comfortable clothes and a water bottle. No dance gear needed.
+          </div>
+          <div class="enroll-highlight">
+            <div class="enroll-highlight-dot"></div>
+            Questions? WhatsApp us and we'll reply same day.
+          </div>
+        </div>
+      </div>
+
+      <!-- REPLACE: Update action with your Formspree form ID -->
+      <form class="enroll-form js-reveal" action="https://formspree.io/f/xbdvblpr" method="POST">
+        <div class="form-title">Get your free class</div>
+        <div class="form-subtitle">We'll be in touch within 24 hours.</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First name</label>
+            <input type="text" id="fname" name="first_name" placeholder="Priya" required>
+          </div>
+          <div class="form-group">
+            <label for="lname">Last name</label>
+            <input type="text" id="lname" name="last_name" placeholder="Sharma" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone number</label>
+          <input type="tel" id="phone" name="phone" placeholder="(913) 555-0000">
+        </div>
+
+        <div class="form-group">
+          <label for="interest">Who's enrolling?</label>
+          <select id="interest" name="interest" required>
+            <option value="" disabled selected>Select a tier</option>
+            <option value="beginners-kids">Beginners (ages 5+)</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+            <option value="adults">Adults (18+)</option>
+            <option value="not-sure">Not sure yet</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="session">Preferred session</label>
+          <select id="session" name="session">
+            <option value="fall-2026">Fall 2026</option>
+            <option value="spring-2027">Spring 2027</option>
+            <option value="free-trial">Free trial class only</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="referral">How did you hear about us?</label>
+          <select id="referral" name="referral">
+            <option value="" disabled selected>Select one</option>
+            <option value="instagram">Instagram</option>
+            <option value="facebook">Facebook</option>
+            <option value="friend">Friend or family</option>
+            <option value="google">Google search</option>
+            <option value="event">Saw a performance</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-divider"></div>
+
+        <!-- Under-5 toggle -->
+        <div class="form-group under5-toggle">
+          <label>
+            <input type="checkbox" id="under5-check" name="child_under_5">
+            <span class="toggle-text">My child is under 5 years old</span>
+          </label>
+          <div class="under5-field" id="under5-field">
+            <label for="child-dob" style="margin-top:0.75rem;display:block;font-family:var(--font-body);font-size:0.68rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(250,246,240,0.5);margin-bottom:0.45rem;">Child's date of birth</label>
+            <input type="date" id="child-dob" name="child_birthdate">
+            <p style="font-family:var(--font-body);font-size:0.72rem;color:rgba(250,246,240,0.3);margin-top:0.4rem;font-weight:300;">We'll reach out when they turn 5 and are ready to join.</p>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:1rem;">
+          <label for="message">Anything else we should know?</label>
+          <textarea id="message" name="message" placeholder="Questions, class placement, special needs..."></textarea>
+        </div>
+
+        <div class="form-ctas">
+          <button type="submit" class="btn btn-amber">Send Enrollment Request →</button>
+        </div>
+      </form>
+    </div>
+  </section>
 
   <!-- CLASS TIERS -->
   <section class="tiers-section">
@@ -821,122 +938,6 @@
           <div class="t-role">Parent</div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- ENROLLMENT FORM -->
-  <section class="enroll-section" id="enroll">
-    <div class="enroll-inner">
-      <div class="enroll-left js-reveal">
-        <p class="section-tag dark">Enroll</p>
-        <h2>Your first class is free.</h2>
-        <p>Fill out the form and we'll reach out to confirm your spot. No payment until you decide to continue after the free intro class.</p>
-
-        <a href="#faq" style="display:inline-flex;align-items:center;gap:0.4rem;font-family:var(--font-body);font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(15,14,12,0.4);margin-bottom:1.5rem;transition:color 0.2s;" onmouseover="this.style.color='var(--black)'" onmouseout="this.style.color='rgba(15,14,12,0.4)'">Have questions? See the FAQ ↓</a>
-        <div class="enroll-highlights">
-          <div class="enroll-highlight">
-            <div class="enroll-highlight-dot"></div>
-            First class costs nothing. No card required.
-          </div>
-          <div class="enroll-highlight">
-            <div class="enroll-highlight-dot"></div>
-            We'll confirm the exact Sunday time before the session starts.
-          </div>
-          <div class="enroll-highlight">
-            <div class="enroll-highlight-dot"></div>
-            Comfortable clothes and a water bottle. No dance gear needed.
-          </div>
-          <div class="enroll-highlight">
-            <div class="enroll-highlight-dot"></div>
-            Questions? WhatsApp us and we'll reply same day.
-          </div>
-        </div>
-      </div>
-
-      <!-- REPLACE: Update action with your Formspree form ID -->
-      <form class="enroll-form js-reveal" action="https://formspree.io/f/xbdvblpr" method="POST">
-        <div class="form-title">Get your free class</div>
-        <div class="form-subtitle">We'll be in touch within 24 hours.</div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="fname">First name</label>
-            <input type="text" id="fname" name="first_name" placeholder="Priya" required>
-          </div>
-          <div class="form-group">
-            <label for="lname">Last name</label>
-            <input type="text" id="lname" name="last_name" placeholder="Sharma" required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="email">Email address</label>
-          <input type="email" id="email" name="email" placeholder="you@example.com" required>
-        </div>
-
-        <div class="form-group">
-          <label for="phone">Phone number</label>
-          <input type="tel" id="phone" name="phone" placeholder="(913) 555-0000">
-        </div>
-
-        <div class="form-group">
-          <label for="interest">Who's enrolling?</label>
-          <select id="interest" name="interest" required>
-            <option value="" disabled selected>Select a tier</option>
-            <option value="beginners-kids">Beginners (ages 5+)</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-            <option value="adults">Adults (18+)</option>
-            <option value="not-sure">Not sure yet</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="session">Preferred session</label>
-          <select id="session" name="session">
-            <option value="fall-2026">Fall 2026</option>
-            <option value="spring-2027">Spring 2027</option>
-            <option value="free-trial">Free trial class only</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="referral">How did you hear about us?</label>
-          <select id="referral" name="referral">
-            <option value="" disabled selected>Select one</option>
-            <option value="instagram">Instagram</option>
-            <option value="facebook">Facebook</option>
-            <option value="friend">Friend or family</option>
-            <option value="google">Google search</option>
-            <option value="event">Saw a performance</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-
-        <div class="form-divider"></div>
-
-        <!-- Under-5 toggle -->
-        <div class="form-group under5-toggle">
-          <label>
-            <input type="checkbox" id="under5-check" name="child_under_5">
-            <span class="toggle-text">My child is under 5 years old</span>
-          </label>
-          <div class="under5-field" id="under5-field">
-            <label for="child-dob" style="margin-top:0.75rem;display:block;font-family:var(--font-body);font-size:0.68rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(250,246,240,0.5);margin-bottom:0.45rem;">Child's date of birth</label>
-            <input type="date" id="child-dob" name="child_birthdate">
-            <p style="font-family:var(--font-body);font-size:0.72rem;color:rgba(250,246,240,0.3);margin-top:0.4rem;font-weight:300;">We'll reach out when they turn 5 and are ready to join.</p>
-          </div>
-        </div>
-
-        <div class="form-group" style="margin-top:1rem;">
-          <label for="message">Anything else we should know?</label>
-          <textarea id="message" name="message" placeholder="Questions, class placement, special needs..."></textarea>
-        </div>
-
-        <div class="form-ctas">
-          <button type="submit" class="btn btn-amber">Send Enrollment Request →</button>
-        </div>
-      </form>
     </div>
   </section>
 
