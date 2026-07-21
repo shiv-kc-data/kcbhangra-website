@@ -71,7 +71,7 @@
     /* ─── NAV ────────────────────────────────── */
     #nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 34px; left: 0; right: 0;
       z-index: 500;
       padding: 1.5rem 2.5rem;
       display: flex;
@@ -1097,6 +1097,13 @@
   <!-- Custom cursor (hidden on touch) -->
   <div id="cursor-dot" aria-hidden="true"></div>
   <div id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div id="announcement-bar" style="background:var(--amber);padding:0.6rem 2.5rem;display:flex;align-items:center;justify-content:center;gap:1.5rem;position:fixed;top:0;left:0;right:0;z-index:501;">
+    <p style="font-family:var(--font-body);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--black);">Free intro class: Sep 6 · Fall 2026 enrollment open</p>
+    <a href="classes.html#enroll" style="font-family:var(--font-body);font-size:0.72rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--black);text-decoration:underline;text-underline-offset:3px;white-space:nowrap;">Enroll now →</a>
+    <button onclick="document.getElementById('announcement-bar').style.display='none';document.getElementById('nav').style.top='0';" style="background:none;border:none;cursor:pointer;color:var(--black);opacity:0.4;font-size:1rem;padding:0;margin-left:0.5rem;line-height:1;" aria-label="Dismiss">✕</button>
+  </div>
 
   <!-- ─── NAV ──────────────────────────────────── -->
   <nav id="nav">
