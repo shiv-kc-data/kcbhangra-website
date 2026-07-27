@@ -449,6 +449,35 @@
       color: var(--amber); letter-spacing: 0.08em; text-transform: uppercase;
     }
 
+    /* ─── CALENDAR DROPDOWN ─── */
+    .cal-drop { position: relative; display: inline-flex; }
+    .cal-drop-btn {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-family: var(--font-body); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--amber); background: rgba(245,166,35,0.08);
+      border: 1px solid rgba(245,166,35,0.25); border-radius: 2px;
+      cursor: pointer; padding: 0.2rem 0.5rem;
+      transition: background 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .cal-drop-btn:hover { background: rgba(245,166,35,0.15); border-color: var(--amber); }
+    .cal-drop-menu {
+      position: absolute; right: 0; top: calc(100% + 0.4rem);
+      background: var(--black); border: 1px solid rgba(245,166,35,0.25);
+      border-radius: 2px; padding: 0.35rem 0; min-width: 170px;
+      z-index: 200; box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      display: none;
+    }
+    .cal-drop-menu.open { display: block; }
+    .cal-drop-menu a {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.5rem 0.85rem; font-family: var(--font-body);
+      font-size: 0.75rem; font-weight: 500; color: rgba(250,246,240,0.7);
+      transition: background 0.12s, color 0.12s;
+    }
+    .cal-drop-menu a:hover { background: rgba(245,166,35,0.08); color: var(--amber); }
+
     /* ─── GSAP ─── */
     .js-reveal { opacity: 0; transform: translateY(40px); }
     .js-fade { opacity: 0; }
@@ -805,21 +834,66 @@
               <div style="background:rgba(250,246,240,0.07);color:var(--cream);font-family:var(--font-display);font-size:0.82rem;font-weight:700;padding:0.45rem 0.75rem;border-radius:2px;white-space:nowrap;align-self:flex-start;">Nov 8</div>
             </div>
             <div style="font-family:var(--font-body);font-size:0.72rem;font-weight:300;color:rgba(250,246,240,0.25);margin-top:0.6rem;">Oct 11 — no class</div>
+            <div style="margin-top:0.85rem;display:flex;justify-content:flex-end;">
+              <button onclick="dlAllSessions()" style="display:inline-flex;align-items:center;gap:0.4rem;background:rgba(245,166,35,0.07);border:1px solid rgba(245,166,35,0.2);color:var(--amber);font-family:var(--font-body);font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:0.45rem 0.85rem;border-radius:2px;cursor:pointer;transition:background 0.15s,border-color 0.15s;" onmouseover="this.style.background='rgba(245,166,35,0.14)';this.style.borderColor='rgba(245,166,35,0.5)'" onmouseout="this.style.background='rgba(245,166,35,0.07)';this.style.borderColor='rgba(245,166,35,0.2)'">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Add all Fall 2026 classes to calendar
+              </button>
+            </div>
             <!-- Sep 6 time breakdown -->
             <div style="margin-top:1.25rem;background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.18);border-radius:2px;padding:1rem 1.1rem;">
               <div style="font-family:var(--font-body);font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--amber);margin-bottom:0.65rem;">Sep 6 — Free Class Times</div>
-              <div style="display:flex;flex-direction:column;gap:0.4rem;">
-                <div style="display:flex;gap:0.75rem;font-family:var(--font-body);font-size:0.82rem;">
-                  <span style="color:var(--cream);font-weight:600;min-width:80px;">2 – 3 pm</span>
-                  <span style="color:rgba(250,246,240,0.5);font-weight:300;">New students</span>
+              <div style="display:flex;flex-direction:column;gap:0.5rem;">
+                <div style="display:flex;gap:0.75rem;font-family:var(--font-body);font-size:0.82rem;align-items:center;justify-content:space-between;">
+                  <div style="display:flex;gap:0.75rem;align-items:center;">
+                    <span style="color:var(--cream);font-weight:600;min-width:80px;">2 – 3 pm</span>
+                    <span style="color:rgba(250,246,240,0.5);font-weight:300;">New students</span>
+                  </div>
+                  <div class="cal-drop">
+                    <button class="cal-drop-btn" onclick="toggleCal(this)" aria-label="Add to calendar">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                      Add ▾
+                    </button>
+                    <div class="cal-drop-menu">
+                      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=KC+Bhangra+%E2%80%93+Free+Intro+(New+Students)&dates=20260906T190000Z%2F20260906T200000Z&details=Free+intro+class+at+KC+Bhangra.+No+experience+needed.+kcbhangra.com&location=1375+N+Winchester+St%2C+Olathe%2C+KS+66061" target="_blank" rel="noopener">Google Calendar</a>
+                      <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=KC+Bhangra+%E2%80%93+Free+Intro+(New+Students)&startdt=2026-09-06T19:00:00Z&enddt=2026-09-06T20:00:00Z&body=Free+intro+class+at+KC+Bhangra.+kcbhangra.com&location=1375+N+Winchester+St%2C+Olathe%2C+KS+66061" target="_blank" rel="noopener">Outlook</a>
+                      <a href="#" onclick="dlSingleICS('sep6_new');return false;">Download .ics</a>
+                    </div>
+                  </div>
                 </div>
-                <div style="display:flex;gap:0.75rem;font-family:var(--font-body);font-size:0.82rem;">
-                  <span style="color:var(--cream);font-weight:600;min-width:80px;">3 – 4 pm</span>
-                  <span style="color:rgba(250,246,240,0.5);font-weight:300;">Returning students</span>
+                <div style="display:flex;gap:0.75rem;font-family:var(--font-body);font-size:0.82rem;align-items:center;justify-content:space-between;">
+                  <div style="display:flex;gap:0.75rem;align-items:center;">
+                    <span style="color:var(--cream);font-weight:600;min-width:80px;">3 – 4 pm</span>
+                    <span style="color:rgba(250,246,240,0.5);font-weight:300;">Returning students</span>
+                  </div>
+                  <div class="cal-drop">
+                    <button class="cal-drop-btn" onclick="toggleCal(this)" aria-label="Add to calendar">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                      Add ▾
+                    </button>
+                    <div class="cal-drop-menu">
+                      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=KC+Bhangra+%E2%80%93+Free+Intro+(Returning+Students)&dates=20260906T200000Z%2F20260906T210000Z&details=Free+intro+class+at+KC+Bhangra.+kcbhangra.com&location=1375+N+Winchester+St%2C+Olathe%2C+KS+66061" target="_blank" rel="noopener">Google Calendar</a>
+                      <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=KC+Bhangra+%E2%80%93+Free+Intro+(Returning+Students)&startdt=2026-09-06T20:00:00Z&enddt=2026-09-06T21:00:00Z&body=Free+intro+class+at+KC+Bhangra.+kcbhangra.com&location=1375+N+Winchester+St%2C+Olathe%2C+KS+66061" target="_blank" rel="noopener">Outlook</a>
+                      <a href="#" onclick="dlSingleICS('sep6_ret');return false;">Download .ics</a>
+                    </div>
+                  </div>
                 </div>
-                <div style="display:flex;gap:0.75rem;font-family:var(--font-body);font-size:0.82rem;">
-                  <span style="color:var(--cream);font-weight:600;min-width:80px;">4 – 5 pm</span>
-                  <span style="color:rgba(250,246,240,0.5);font-weight:300;">Adults</span>
+                <div style="display:flex;gap:0.75rem;font-family:var(--font-body);font-size:0.82rem;align-items:center;justify-content:space-between;">
+                  <div style="display:flex;gap:0.75rem;align-items:center;">
+                    <span style="color:var(--cream);font-weight:600;min-width:80px;">4 – 5 pm</span>
+                    <span style="color:rgba(250,246,240,0.5);font-weight:300;">Adults</span>
+                  </div>
+                  <div class="cal-drop">
+                    <button class="cal-drop-btn" onclick="toggleCal(this)" aria-label="Add to calendar">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                      Add ▾
+                    </button>
+                    <div class="cal-drop-menu">
+                      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=KC+Bhangra+%E2%80%93+Free+Intro+(Adults)&dates=20260906T210000Z%2F20260906T220000Z&details=Free+intro+class+at+KC+Bhangra.+kcbhangra.com&location=1375+N+Winchester+St%2C+Olathe%2C+KS+66061" target="_blank" rel="noopener">Google Calendar</a>
+                      <a href="https://outlook.live.com/calendar/0/deeplink/compose?subject=KC+Bhangra+%E2%80%93+Free+Intro+(Adults)&startdt=2026-09-06T21:00:00Z&enddt=2026-09-06T22:00:00Z&body=Free+intro+class+at+KC+Bhangra.+kcbhangra.com&location=1375+N+Winchester+St%2C+Olathe%2C+KS+66061" target="_blank" rel="noopener">Outlook</a>
+                      <a href="#" onclick="dlSingleICS('sep6_adults');return false;">Download .ics</a>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div style="font-family:var(--font-body);font-size:0.7rem;font-weight:300;color:rgba(250,246,240,0.25);margin-top:0.65rem;">Regular session times confirmed before Sep 13.</div>
@@ -1060,6 +1134,69 @@
     document.addEventListener('click', e => {
       if (fabOpen && !document.getElementById('fab-wrap').contains(e.target)) toggleFab();
     });
+
+    /* Calendar dropdowns */
+    function toggleCal(btn) {
+      const menu = btn.nextElementSibling;
+      const isOpen = menu.classList.contains('open');
+      document.querySelectorAll('.cal-drop-menu.open').forEach(m => m.classList.remove('open'));
+      if (!isOpen) menu.classList.add('open');
+    }
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.cal-drop')) {
+        document.querySelectorAll('.cal-drop-menu.open').forEach(m => m.classList.remove('open'));
+      }
+    });
+
+    const CAL_EVENTS = {
+      sep6_new:    { start:'20260906T190000Z', end:'20260906T200000Z', title:'KC Bhangra – Free Intro (New Students)',        desc:'Free intro class\\, 2–3pm. No experience needed.\\n\\n1375 N Winchester St\\, Olathe\\, KS 66061\\nkcbhangra.com', file:'kcbhangra-sep6-new-students.ics' },
+      sep6_ret:    { start:'20260906T200000Z', end:'20260906T210000Z', title:'KC Bhangra – Free Intro (Returning Students)',   desc:'Free intro class\\, 3–4pm.\\n\\n1375 N Winchester St\\, Olathe\\, KS 66061\\nkcbhangra.com', file:'kcbhangra-sep6-returning.ics' },
+      sep6_adults: { start:'20260906T210000Z', end:'20260906T220000Z', title:'KC Bhangra – Free Intro (Adults)',              desc:'Free intro class\\, 4–5pm.\\n\\n1375 N Winchester St\\, Olathe\\, KS 66061\\nkcbhangra.com', file:'kcbhangra-sep6-adults.ics' },
+    };
+
+    function makeICS(events) {
+      let ics = 'BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//KC Bhangra//EN\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\n';
+      events.forEach((ev, i) => {
+        ics += 'BEGIN:VEVENT\r\n';
+        ics += 'UID:kcbhangra-' + i + '-fall2026@kcbhangra.com\r\n';
+        ics += 'DTSTAMP:20260726T000000Z\r\n';
+        ics += 'DTSTART:' + ev.start + '\r\n';
+        ics += 'DTEND:' + ev.end + '\r\n';
+        ics += 'SUMMARY:' + ev.title + '\r\n';
+        ics += 'DESCRIPTION:' + ev.desc + '\r\n';
+        ics += 'LOCATION:1375 N Winchester St\\, Olathe\\, KS 66061\r\n';
+        ics += 'END:VEVENT\r\n';
+      });
+      ics += 'END:VCALENDAR';
+      return ics;
+    }
+
+    function downloadICS(events, filename) {
+      const blob = new Blob([makeICS(events)], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function dlSingleICS(key) {
+      const ev = CAL_EVENTS[key];
+      downloadICS([ev], ev.file);
+    }
+
+    function dlAllSessions() {
+      const desc_paid = 'KC Bhangra Fall 2026 class. Your specific class time will be confirmed before Sep 13.\\n\\n1375 N Winchester St\\, Olathe\\, KS 66061\\nkcbhangra.com';
+      downloadICS([
+        { start:'20260906T190000Z', end:'20260906T220000Z', title:'KC Bhangra – Free Intro Class (Sep 6)',  desc:'Free intro class: New students 2–3pm · Returning 3–4pm · Adults 4–5pm.\\n\\n1375 N Winchester St\\, Olathe\\, KS 66061\\nkcbhangra.com' },
+        { start:'20260913T190000Z', end:'20260913T230000Z', title:'KC Bhangra – Fall 2026 Class', desc:desc_paid },
+        { start:'20260920T190000Z', end:'20260920T230000Z', title:'KC Bhangra – Fall 2026 Class', desc:desc_paid },
+        { start:'20260927T190000Z', end:'20260927T230000Z', title:'KC Bhangra – Fall 2026 Class', desc:desc_paid },
+        { start:'20261004T190000Z', end:'20261004T230000Z', title:'KC Bhangra – Fall 2026 Class', desc:desc_paid },
+        { start:'20261018T190000Z', end:'20261018T230000Z', title:'KC Bhangra – Fall 2026 Class', desc:desc_paid },
+        { start:'20261025T190000Z', end:'20261025T230000Z', title:'KC Bhangra – Fall 2026 Class', desc:desc_paid },
+        { start:'20261101T200000Z', end:'20261102T000000Z', title:'KC Bhangra – Fall 2026 Class', desc:desc_paid },
+        { start:'20261108T200000Z', end:'20261109T000000Z', title:'KC Bhangra – Fall 2026 Class', desc:desc_paid },
+      ], 'kcbhangra-fall-2026.ics');
+    }
 
     /* FAQ accordion */
     document.querySelectorAll('.faq-q').forEach(q => {
