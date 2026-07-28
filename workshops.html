@@ -419,6 +419,17 @@
         </div>
 
         <div class="form-group">
+          <label>What do you need?</label>
+          <select name="request_type" required>
+            <option value="" disabled selected>Select one</option>
+            <option value="performance">Performance</option>
+            <option value="workshop">Workshop</option>
+            <option value="both">Performance + workshop</option>
+            <option value="not-sure">Not sure yet</option>
+          </select>
+        </div>
+
+        <div class="form-group">
           <label>Event type</label>
           <select name="event_type">
             <option value="" disabled selected>Select one</option>
