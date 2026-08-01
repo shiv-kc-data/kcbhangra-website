@@ -35,7 +35,7 @@
 
     /* ─── NAV ─── */
     #nav {
-      position: fixed; top: 34px; left: 0; right: 0; z-index: 500;
+      position: fixed; top: var(--bar-h, 34px); left: 0; right: 0; z-index: 500;
       padding: 1.25rem 2.5rem;
       display: flex; align-items: center; justify-content: space-between;
       background: var(--black);
@@ -110,7 +110,7 @@
     /* ─── PAGE HEADER ─── */
     .page-header {
       background: var(--black);
-      padding: 9rem 2.5rem 6rem;
+      padding: max(9rem, calc(var(--chrome-h, 110px) + 2rem)) 2.5rem 6rem;
       position: relative; overflow: hidden;
     }
     .page-header-inner {
@@ -575,6 +575,32 @@
     document.addEventListener('click', e => {
       if (fabOpen && !document.getElementById('fab-wrap').contains(e.target)) toggleFab();
     });
+  </script>
+
+
+  <script>
+    /* Keep the fixed nav below the announcement bar at every width.
+       The bar wraps to 2-3 lines on small phones, so its height cannot be hardcoded. */
+    (function () {
+      var bar = document.getElementById('announcement-bar');
+      var nav = document.getElementById('nav');
+      var root = document.documentElement;
+      function syncChrome() {
+        var barH = (bar && getComputedStyle(bar).display !== 'none') ? bar.getBoundingClientRect().height : 0;
+        var navH = nav ? nav.offsetHeight : 0;
+        root.style.setProperty('--bar-h', barH + 'px');
+        root.style.setProperty('--chrome-h', (barH + navH) + 'px');
+      }
+      syncChrome();
+      window.addEventListener('resize', syncChrome);
+      window.addEventListener('orientationchange', syncChrome);
+      if (document.fonts && document.fonts.ready) { document.fonts.ready.then(syncChrome); }
+      if (bar) {
+        var dismiss = bar.querySelector('button');
+        if (dismiss) { dismiss.addEventListener('click', function () { setTimeout(syncChrome, 0); }); }
+      }
+      window.addEventListener('load', syncChrome);
+    })();
   </script>
 
 </body>

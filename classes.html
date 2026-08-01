@@ -35,7 +35,7 @@
 
     /* ─── NAV (shared) ─── */
     #nav {
-      position: fixed; top: 34px; left: 0; right: 0; z-index: 500;
+      position: fixed; top: var(--bar-h, 34px); left: 0; right: 0; z-index: 500;
       padding: 1.25rem 2.5rem;
       display: flex; align-items: center; justify-content: space-between;
       background: var(--black);
@@ -96,7 +96,7 @@
     /* ─── PAGE HEADER ─── */
     .page-header {
       background: var(--black);
-      padding: 9rem 2.5rem 5rem;
+      padding: max(9rem, calc(var(--chrome-h, 110px) + 2rem)) 2.5rem 5rem;
       position: relative;
       overflow: hidden;
     }
@@ -325,7 +325,7 @@
     .t-role { font-size: 0.68rem; color: rgba(250,246,240,0.3); font-weight: 400; margin-top: 0.15rem; }
 
     /* ─── ENROLLMENT FORM ─── */
-    .enroll-section { background: var(--cream); padding: 6rem 2.5rem; scroll-margin-top: 110px; }
+    .enroll-section { background: var(--cream); padding: 6rem 2.5rem; scroll-margin-top: calc(var(--chrome-h, 110px) + 12px); }
     .enroll-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
 
     .enroll-left h2 {
@@ -497,7 +497,7 @@
     }
     @media (max-width: 600px) {
       #nav { padding: 1rem 1.25rem; }
-      .page-header { padding: 8rem 1.25rem 4rem; }
+      .page-header { padding: max(8rem, calc(var(--chrome-h, 110px) + 1.5rem)) 1.25rem 4rem; }
       .trial-section, .tiers-section, .sessions-section, .pricing-section,
       .testimonials-strip, .enroll-section, .faq-section, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
       .tiers-grid { grid-template-columns: 1fr; }
@@ -1210,5 +1210,31 @@
       });
     });
   </script>
+
+  <script>
+    /* Keep the fixed nav below the announcement bar at every width.
+       The bar wraps to 2-3 lines on small phones, so its height cannot be hardcoded. */
+    (function () {
+      var bar = document.getElementById('announcement-bar');
+      var nav = document.getElementById('nav');
+      var root = document.documentElement;
+      function syncChrome() {
+        var barH = (bar && getComputedStyle(bar).display !== 'none') ? bar.getBoundingClientRect().height : 0;
+        var navH = nav ? nav.offsetHeight : 0;
+        root.style.setProperty('--bar-h', barH + 'px');
+        root.style.setProperty('--chrome-h', (barH + navH) + 'px');
+      }
+      syncChrome();
+      window.addEventListener('resize', syncChrome);
+      window.addEventListener('orientationchange', syncChrome);
+      if (document.fonts && document.fonts.ready) { document.fonts.ready.then(syncChrome); }
+      if (bar) {
+        var dismiss = bar.querySelector('button');
+        if (dismiss) { dismiss.addEventListener('click', function () { setTimeout(syncChrome, 0); }); }
+      }
+      window.addEventListener('load', syncChrome);
+    })();
+  </script>
+
 </body>
 </html>
