@@ -172,33 +172,6 @@
       font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--cream);
     }
 
-    /* ─── HOW IT WORKS ─── */
-    .how-section { background: var(--black-warm); padding: 6rem 2.5rem; border-top: 1px solid var(--border); }
-    .how-inner { max-width: 1200px; margin: 0 auto; }
-    .how-header { max-width: 46ch; margin-bottom: 3rem; }
-    .how-header h2 {
-      font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem);
-      font-weight: 800; letter-spacing: -0.02em; color: var(--white); line-height: 1.05; margin-bottom: 1rem;
-    }
-    .how-header p {
-      font-family: var(--font-body); font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.7;
-    }
-    .how-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
-    .how-card {
-      background: var(--black); border: 1px solid var(--border); border-radius: 3px; padding: 1.75rem;
-    }
-    .how-card-num {
-      font-family: var(--font-display); font-size: 0.72rem; font-weight: 800;
-      color: var(--amber); letter-spacing: 0.1em; margin-bottom: 1rem;
-    }
-    .how-card h3 {
-      font-family: var(--font-display); font-size: 1.05rem; font-weight: 800; color: var(--white);
-      margin-bottom: 0.6rem; line-height: 1.2;
-    }
-    .how-card p {
-      font-family: var(--font-body); font-size: 0.85rem; font-weight: 300; color: var(--muted); line-height: 1.6;
-    }
-
     /* ─── SIGN-UP SECTION ─── */
     .signup-section { background: var(--cream); padding: 6rem 2.5rem; }
     .signup-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
@@ -263,14 +236,12 @@
       .nav-links { display: none; }
       .nav-hamburger { display: flex; }
       .story-inner, .signup-inner { grid-template-columns: 1fr; gap: 3rem; }
-      .how-grid { grid-template-columns: 1fr 1fr; }
       .form-row { grid-template-columns: 1fr; }
       .footer-bottom { flex-direction: column; text-align: center; }
     }
     @media (max-width: 600px) {
       #nav { padding: 1rem 1.25rem; }
-      .page-header, .story-section, .how-section, .signup-section, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
-      .how-grid { grid-template-columns: 1fr; }
+      .page-header, .story-section, .signup-section, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
     }
   </style>
 </head>
@@ -361,39 +332,6 @@
             <div class="fact-item-label">Partner</div>
             <div class="fact-item-value"><a href="https://www.ranglakc.org/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">Rangla KC Seniors</a></div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="how-section">
-    <div class="how-inner">
-      <div class="how-header js-reveal">
-        <p class="section-tag">What to expect</p>
-        <h2>Built for a first-timer, not a performer.</h2>
-        <p>Every session is paced for comfort. Chairs available if you need them. No dance background required.</p>
-      </div>
-      <div class="how-grid">
-        <div class="how-card js-reveal">
-          <div class="how-card-num">Week 1</div>
-          <h3>Meet &amp; move</h3>
-          <p>Get to know the group, the music, and a few simple steps. Nothing fast, nothing complicated.</p>
-        </div>
-        <div class="how-card js-reveal">
-          <div class="how-card-num">Weeks 2–4</div>
-          <h3>Build the basics</h3>
-          <p>Simple footwork and arm movements, repeated until they feel natural, not memorized.</p>
-        </div>
-        <div class="how-card js-reveal">
-          <div class="how-card-num">Weeks 5–7</div>
-          <h3>Put it together</h3>
-          <p>String steps into a short routine. Still at your own pace, still with the group.</p>
-        </div>
-        <div class="how-card js-reveal">
-          <div class="how-card-num">Week 8</div>
-          <h3>Celebrate</h3>
-          <p>A final session to dance the full routine together — family and friends welcome to watch.</p>
         </div>
       </div>
     </div>
