@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
+  <link rel="stylesheet" href="assets/site.css">
   <style>
     :root {
       --black:      #0f0e0c;
@@ -26,12 +27,7 @@
       --font-display: 'Syne', sans-serif;
       --font-body:    'Plus Jakarta Sans', sans-serif;
     }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; overflow-x: hidden; }
     body { font-family: var(--font-body); background: var(--cream); color: var(--black); overflow-x: hidden; }
-    a { text-decoration: none; color: inherit; }
-    img { display: block; max-width: 100%; }
 
     /* ─── NAV ─── */
     #nav {
@@ -44,37 +40,13 @@
       font-family: var(--font-display); font-weight: 800; font-size: 0.88rem;
       letter-spacing: 0.12em; text-transform: uppercase; color: var(--white);
     }
-    .nav-links { display: flex; align-items: center; gap: 2.25rem; list-style: none; }
-    .nav-links a {
-      font-family: var(--font-body); font-size: 0.78rem; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream); opacity: 0.6; transition: opacity 0.2s;
-    }
-    .nav-links a:hover, .nav-links a.active { opacity: 1; }
     .nav-links .nav-cta {
       opacity: 1; background: var(--amber); color: var(--black);
       padding: 0.55rem 1.25rem; border-radius: 2px; font-weight: 700; transition: background 0.2s;
     }
-    .nav-links .nav-cta:hover { background: #e0961a; }
-    .nav-hamburger { display: none; flex-direction: column; gap: 5px; padding: 10px; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; cursor: pointer; background: none; border: none; }
     .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--cream); }
-    .nav-drawer {
-      display: none; position: fixed; inset: 0; background: var(--black); z-index: 502;
-      flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
-    }
-    .nav-drawer.open { display: flex; }
     .nav-drawer a { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: var(--cream); opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
-    .nav-drawer a:hover { opacity: 1; color: var(--amber); }
     .nav-drawer-close { position: absolute; top: 1.5rem; right: 2.5rem; font-size: 2rem; color: var(--cream); opacity: 0.5; cursor: pointer; }
-
-    /* ─── ANNOUNCEMENT BAR ─── */
-    #announcement-bar {
-      background: var(--amber); padding: 0.6rem 2.5rem;
-      display: flex; align-items: center; justify-content: center; gap: 1.5rem;
-      position: fixed; top: 0; left: 0; right: 0; z-index: 501;
-    }
-    #announcement-bar p { font-family: var(--font-body); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); }
-    #announcement-bar a { font-family: var(--font-body); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
-    #announcement-bar button { background: none; border: none; cursor: pointer; color: var(--black); opacity: 0.4; font-size: 1rem; padding: 0; line-height: 1; }
 
     /* ─── BUTTONS ─── */
     .btn {
@@ -85,23 +57,8 @@
       transition: transform 0.2s, background 0.2s, border-color 0.2s;
       cursor: pointer; border: none;
     }
-    .btn:hover { transform: translateY(-1px); }
-    .btn-amber { background: var(--amber); color: var(--black); }
-    .btn-amber:hover { background: #e0961a; }
     .btn-outline-dark { border: 1px solid var(--border-light); color: var(--black); background: none; }
-    .btn-outline-dark:hover { border-color: var(--black); }
     .btn-outline-white { border: 1px solid var(--border); color: var(--cream); background: none; }
-    .btn-outline-white:hover { border-color: var(--cream); }
-
-    /* ─── SECTION TAG ─── */
-    .section-tag {
-      display: inline-flex; align-items: center; gap: 0.6rem;
-      font-family: var(--font-body); font-size: 0.68rem; font-weight: 700;
-      letter-spacing: 0.24em; text-transform: uppercase; color: var(--amber); margin-bottom: 1.25rem;
-    }
-    .section-tag::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--amber); }
-    .section-tag.dark { color: rgba(15,14,12,0.4); }
-    .section-tag.dark::before { background: rgba(15,14,12,0.3); }
 
     /* ─── PAGE HEADER ─── */
     .page-header {
@@ -113,7 +70,6 @@
       font-family: var(--font-display); font-size: clamp(3rem, 7vw, 7rem);
       font-weight: 800; line-height: 0.93; letter-spacing: -0.03em; color: var(--white); margin-bottom: 1.5rem;
     }
-    .page-header h1 span { color: var(--amber); }
     .page-header p {
       font-family: var(--font-body); font-size: 1.05rem; font-weight: 300;
       color: var(--muted); max-width: 44ch; line-height: 1.65;
@@ -192,31 +148,7 @@
     .b2b-form {
       background: var(--black); border-radius: 3px; padding: 2.5rem;
     }
-    .form-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--white); margin-bottom: 0.4rem; }
-    .form-subtitle { font-family: var(--font-body); font-size: 0.8rem; font-weight: 300; color: var(--muted); margin-bottom: 2rem; }
-    .form-group { margin-bottom: 1rem; }
-    .form-group label {
-      display: block; font-family: var(--font-body); font-size: 0.68rem; font-weight: 700;
-      letter-spacing: 0.16em; text-transform: uppercase; color: rgba(250,246,240,0.5); margin-bottom: 0.45rem;
-    }
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%; background: rgba(250,246,240,0.05); border: 1px solid var(--border);
-      border-radius: 2px; padding: 0.8rem 1rem; color: var(--cream);
-      font-family: var(--font-body); font-size: 1rem; font-weight: 300;
-      transition: border-color 0.2s; -webkit-appearance: none; appearance: none;
-    }
-    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(250,246,240,0.2); }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--amber); }
-    .form-group select {
-      cursor: pointer;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(250,246,240,0.4)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 1rem center;
-    }
-    .form-group select option { background: var(--black-warm); color: var(--cream); }
     .form-group textarea { resize: vertical; min-height: 100px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
 
     /* ─── COMMUNITY SECTION ─── */
     .community-section { background: var(--black-warm); padding: 6rem 2.5rem; border-top: 1px solid var(--border); }
@@ -273,12 +205,7 @@
 
     /* ─── FOOTER ─── */
     footer { background: var(--black-warm); border-top: 1px solid var(--border); padding: 2rem 2.5rem 5rem; }
-    .footer-bottom {
-      max-width: 1200px; margin: 0 auto;
-      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-    }
     .footer-bottom p { font-family: var(--font-body); font-size: 0.68rem; font-weight: 400; letter-spacing: 0.06em; color: rgba(250,246,240,0.22); }
-    .footer-bottom a { font-family: var(--font-body); font-size: 0.68rem; font-weight: 600; color: var(--amber); letter-spacing: 0.08em; text-transform: uppercase; }
 
     /* ─── GSAP ─── */
     .js-reveal { opacity: 0; transform: translateY(40px); }

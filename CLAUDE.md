@@ -27,8 +27,8 @@ Apply to all visual and written output:
 ## Project Assets
 
 - `index.html` — current website build
+- `assets/site.css` — shared styles (nav, footer, buttons, forms, base). Edit here for anything appearing on multiple pages; page-specific rules stay in each file's inline `<style>`
 - `content_instructions.md` — copy guardrails (load when writing any text)
 - `kcbhangra_complete.pdf` — reference document for brand/content
-- `instagram_competitive_analysis.md` — competitor research
 - YouTube transcripts (`YoutubeVideoTranscript*.txt`) — source material for content
 - Screenshot references (`screencapture-*.png`) — design reference sites
