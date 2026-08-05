@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>KC Bhangra — Fall 2026 Schedule</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 1080px;
+    height: 1080px;
+    background: #0f0e0c;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Subtle amber glow top-right */
+  .glow-tr {
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(245,166,35,0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  /* Subtle amber glow bottom-left */
+  .glow-bl {
+    position: absolute;
+    bottom: -100px; left: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(245,166,35,0.10) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .wrap {
+    position: relative;
+    width: 1080px;
+    height: 1080px;
+    padding: 56px 60px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    z-index: 1;
+  }
+
+  /* ── TOP ROW ── */
+  .top-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 48px;
+  }
+
+  .title-block {}
+  .season-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #f5a623;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .season-label::before {
+    content: '';
+    display: block;
+    width: 24px; height: 1px;
+    background: #f5a623;
+  }
+  .title-main {
+    font-family: 'Syne', sans-serif;
+    font-size: 80px;
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+  }
+  .title-main .amber { color: #f5a623; }
+
+  .logo-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+  .logo-img {
+    height: 72px;
+    width: auto;
+  }
+  .logo-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(250,246,240,0.5);
+    text-align: right;
+  }
+
+  /* ── FREE CLASS BOX ── */
+  .free-box {
+    background: rgba(245,166,35,0.10);
+    border: 1.5px solid rgba(245,166,35,0.40);
+    border-radius: 12px;
+    padding: 30px 32px 30px 28px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .free-label-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .free-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f5a623;
+    color: #0f0e0c;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    width: fit-content;
+  }
+  .free-date {
+    font-family: 'Syne', sans-serif;
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    line-height: 1;
+  }
+  .free-date span { color: #f5a623; }
+
+  .free-times {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .free-time-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .free-time-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(250,246,240,0.45);
+    min-width: 150px;
+  }
+  .free-time-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #faf6f0;
+    letter-spacing: -0.01em;
+  }
+  .free-divider {
+    width: 1px;
+    height: 80px;
+    background: rgba(245,166,35,0.2);
+    align-self: center;
+  }
+
+  /* ── SCHEDULE LABEL ── */
+  .sched-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(250,246,240,0.28);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .sched-label::after {
+    content: '';
+    display: block;
+    flex: 1;
+    height: 1px;
+    background: rgba(250,246,240,0.08);
+  }
+
+  /* ── DATE GRID ── */
+  .date-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .date-chip {
+    background: rgba(250,246,240,0.05);
+    border: 1px solid rgba(250,246,240,0.10);
+    border-radius: 10px;
+    padding: 30px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    position: relative;
+  }
+  .date-chip.skip {
+    background: transparent;
+    border: 1px dashed rgba(250,246,240,0.08);
+    opacity: 0.4;
+  }
+  .chip-date {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: #faf6f0;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+  .chip-num {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #f5a623;
+  }
+  .skip .chip-date { text-decoration: line-through; color: rgba(250,246,240,0.3); }
+  .skip .chip-num { color: rgba(250,246,240,0.2); }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid rgba(250,246,240,0.08);
+    padding-top: 32px;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .address {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(250,246,240,0.35);
+    text-align: center;
+  }
+  .socials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+  }
+  .social-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(250,246,240,0.55);
+    letter-spacing: 0.04em;
+  }
+  .social-icon {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .social-icon.wa { background: #25D366; }
+  .social-icon.ig { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+  .social-icon.fb { background: #1877F2; }
+  .social-icon svg { display: block; }
+</style>
+</head>
+<body>
+<div class="glow-tr"></div>
+<div class="glow-bl"></div>
+
+<div class="wrap">
+
+  <!-- TOP ROW -->
+  <div class="top-row">
+    <div class="title-block">
+      <div class="season-label">Kansas City Bhangra</div>
+      <div class="title-main">
+        <span class="amber">Fall</span><br>2026<br>Session
+      </div>
+    </div>
+    <div class="logo-block">
+      <img class="logo-img" src="assets/images/logo-transparent.png" alt="KC Bhangra">
+    </div>
+  </div>
+
+  <!-- FREE CLASS BOX -->
+  <div class="free-box">
+    <div class="free-label-wrap">
+      <div class="free-chip">Free Intro Class</div>
+      <div class="free-date">Sep <span>6</span></div>
+    </div>
+    <div class="free-divider"></div>
+    <div class="free-times">
+      <div class="free-time-row">
+        <div class="free-time-label">New Students</div>
+        <div class="free-time-val">2 PM</div>
+      </div>
+      <div class="free-time-row">
+        <div class="free-time-label">Returning</div>
+        <div class="free-time-val">3 PM</div>
+      </div>
+      <div class="free-time-row">
+        <div class="free-time-label">Adults</div>
+        <div class="free-time-val">4 PM</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCHEDULE -->
+  <div class="sched-label">8-Week Schedule</div>
+
+  <div class="date-grid">
+    <div class="date-chip">
+      <div class="chip-date">Sep 13</div>
+      <div class="chip-num">Class 1</div>
+    </div>
+    <div class="date-chip">
+      <div class="chip-date">Sep 20</div>
+      <div class="chip-num">Class 2</div>
+    </div>
+    <div class="date-chip">
+      <div class="chip-date">Sep 27</div>
+      <div class="chip-num">Class 3</div>
+    </div>
+    <div class="date-chip">
+      <div class="chip-date">Oct 4</div>
+      <div class="chip-num">Class 4</div>
+    </div>
+    <div class="date-chip">
+      <div class="chip-date">Oct 18</div>
+      <div class="chip-num">Class 5</div>
+    </div>
+    <div class="date-chip">
+      <div class="chip-date">Oct 25</div>
+      <div class="chip-num">Class 6</div>
+    </div>
+    <div class="date-chip">
+      <div class="chip-date">Nov 1</div>
+      <div class="chip-num">Class 7</div>
+    </div>
+    <div class="date-chip">
+      <div class="chip-date">Nov 8</div>
+      <div class="chip-num">Class 8</div>
+    </div>
+  </div>
+  <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(250,246,240,0.22);margin-top:4px;margin-bottom:28px;">* Oct 11 — no class</div>
+
+  <!-- ENROLL CTA -->
+  <div style="background:rgba(245,166,35,0.07);border:1px solid rgba(245,166,35,0.18);border-radius:10px;padding:24px 32px;display:flex;align-items:center;justify-content:space-between;margin-bottom:0;">
+    <div>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:rgba(250,246,240,0.35);margin-bottom:6px;">8 Classes · Per Student</div>
+      <div style="font-family:'Syne',sans-serif;font-size:48px;font-weight:800;color:#f5a623;line-height:1;letter-spacing:-0.02em;">$200</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(250,246,240,0.35);margin-bottom:6px;">Enroll online</div>
+      <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#faf6f0;letter-spacing:-0.01em;">kcbhangra.com</div>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:400;color:rgba(250,246,240,0.3);margin-top:4px;">First class is free</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="address">1375 N. Winchester St. · Olathe, KS 66061</div>
+    <div class="socials">
+      <div class="social-item">
+        <div class="social-icon wa">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        646.421.9634
+      </div>
+      <div class="social-item">
+        <div class="social-icon ig">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </div>
+        @kcbhangra
+      </div>
+      <div class="social-item">
+        <div class="social-icon fb">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </div>
+        @kcbhangra
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
