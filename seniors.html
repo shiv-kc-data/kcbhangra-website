@@ -124,6 +124,37 @@
       font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--cream);
     }
 
+    /* ─── SCHEDULE SECTION ─── */
+    .schedule-section { background: var(--black); padding: 5rem 2.5rem; }
+    .schedule-inner { max-width: 800px; margin: 0 auto; text-align: center; }
+    .schedule-inner h2 {
+      font-family: var(--font-display); font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+      font-weight: 800; letter-spacing: -0.02em; color: var(--cream); line-height: 1.1; margin-bottom: 1rem;
+    }
+    .schedule-lead {
+      font-family: var(--font-body); font-size: 1.15rem; font-weight: 400; line-height: 1.6;
+      color: rgba(250,246,240,0.7); max-width: 560px; margin: 0 auto 2.75rem;
+    }
+    .schedule-lead strong { color: var(--amber); font-weight: 700; }
+    .schedule-list { display: flex; flex-direction: column; text-align: left; margin-bottom: 2.5rem; }
+    .schedule-row {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+      padding: 1.1rem 0.25rem; border-bottom: 1px solid var(--border);
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--cream);
+    }
+    .schedule-row:first-child { border-top: 1px solid var(--border); }
+    .schedule-row .schedule-time {
+      font-family: var(--font-body); font-size: 1rem; font-weight: 600; color: var(--amber); white-space: nowrap;
+    }
+    .btn-calendar {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--amber); color: var(--black); border: none;
+      font-family: var(--font-body); font-size: 0.95rem; font-weight: 700;
+      padding: 0.9rem 1.5rem; border-radius: 3px; cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-calendar:hover { background: #ffb93f; }
+
     /* ─── SIGN-UP SECTION ─── */
     .signup-section { background: var(--cream); padding: 6rem 2.5rem; scroll-margin-top: calc(var(--chrome-h, 110px) + 12px); }
     .signup-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
@@ -252,10 +283,33 @@
           </div>
           <div class="fact-item">
             <div class="fact-item-label">Day</div>
-            <div class="fact-item-value">Tuesdays, 7 PM <span style="font-family:var(--font-body);font-size:0.7rem;font-weight:400;color:var(--muted);display:block;margin-top:0.2rem;">Sep 8 – Oct 27</span></div>
+            <div class="fact-item-value">Every Tuesday, 7 PM</div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE SECTION -->
+  <section class="schedule-section">
+    <div class="schedule-inner">
+      <p class="section-tag">Full schedule</p>
+      <h2>Eight Tuesdays. Same time, same place.</h2>
+      <p class="schedule-lead">Every class is at <strong>7:00 PM</strong>, at <strong>Studio School of Dance</strong> — 1375 N Winchester St, Olathe, KS 66061.</p>
+      <div class="schedule-list">
+        <div class="schedule-row"><span>Tuesday, September 8</span><span class="schedule-time">7:00 PM</span></div>
+        <div class="schedule-row"><span>Tuesday, September 15</span><span class="schedule-time">7:00 PM</span></div>
+        <div class="schedule-row"><span>Tuesday, September 22</span><span class="schedule-time">7:00 PM</span></div>
+        <div class="schedule-row"><span>Tuesday, September 29</span><span class="schedule-time">7:00 PM</span></div>
+        <div class="schedule-row"><span>Tuesday, October 6</span><span class="schedule-time">7:00 PM</span></div>
+        <div class="schedule-row"><span>Tuesday, October 13</span><span class="schedule-time">7:00 PM</span></div>
+        <div class="schedule-row"><span>Tuesday, October 20</span><span class="schedule-time">7:00 PM</span></div>
+        <div class="schedule-row"><span>Tuesday, October 27</span><span class="schedule-time">7:00 PM</span></div>
+      </div>
+      <button onclick="dlSeniorSessions()" class="btn-calendar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Add all 8 classes to my calendar
+      </button>
     </div>
   </section>
 
@@ -387,6 +441,29 @@
     document.addEventListener('click', e => {
       if (fabOpen && !document.getElementById('fab-wrap').contains(e.target)) toggleFab();
     });
+
+    /* Calendar download — 8 senior sessions, 7-8pm CDT */
+    function dlSeniorSessions() {
+      const desc = 'Bhangra Fitness For Seniors, with KC Bhangra and Rangla KC Seniors.\\n\\nStudio School of Dance\\n1375 N Winchester St\\, Olathe\\, KS 66061\\nkcbhangra.com';
+      const dates = ['20260909','20260916','20260923','20260930','20261007','20261014','20261021','20261028'];
+      let ics = 'BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//KC Bhangra//EN\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\n';
+      dates.forEach((d, i) => {
+        ics += 'BEGIN:VEVENT\r\n';
+        ics += 'UID:kcbhangra-seniors-' + i + '@kcbhangra.com\r\n';
+        ics += 'DTSTAMP:20260818T000000Z\r\n';
+        ics += 'DTSTART:' + d + 'T000000Z\r\n';
+        ics += 'DTEND:' + d + 'T010000Z\r\n';
+        ics += 'SUMMARY:Bhangra Fitness For Seniors\r\n';
+        ics += 'DESCRIPTION:' + desc + '\r\n';
+        ics += 'LOCATION:Studio School of Dance\\, 1375 N Winchester St\\, Olathe\\, KS 66061\r\n';
+        ics += 'END:VEVENT\r\n';
+      });
+      ics += 'END:VCALENDAR';
+      const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'kcbhangra-seniors-fall-2026.ics'; a.click();
+      URL.revokeObjectURL(url);
+    }
   </script>
 
 
